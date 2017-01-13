@@ -18,42 +18,43 @@ from PyQt4.QtCore import QSemaphore
 from tables import *
 import time
 
+
 class Database:
-	# TODO: sanitise dbfilename
-	def __init__(self, dbfilename):
-		try:
-			self.name = dbfilename
-			self.dbsemaphore = QSemaphore(1)							# to control concurrent write access to db
-			metadata.bind = 'sqlite:///'+dbfilename
-	#		metadata.bind.echo = True									# uncomment to see detailed database logs
-			setup_all()
-			create_all()
-		except:
-			print '[-] Could not create database. Please try again.'
+    # TODO: sanitise dbfilename
+    def __init__(self, dbfilename):
+        try:
+            self.name = dbfilename
+            self.dbsemaphore = QSemaphore(1)  # to control concurrent write access to db
+            metadata.bind = 'sqlite:///' + dbfilename
+            #		metadata.bind.echo = True									# uncomment to see detailed database logs
+            setup_all()
+            create_all()
+        except:
+            print '[-] Could not create database. Please try again.'
 
-	def openDB(self, dbfilename):
-		try:
-			self.name = dbfilename
-			metadata.bind = 'sqlite:///'+dbfilename
-	#		metadata.bind.echo = True									# uncomment to see detailed database logs
-			setup_all()
-		except:
-			print '[-] Could not open database file. Is the file corrupted?'
+    def openDB(self, dbfilename):
+        try:
+            self.name = dbfilename
+            metadata.bind = 'sqlite:///' + dbfilename
+            #		metadata.bind.echo = True									# uncomment to see detailed database logs
+            setup_all()
+        except:
+            print '[-] Could not open database file. Is the file corrupted?'
 
-	# this function commits any modified data to the db, ensuring no concurrent write access to the DB (within the same thread)
-	# if you code a thread that writes to the DB, make sure you acquire/release at the beginning/end of the thread (see nmap importer)
-	def commit(self):
-		self.dbsemaphore.acquire()
-		session.commit()
-		self.dbsemaphore.release()
+    # this function commits any modified data to the db, ensuring no concurrent write access to the DB (within the same thread)
+    # if you code a thread that writes to the DB, make sure you acquire/release at the beginning/end of the thread (see nmap importer)
+    def commit(self):
+        self.dbsemaphore.acquire()
+        session.commit()
+        self.dbsemaphore.release()
 
 
 if __name__ == "__main__":
+    db = Database('myDatabase')
 
-	db = Database('myDatabase')
-    
-	# insert stuff
-	nmap_session('~/Documents/tools/sparta/tests/nmap-scan-1', 'Wed Jul 10 14:07:36 2013', 'Wed Jul 10 14:29:36 2013', '6.25', 'nmap -sS -A -T5 -p- -oX a-full.xml -vvvvv 172.16.16.0/24', '256', '25', '231')
-	nmap_session('~/Documents/tools/sparta/tests/nmap-scan-2', 'Wed Jul 15 14:07:36 2013', 'Wed Jul 20 14:29:36 2013', '5.44', 'nmap -sT -A -T3 -p- -oX a-full.xml -vvvvv 172.16.16.0/24', '256', '26', '230')   
-	session.commit()
-	
+    # insert stuff
+    nmap_session('~/Documents/tools/sparta/tests/nmap-scan-1', 'Wed Jul 10 14:07:36 2013', 'Wed Jul 10 14:29:36 2013',
+                 '6.25', 'nmap -sS -A -T5 -p- -oX a-full.xml -vvvvv 172.16.16.0/24', '256', '25', '231')
+    nmap_session('~/Documents/tools/sparta/tests/nmap-scan-2', 'Wed Jul 15 14:07:36 2013', 'Wed Jul 20 14:29:36 2013',
+                 '5.44', 'nmap -sT -A -T3 -p- -oX a-full.xml -vvvvv 172.16.16.0/24', '256', '26', '230')
+    session.commit()

@@ -13,19 +13,19 @@ Copyright (c) 2014 SECFORCE (Antonio Quina and Leonidas Stavliotis)
 
 import re
 from PyQt4 import QtGui, QtCore
-from auxiliary import *        											# for bubble sort
+from auxiliary import *  # for bubble sort
+
 
 class ScriptsTableModel(QtCore.QAbstractTableModel):
-    
-    def __init__(self, controller, scripts = [[]], headers = [], parent = None):
+    def __init__(self, controller, scripts=[[]], headers=[], parent=None):
         QtCore.QAbstractTableModel.__init__(self, parent)
         self.__headers = headers
         self.__scripts = scripts
         self.__controller = controller
-        
+
     def setScripts(self, scripts):
         self.__scripts = scripts
-        
+
     def getScripts(self):
         return self.__scripts
 
@@ -38,60 +38,61 @@ class ScriptsTableModel(QtCore.QAbstractTableModel):
         return 0
 
     def headerData(self, section, orientation, role):
-        if role == QtCore.Qt.DisplayRole:            
-            if orientation == QtCore.Qt.Horizontal:                
+        if role == QtCore.Qt.DisplayRole:
+            if orientation == QtCore.Qt.Horizontal:
                 if section < len(self.__headers):
                     return self.__headers[section]
                 else:
                     return "not implemented"
-                
-    def data(self, index, role):										# this method takes care of how the information is displayed
 
-		if role == QtCore.Qt.DisplayRole:								# how to display each cell
-			value = ''
-			row = index.row()
-			column = index.column()
+    def data(self, index, role):  # this method takes care of how the information is displayed
 
-			if column == 0:
-				value = self.__scripts[row]['id']        
-			elif column == 1:
-				value = self.__scripts[row]['script_id']
-			elif column == 2:
-				if self.__scripts[row]['port_id'] and self.__scripts[row]['protocol'] and not self.__scripts[row]['port_id'] == '' and not self.__scripts[row]['protocol'] == '':
-					value = self.__scripts[row]['port_id'] + '/' + self.__scripts[row]['protocol']				
-				else:
-					value = ''
-			elif column == 3:
-				value = self.__scripts[row]['protocol']
-			return value
-                    
+        if role == QtCore.Qt.DisplayRole:  # how to display each cell
+            value = ''
+            row = index.row()
+            column = index.column()
+
+            if column == 0:
+                value = self.__scripts[row]['id']
+            elif column == 1:
+                value = self.__scripts[row]['script_id']
+            elif column == 2:
+                if self.__scripts[row]['port_id'] and self.__scripts[row]['protocol'] and not self.__scripts[row][
+                    'port_id'] == '' and not self.__scripts[row]['protocol'] == '':
+                    value = self.__scripts[row]['port_id'] + '/' + self.__scripts[row]['protocol']
+                else:
+                    value = ''
+            elif column == 3:
+                value = self.__scripts[row]['protocol']
+            return value
 
     def sort(self, Ncol, order):
         self.emit(SIGNAL("layoutAboutToBeChanged()"))
-        array=[]
-        
-        if Ncol == 1:            
+        array = []
+
+        if Ncol == 1:
             for i in range(len(self.__scripts)):
                 array.append(self.__scripts[i]['script_id'])
-        if Ncol == 2:            
+        if Ncol == 2:
             for i in range(len(self.__scripts)):
                 array.append(int(self.__scripts[i]['port_id']))
 
-        sortArrayWithArray(array, self.__scripts)						# sort the services based on the values in the array
+        sortArrayWithArray(array, self.__scripts)  # sort the services based on the values in the array
 
-        if order == Qt.AscendingOrder:									# reverse if needed
+        if order == Qt.AscendingOrder:  # reverse if needed
             self.__scripts.reverse()
-            
+
         self.emit(SIGNAL("layoutChanged()"))
 
-    def flags(self, index):												# method that allows views to know how to treat each item, eg: if it should be enabled, editable, selectable etc
+    def flags(self,
+              index):  # method that allows views to know how to treat each item, eg: if it should be enabled, editable, selectable etc
         return QtCore.Qt.ItemIsEnabled | QtCore.Qt.ItemIsSelectable
 
-	### getter functions ###
+    ### getter functions ###
 
     def getScriptDBIdForRow(self, row):
         return self.__scripts[row]['id']
-    
+
     def getRowForDBId(self, id):
         for i in range(len(self.__scripts)):
             if self.__scripts[i]['id'] == id:

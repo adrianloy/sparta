@@ -13,80 +13,82 @@ Copyright (c) 2015 SECFORCE (Antonio Quina and Leonidas Stavliotis)
 
 # check for dependencies first (make sure all non-standard dependencies are checked for here)
 try:
-	from sqlalchemy.orm import scoped_session as scoped_session
-	import elixir
+    from sqlalchemy.orm import scoped_session as scoped_session
+    import elixir
 except:
-	print "[-] Import failed. Elixir library not found. \nTry installing it with: apt-get install python-elixir"
-	exit(0)
-try:	
-	from PyQt4 import QtGui, QtCore, QtWebKit
+    print "[-] Import failed. Elixir library not found. \nTry installing it with: apt-get install python-elixir"
+    exit(0)
+try:
+    from PyQt4 import QtGui, QtCore, QtWebKit
 except:
-	print "[-] Import failed. PyQt4 library not found. \nTry installing it with: apt-get install python-qt4"
-	exit()
-	
+    print "[-] Import failed. PyQt4 library not found. \nTry installing it with: apt-get install python-qt4"
+    exit()
+
 from app.logic import *
 from ui.gui import *
 from ui.view import *
 from controller.controller import *
 
+
 # this class is used to catch events such as arrow key presses or close window (X)
 class MyEventFilter(QObject):
-	
-	def eventFilter(self, receiver, event):
-		# catch up/down arrow key presses in hoststable
-		if(event.type() == QEvent.KeyPress and (receiver == view.ui.HostsTableView or receiver == view.ui.ServiceNamesTableView or receiver == view.ui.ToolsTableView or receiver == view.ui.ToolHostsTableView or receiver == view.ui.ScriptsTableView or receiver == view.ui.ServicesTableView or receiver == view.settingsWidget.toolForHostsTableWidget or receiver == view.settingsWidget.toolForServiceTableWidget or receiver == view.settingsWidget.toolForTerminalTableWidget)):
-			key = event.key()
-			if not receiver.selectionModel().selectedRows():
-				return True
-			index = receiver.selectionModel().selectedRows()[0].row()
-			
-			if key == QtCore.Qt.Key_Down:
-				newindex = index + 1
-				receiver.selectRow(newindex)
-				receiver.clicked.emit(receiver.selectionModel().selectedRows()[0])
+    def eventFilter(self, receiver, event):
+        # catch up/down arrow key presses in hoststable
+        if (event.type() == QEvent.KeyPress and (
+                                            receiver == view.ui.HostsTableView or receiver == view.ui.ServiceNamesTableView or receiver == view.ui.ToolsTableView or receiver == view.ui.ToolHostsTableView or receiver == view.ui.ScriptsTableView or receiver == view.ui.ServicesTableView or receiver == view.settingsWidget.toolForHostsTableWidget or receiver == view.settingsWidget.toolForServiceTableWidget or receiver == view.settingsWidget.toolForTerminalTableWidget)):
+            key = event.key()
+            if not receiver.selectionModel().selectedRows():
+                return True
+            index = receiver.selectionModel().selectedRows()[0].row()
 
-			elif key == QtCore.Qt.Key_Up:
-				newindex = index - 1
-				receiver.selectRow(newindex)
-				receiver.clicked.emit(receiver.selectionModel().selectedRows()[0])
+            if key == QtCore.Qt.Key_Down:
+                newindex = index + 1
+                receiver.selectRow(newindex)
+                receiver.clicked.emit(receiver.selectionModel().selectedRows()[0])
 
-			elif QtGui.QApplication.keyboardModifiers() == QtCore.Qt.ControlModifier and key == QtCore.Qt.Key_C:	
-				selected = receiver.selectionModel().currentIndex()
-				clipboard = QtGui.QApplication.clipboard()
-				clipboard.setText(selected.data().toString())
+            elif key == QtCore.Qt.Key_Up:
+                newindex = index - 1
+                receiver.selectRow(newindex)
+                receiver.clicked.emit(receiver.selectionModel().selectedRows()[0])
 
-			return True
-			
-		elif(event.type() == QEvent.Close and receiver == MainWindow):
-			event.ignore()
-			view.appExit()
-			return True
-			
-		else:      
-			return super(MyEventFilter,self).eventFilter(receiver, event)	# normal event processing
+            elif QtGui.QApplication.keyboardModifiers() == QtCore.Qt.ControlModifier and key == QtCore.Qt.Key_C:
+                selected = receiver.selectionModel().currentIndex()
+                clipboard = QtGui.QApplication.clipboard()
+                clipboard.setText(selected.data().toString())
+
+            return True
+
+        elif (event.type() == QEvent.Close and receiver == MainWindow):
+            event.ignore()
+            view.appExit()
+            return True
+
+        else:
+            return super(MyEventFilter, self).eventFilter(receiver, event)  # normal event processing
+
 
 if __name__ == "__main__":
 
-	app = QtGui.QApplication(sys.argv)
-	myFilter = MyEventFilter()						# to capture events
-	app.installEventFilter(myFilter)
-	app.setWindowIcon(QIcon('./images/icons/logo.png'))
-	
-	MainWindow = QtGui.QMainWindow()
-	ui = Ui_MainWindow()
-	ui.setupUi(MainWindow)
+    app = QtGui.QApplication(sys.argv)
+    myFilter = MyEventFilter()  # to capture events
+    app.installEventFilter(myFilter)
+    app.setWindowIcon(QIcon('./images/icons/logo.png'))
 
-	try:	
-		qss_file = open('./ui/sparta.qss').read()
-	except IOError, e:
-		print "[-] The sparta.qss file is missing. Your installation seems to be corrupted. Try downloading the latest version."
-		exit(0)
+    MainWindow = QtGui.QMainWindow()
+    ui = Ui_MainWindow()
+    ui.setupUi(MainWindow)
 
-	MainWindow.setStyleSheet(qss_file)
+    try:
+        qss_file = open('./ui/sparta.qss').read()
+    except IOError, e:
+        print "[-] The sparta.qss file is missing. Your installation seems to be corrupted. Try downloading the latest version."
+        exit(0)
 
-	logic = Logic()									# Model prep (logic, db and models)
-	view = View(ui, MainWindow)						# View prep (gui)
-	controller = Controller(view, logic)			# Controller prep (communication between model and view)
+    MainWindow.setStyleSheet(qss_file)
 
-	MainWindow.show()
-	sys.exit(app.exec_())
+    logic = Logic()  # Model prep (logic, db and models)
+    view = View(ui, MainWindow)  # View prep (gui)
+    controller = Controller(view, logic)  # Controller prep (communication between model and view)
+
+    MainWindow.show()
+    sys.exit(app.exec_())

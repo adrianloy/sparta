@@ -36,7 +36,6 @@ Notes:
   services in the process.
 '''
 
-
 import socket
 import sys
 
@@ -65,9 +64,8 @@ except ImportError, _:
     print 'from http://code.google.com/p/pymsrpc/'
     sys.exit(1)
 
-
 CMDLINE = False
-SILENT  = False
+SILENT = False
 
 
 class connectionException(Exception):
@@ -78,10 +76,9 @@ class MS08_067(Thread):
     def __init__(self, target, port=445):
         super(MS08_067, self).__init__()
 
-        self.__port   = port
-        self.target   = target
-        self.status   = 'unknown'
-
+        self.__port = port
+        self.target = target
+        self.status = 'unknown'
 
     def __checkPort(self):
         '''
@@ -100,7 +97,6 @@ class MS08_067(Thread):
         except socket.error, _:
             raise connectionException, 'connection refused'
 
-
     def __connect(self):
         '''
         SMB connect to the Computer Browser service named pipe
@@ -115,9 +111,8 @@ class MS08_067(Thread):
             raise connectionException, 'access denied (RestrictAnonymous is probably set to 2)'
 
         except:
-            #raise Exception, 'unhandled exception (%s)' % format_exc()
+            # raise Exception, 'unhandled exception (%s)' % format_exc()
             raise connectionException, 'unexpected exception'
-
 
     def __bind(self):
         '''
@@ -134,9 +129,8 @@ class MS08_067(Thread):
             raise connectionException, 'unable to bind to SRVSVC endpoint'
 
         except:
-            #raise Exception, 'unhandled exception (%s)' % format_exc()
+            # raise Exception, 'unhandled exception (%s)' % format_exc()
             raise connectionException, 'unexpected exception'
-
 
     def __forgePacket(self):
         '''
@@ -155,12 +149,11 @@ class MS08_067(Thread):
 
         self.__path = ''.join([choice(letters) for _ in xrange(0, 3)])
 
-        self.__request  = ndr_unique(pointer_value=0x00020000, data=ndr_wstring(data='')).serialize()
-        self.__request += ndr_wstring(data='\\%s\\..\\%s' % ('A'*5, self.__path)).serialize()
+        self.__request = ndr_unique(pointer_value=0x00020000, data=ndr_wstring(data='')).serialize()
+        self.__request += ndr_wstring(data='\\%s\\..\\%s' % ('A' * 5, self.__path)).serialize()
         self.__request += ndr_wstring(data='\\%s' % self.__path).serialize()
         self.__request += ndr_long(data=1).serialize()
         self.__request += ndr_long(data=0).serialize()
-
 
     def __compare(self):
         '''
@@ -179,13 +172,11 @@ class MS08_067(Thread):
 
         self.result()
 
-
     def result(self):
         if CMDLINE == True and self.status in ('VULNERABLE', 'not vulnerable'):
-           print '%s: %s' % (self.target, self.status)
+            print '%s: %s' % (self.target, self.status)
         elif CMDLINE == True and SILENT != True:
-           print '%s: %s' % (self.target, self.status)
-
+            print '%s: %s' % (self.target, self.status)
 
     def run(self):
         try:
@@ -210,7 +201,7 @@ if __name__ == '__main__':
     CMDLINE = True
 
     usage = '%s [option] {-t <target>|-l <iplist.txt>}' % sys.argv[0]
-    parser  = OptionParser(usage=usage, version='0.4')
+    parser = OptionParser(usage=usage, version='0.4')
     targets = set()
 
     # Create command line options
@@ -232,9 +223,9 @@ if __name__ == '__main__':
     except (OptionError, TypeError), e:
         parser.error(e)
 
-    descr  = args.descr
+    descr = args.descr
     target = args.target
-    tList  = args.list
+    tList = args.list
 
     SILENT = args.silent
 
