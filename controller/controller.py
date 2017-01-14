@@ -697,3 +697,27 @@ class Controller():
                                             outputfile,
                                             self.view.createNewTabForHost(ip, tabtitle, not (tab == 'Hosts')))
                             break
+
+    #
+    def runW3af(self, ip, discovery=True, stage=1, stop=False):
+        if not stop:
+            textbox = self.view.createNewTabForHost(str(iprange), 'w3af (stage ' + str(stage) + ')', True)
+            outputfile = self.logic.runningfolder + "/w3af/" + getTimestamp() + '-w3afstage' + str(stage)
+        if not os.path.exists('./scripts/w3af_script1.w3af'):
+            print("Cannot find a w3af script to execute.")
+            return
+
+        script = ""
+        moddedScript_location = self.logic.runningfolder + "/w3af/w3afscript" + str(ip) + ".w3af"
+        with open('./scripts/w3af_script1.w3af', 'r') as scriptfile:
+            script=scriptfile.read().replace('\n', '')
+            script=script.replace('[[VAR_TARGET_URL]]', ip)
+            script=script.replace('[[VAR_OUTFILE]]', outputfile)
+            moddedFile = open(moddedScript_location,w)
+            moddedFile.write(script)
+            moddedFile.close()
+
+        command += "w3af -s " + moddedScript_location
+
+        self.runCommand('w3af', 'w3af (stage ' + str(stage) + ')', str(ip), '', '', command,
+                        getTimestamp(True), outputfile, textbox, discovery, stage, stop)
