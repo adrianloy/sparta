@@ -13,6 +13,7 @@ Copyright (c) 2014 SECFORCE (Antonio Quina and Leonidas Stavliotis)
 
 # from PyQt4 import QtCore, QtGui
 from ui.dialogs import *  # for the screenshots (image viewer)
+from PyQt4 import QtWebKit
 
 try:
     _fromUtf8 = QtCore.QString.fromUtf8
@@ -237,6 +238,14 @@ class Ui_MainWindow(object):
         self.horizontalLayout_7.addWidget(self.BruteTabWidget)
         self.MainTabWidget.addTab(self.BruteTab, _fromUtf8(""))
 
+        # GraphView
+        self.GraphViewTab = QtWebKit.QWebView()
+        file_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "graph/test_graph.html"))
+        local_url = QUrl.fromLocalFile(file_path)
+        self.GraphViewTab.load(local_url)
+        self.GraphViewTab.setObjectName(_fromUtf8("GraphViewTab"))
+        self.MainTabWidget.addTab(self.GraphViewTab, _fromUtf8(""))
+
     def setupBottomPanel(self):
         self.BottomTabWidget = QtGui.QTabWidget(self.splitter_2)
         self.BottomTabWidget.setSizeIncrement(QtCore.QSize(0, 0))
@@ -350,6 +359,10 @@ class Ui_MainWindow(object):
         # self.BruteTabWidget.setTabText(self.BruteTabWidget.indexOf(self.tab_2), QtGui.QApplication.translate("MainWindow", "Tab 2", None, QtGui.QApplication.UnicodeUTF8))
         self.MainTabWidget.setTabText(self.MainTabWidget.indexOf(self.BruteTab),
                                       QtGui.QApplication.translate("MainWindow", "Brute", None,
+                                                                   QtGui.QApplication.UnicodeUTF8))
+        # GraphView
+        self.MainTabWidget.setTabText(self.MainTabWidget.indexOf(self.GraphViewTab),
+                                      QtGui.QApplication.translate("MainWindow", "GraphView", None,
                                                                    QtGui.QApplication.UnicodeUTF8))
         self.BottomTabWidget.setTabText(self.BottomTabWidget.indexOf(self.LogTab),
                                         QtGui.QApplication.translate("MainWindow", "Log", None,
