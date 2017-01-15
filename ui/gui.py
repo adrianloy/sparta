@@ -239,12 +239,27 @@ class Ui_MainWindow(object):
         self.MainTabWidget.addTab(self.BruteTab, _fromUtf8(""))
 
         # GraphView
-        self.GraphViewTab = QtWebKit.QWebView()
-        file_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "graph/test_graph.html"))
+        self.GraphViewTab = QtGui.QWidget()
+
+        self.graphViewLayout = QtGui.QGridLayout(self.GraphViewTab)
+        self.graphViewLayout.setObjectName(_fromUtf8("graphViewLayout"))
+        self.graphViewLayout.setDefaultPositioning(0, QtCore.Qt.Vertical)
+
+        self.button = QtGui.QPushButton('addNode()')
+        self.button.clicked.connect(self.clickedOnAddNode)
+        self.graphViewLayout.addWidget(self.button)
+
+        self.GraphViewWidget = QtWebKit.QWebView()
+        file_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "graph/test_graph2.html"))
         local_url = QUrl.fromLocalFile(file_path)
-        self.GraphViewTab.load(local_url)
-        self.GraphViewTab.setObjectName(_fromUtf8("GraphViewTab"))
+        self.GraphViewWidget.load(local_url)
+        self.GraphViewWidget.setObjectName(_fromUtf8("GraphViewTab"))
+        self.graphViewLayout.addWidget(self.GraphViewWidget)
+
         self.MainTabWidget.addTab(self.GraphViewTab, _fromUtf8(""))
+
+    def clickedOnAddNode(self):
+        self.GraphViewWidget.page().mainFrame().evaluateJavaScript("addNode()")
 
     def setupBottomPanel(self):
         self.BottomTabWidget = QtGui.QTabWidget(self.splitter_2)
