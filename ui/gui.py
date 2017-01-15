@@ -21,7 +21,7 @@ except AttributeError:
     _fromUtf8 = lambda s: s
 
 
-class Ui_MainWindow(object):
+class Ui_MainWindow(QtCore.QObject):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName(_fromUtf8("MainWindow"))
         MainWindow.resize(1010, 754)
@@ -246,7 +246,7 @@ class Ui_MainWindow(object):
         self.graphViewLayout.setDefaultPositioning(0, QtCore.Qt.Vertical)
 
         self.button = QtGui.QPushButton('addNode()')
-        self.button.clicked.connect(self.clickedOnAddNode)
+        self.button.clicked.connect(self.addNodeButtonAction)
         self.graphViewLayout.addWidget(self.button)
 
         self.GraphViewWidget = QtWebKit.QWebView()
@@ -254,12 +254,19 @@ class Ui_MainWindow(object):
         local_url = QUrl.fromLocalFile(file_path)
         self.GraphViewWidget.load(local_url)
         self.GraphViewWidget.setObjectName(_fromUtf8("GraphViewTab"))
+        self.GraphViewWidget.page().mainFrame().addToJavaScriptWindowObject("graphViewObject", self)
         self.graphViewLayout.addWidget(self.GraphViewWidget)
 
         self.MainTabWidget.addTab(self.GraphViewTab, _fromUtf8(""))
 
-    def clickedOnAddNode(self):
+    def addNodeButtonAction(self):
         self.GraphViewWidget.page().mainFrame().evaluateJavaScript("addNode()")
+
+    @QtCore.pyqtSlot(str)
+    def clickedOnNode(self, msg):
+        print msg
+
+    ####################
 
     def setupBottomPanel(self):
         self.BottomTabWidget = QtGui.QTabWidget(self.splitter_2)

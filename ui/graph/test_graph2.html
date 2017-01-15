@@ -20,6 +20,7 @@
     }
 
 
+
     </style>
 
     <script type="text/javascript" src="vis/dist/vis.js"></script>
@@ -61,6 +62,11 @@
         };
         var options = {};
         network = new vis.Network(container, data, options);
+
+        network.on("click", function (params) {
+            params.event = "[original event]";
+            graphViewObject.clickedOnNode(JSON.stringify(params, null, 4));
+        });
     }
 
     function addNode() {
@@ -69,51 +75,8 @@
         nodeIds.push(newId);
     }
 
-    function changeNode1() {
-        var newColor = '#' + Math.floor((Math.random() * 255 * 255 * 255)).toString(16);
-        nodes.update([{id:1, color:{background:newColor}}]);
-    }
-
-    function removeRandomNode() {
-        var randomNodeId = nodeIds[Math.floor(Math.random() * nodeIds.length)];
-        nodes.remove({id:randomNodeId});
-
-        var index = nodeIds.indexOf(randomNodeId);
-        nodeIds.splice(index,1);
-    }
-
-    function changeOptions() {
-        shadowState = !shadowState;
-        network.setOptions({nodes:{shadow:shadowState},edges:{shadow:shadowState}});
-    }
-
-    function resetAllNodes() {
-        nodes.clear();
-        edges.clear();
-        nodes.add(nodesArray);
-        edges.add(edgesArray);
-    }
-
-    function resetAllNodesStabilize() {
-        resetAllNodes();
-        network.stabilize();
-    }
-
-    function setTheData() {
-        nodes = new vis.DataSet(nodesArray);
-        edges = new vis.DataSet(edgesArray);
-        network.setData({nodes:nodes, edges:edges})
-    }
-
-    function resetAll() {
-        if (network !== null) {
-            network.destroy();
-            network = null;
-        }
-        startNetwork();
-    }
-
     startNetwork();
+
 
     </script>
 </head>
