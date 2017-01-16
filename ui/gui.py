@@ -250,7 +250,7 @@ class Ui_MainWindow(QtCore.QObject):
         self.graphViewLayout.addWidget(self.button)
 
         self.GraphViewWidget = QtWebKit.QWebView()
-        file_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "graph/test_graph2.html"))
+        file_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "graph/graph.html"))
         local_url = QUrl.fromLocalFile(file_path)
         self.GraphViewWidget.load(local_url)
         self.GraphViewWidget.setObjectName(_fromUtf8("GraphViewTab"))
@@ -260,7 +260,7 @@ class Ui_MainWindow(QtCore.QObject):
         self.MainTabWidget.addTab(self.GraphViewTab, _fromUtf8(""))
 
     def addNodeButtonAction(self):
-        self.GraphViewWidget.page().mainFrame().evaluateJavaScript("addNode()")
+        self.GraphViewWidget.page().mainFrame().evaluateJavaScript("""addNode("test")""")
 
     @QtCore.pyqtSlot(str)
     def clickedOnNode(self, msg):
