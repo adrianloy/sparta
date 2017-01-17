@@ -260,11 +260,16 @@ class Ui_MainWindow(QtCore.QObject):
         self.MainTabWidget.addTab(self.GraphViewTab, _fromUtf8(""))
 
     def addNodeButtonAction(self):
-        self.GraphViewWidget.page().mainFrame().evaluateJavaScript("""addNode("test")""")
+        self.addNodeTo(0, 1, "test", "hosts")
+
+    def addNodeTo(self, parent_id, id, label, group):
+        js = "addNode(" + str(parent_id) + ", " + str(id) + ", \"" + label + "\", \"" + group + "\")"
+        print js
+        self.GraphViewWidget.page().mainFrame().evaluateJavaScript(js)
 
     @QtCore.pyqtSlot(str)
-    def clickedOnNode(self, msg):
-        print msg
+    def clickedOnNode(self, node_id):
+        print "clicked on node with id " + node_id
 
     ####################
 

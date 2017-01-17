@@ -1116,6 +1116,7 @@ class View(QtCore.QObject):
 
     def updateRightPanel(self, hostIP):
         self.updateServiceTableView(hostIP)
+        self.updateServicesInGraph(hostIP)
         self.updateScriptsView(hostIP)
         self.updateInformationView(hostIP)  # populate host info tab
         self.controller.saveProject(self.lastHostIdClicked, self.ui.NotesTextEdit.toPlainText())
@@ -1210,6 +1211,7 @@ class View(QtCore.QObject):
 
         if self.ui.HostsTabWidget.tabText(self.ui.HostsTabWidget.currentIndex()) == 'Hosts':
             self.updateHostsTableView()
+            self.updateHostsInGraph()  # cedric
             self.lazy_update_services = True
             self.lazy_update_tools = True
 
@@ -1508,3 +1510,17 @@ class View(QtCore.QObject):
             if self.ui.BruteTabWidget.widget(i) == bWidget:
                 self.ui.BruteTabWidget.tabBar().setTabTextColor(i, QtGui.QColor('red'))
                 return
+
+    def updateHostsInGraph(self):
+        for i in range(0, self.HostsTableModel.rowCount("")):
+            host_id = self.HostsTableModel.getHostIdForRow(i)
+            host_ip = self.HostsTableModel.getHostIPForRow(i)
+            self.ui.addNodeTo(0, host_id, host_ip, "hosts")  # adding a node with the same id twice has no effect
+
+    def updateServicesInGraph(self, hostIP):
+        for i in range(0, self.ServicesTableModel.rowCount("")):
+            service_port = self.ServicesTableModel.getPortForRow(i)
+            service_name = self.ServicesTableModel.getServiceNameForRow(i)
+            service_protocol = self.ServicesTableModel.getProtocolForRow(i)
+            service_host_id = self.HostsTableModel.getHostIdForRow(self.HostsTableModel.getRowForIp(hostIP))
+            self.ui.addNodeTo(service_host_id, service_port, service_port + "/" + service_protocol + " (" + service_name + ")", "services")  # TODO: remove id-hack

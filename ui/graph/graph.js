@@ -3,13 +3,12 @@ var nodeIds, nodesArray, nodes, edgesArray, edges, network;
 function startNetwork() {
     // create an array with nodes
     nodesArray = [
-        {id: 1, label: 'localhost', group: 'localhost', fixed: true}
+        {id: 0, label: 'localhost', group: 'localhost', fixed: true}
     ];
     nodes = new vis.DataSet(nodesArray);
 
     // create an array with edges
     edgesArray = [
-        //{from: 1, to: 3}
     ];
     edges = new vis.DataSet(edgesArray);
 
@@ -20,15 +19,20 @@ function startNetwork() {
         edges: edges
     };
 
+    // http://html-color-codes.info/webfarben_hexcodes/
     var options = {
         groups: {
           'localhost': {
             shape: 'square',
-            color: "#2B7CE9" // blue
+            color: "#848484"
           },
           'hosts': {
             shape: 'dot',
-            color: "#109618" // green
+            color: "#0040FF"
+          },
+          'services': {
+            shape: 'triangle',
+            color: "#3ADF00"
           }
         }
     }
@@ -36,15 +40,13 @@ function startNetwork() {
     network = new vis.Network(container, data, options);
 
     network.on("click", function (params) {
-        params.event = "[original event]";
-        graphViewObject.clickedOnNode(JSON.stringify(params, null, 4));
+        graphViewObject.clickedOnNode(params.nodes);
     });
 }
 
-function addNode(label_) {
-    var newId = (Math.random() * 1e7).toString(32);
-    nodes.add({id:newId, label:label_, group: 'hosts'});
-    edges.add({from: 1, to: newId});
+function addNode(parent_id_, id_, label_, group_) {
+    nodes.add({id: id_, label: label_, group: group_});
+    edges.add({from: parent_id_, to: id_});
 }
 
 startNetwork();
