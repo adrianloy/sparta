@@ -1,0 +1,2 @@
+# Hydra v8.1 run at 2017-01-18 12:30:42 on 192.168.56.2 ftp (hydra -s 21 -C ./wordlists/ftp-default-userpass.txt -u -o /tmp/sparta-QpgTVp-running/ftpdefault/20170118123042-ftp-default-192.168.56.2-21.txt -f 192.168.56.2 ftp)
+[21][ftp] host: 192.168.56.2   login: anonymous   password: anonymous

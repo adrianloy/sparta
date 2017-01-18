@@ -1,0 +1,4 @@
+# Nmap 7.01 scan initiated Wed Jan 18 12:30:36 2017 as: nmap -n -sn -T4 -oA /tmp/sparta-QpgTVp-running/nmap/20170118123035-host-discover 192.168.56.2
+Nmap scan report for 192.168.56.2
+Host is up (0.00068s latency).
+# Nmap done at Wed Jan 18 12:30:36 2017 -- 1 IP address (1 host up) scanned in 0.01 seconds
