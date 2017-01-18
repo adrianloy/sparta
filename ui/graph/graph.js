@@ -23,7 +23,7 @@ function startNetwork() {
     var options = {
         groups: {
           'localhost': {
-            shape: 'square',
+            shape: 'dot',
             color: "#848484"
           },
           'hosts': {
@@ -33,6 +33,10 @@ function startNetwork() {
           'services': {
             shape: 'triangle',
             color: "#3ADF00"
+          },
+          'tools': {
+            shape: 'square',
+            color: "#F78181"
           }
         }
     }

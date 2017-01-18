@@ -245,8 +245,8 @@ class Ui_MainWindow(QtCore.QObject):
         self.graphViewLayout.setObjectName(_fromUtf8("graphViewLayout"))
         self.graphViewLayout.setDefaultPositioning(0, QtCore.Qt.Vertical)
 
-        self.button = QtGui.QPushButton('addNode()')
-        self.button.clicked.connect(self.addNodeButtonAction)
+        self.button = QtGui.QPushButton('update')
+        self.button.clicked.connect(self.updateButtonAction)
         self.graphViewLayout.addWidget(self.button)
 
         self.GraphViewWidget = QtWebKit.QWebView()
@@ -259,8 +259,10 @@ class Ui_MainWindow(QtCore.QObject):
 
         self.MainTabWidget.addTab(self.GraphViewTab, _fromUtf8(""))
 
-    def addNodeButtonAction(self):
-        self.addNodeTo(0, 1, "test", "hosts")
+    def updateButtonAction(self):
+        self.view.updateHostsInGraph()
+        self.view.updateServicesInGraph()
+        self.view.updateToolsInGraph()
 
     def addNodeTo(self, parent_id, id, label, group):
         js = "addNode(" + str(parent_id) + ", " + str(id) + ", \"" + label + "\", \"" + group + "\")"
@@ -439,6 +441,9 @@ class Ui_MainWindow(QtCore.QObject):
             QtGui.QApplication.translate("MainWindow", "Help", None, QtGui.QApplication.UnicodeUTF8))
         self.actionHelp.setShortcut(
             QtGui.QApplication.translate("MainWindow", "F1", None, QtGui.QApplication.UnicodeUTF8))
+
+    def setView(self, view):
+        self.view = view
 
 
 if __name__ == "__main__":

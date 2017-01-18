@@ -361,7 +361,7 @@ class Logic():
 
         elif showProcesses == False:  # when opening a project, fetch only the processes that have display=false and were not in tabs that were closed by the user
             tmp_query = (
-            'SELECT process.id, process.hostip, process.tabtitle, process.outputfile, poutput.output FROM db_tables_process AS process '
+            'SELECT process.id, process.hostip, process.port, process.tabtitle, process.outputfile, poutput.output FROM db_tables_process AS process '
             'INNER JOIN db_tables_process_output AS poutput ON process.id = poutput.process_id '
             'WHERE process.display=? AND process.closed="False" order by process.id desc')
             result = metadata.bind.execute(tmp_query, str(showProcesses)).fetchall()

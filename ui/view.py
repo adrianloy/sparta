@@ -35,6 +35,7 @@ class View(QtCore.QObject):
         self.ui_mainwindow = ui_mainwindow  # TODO: retrieve window dimensions/location from settings
         self.ui_mainwindow.setGeometry(0, 30, 1024, 650)  # align window to topleft corner and set default size
         self.ui.splitter_2.setSizes([300, 10])  # set better default size for bottom panel
+        self.ui.setView(self)
 
         self.startOnce()  # initialisations that happen only once, when the SPARTA is launched
         self.startConnections()  # signal initialisations (signals/slots, actions, etc)
@@ -1116,7 +1117,6 @@ class View(QtCore.QObject):
 
     def updateRightPanel(self, hostIP):
         self.updateServiceTableView(hostIP)
-        self.updateServicesInGraph(hostIP)
         self.updateScriptsView(hostIP)
         self.updateInformationView(hostIP)  # populate host info tab
         self.controller.saveProject(self.lastHostIdClicked, self.ui.NotesTextEdit.toPlainText())
@@ -1211,7 +1211,6 @@ class View(QtCore.QObject):
 
         if self.ui.HostsTabWidget.tabText(self.ui.HostsTabWidget.currentIndex()) == 'Hosts':
             self.updateHostsTableView()
-            self.updateHostsInGraph()  # cedric
             self.lazy_update_services = True
             self.lazy_update_tools = True
 
@@ -1517,10 +1516,19 @@ class View(QtCore.QObject):
             host_ip = self.HostsTableModel.getHostIPForRow(i)
             self.ui.addNodeTo(0, host_id, host_ip, "hosts")  # adding a node with the same id twice has no effect
 
-    def updateServicesInGraph(self, hostIP):
+    def updateServicesInGraph(self):
         for i in range(0, self.ServicesTableModel.rowCount("")):
             service_port = self.ServicesTableModel.getPortForRow(i)
             service_name = self.ServicesTableModel.getServiceNameForRow(i)
             service_protocol = self.ServicesTableModel.getProtocolForRow(i)
-            service_host_id = self.HostsTableModel.getHostIdForRow(self.HostsTableModel.getRowForIp(hostIP))
-            self.ui.addNodeTo(service_host_id, service_port, service_port + "/" + service_protocol + " (" + service_name + ")", "services")  # TODO: remove id-hack
+            host_ip = self.ServicesTableModel.getIpForRow(i)
+            host_id = self.HostsTableModel.getHostIdForRow(self.HostsTableModel.getRowForIp(host_ip))
+            self.ui.addNodeTo(host_id, service_port, service_port + "/" + service_protocol + " (" + service_name + ")", "services")  # TODO: remove id-hack
+
+    def updateToolsInGraph(self):
+        tools = self.controller.getProcessesFromDB("", False)
+        for tool in tools:
+            #tool.output, tool.hostip, tool.port, tool.tabtitle
+            host_id = self.HostsTableModel.getHostIdForRow(self.HostsTableModel.getRowForIp(tool.hostip))
+            if tool.port != "":
+                self.ui.addNodeTo(tool.port, str(10000 + int(tool.port)), tool.tabtitle, "tools")  # TODO: remove id-hack
