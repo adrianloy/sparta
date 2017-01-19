@@ -703,11 +703,12 @@ class Controller():
                             break
 
     #
-    def runW3af(self, ip, port, discovery=True, stage=1, stop=False):
+    def runW3af(self, ip, port):
+        stage = 1
         self.logic.createFolderForTool("w3af")  # create folder for tool if necessary
-        if not stop:
-            textbox = self.view.createNewTabForHost(str(ip), 'w3af (stage ' + str(stage) + ')', True)
-            outputfile = self.logic.runningfolder + "/w3af/" + getTimestamp() + '-w3afstage' + str(stage)
+#        if not stop:
+        textbox = self.view.createNewTabForHost(str(ip), 'w3af (stage ' + str(stage) + ')', True)
+        outputfile = self.logic.runningfolder + "/w3af/" + getTimestamp() + '-w3afstage' + str(stage)
         if not os.path.exists('./scripts/w3af_script1.w3af'):
             print("Cannot find a w3af script to execute.")
             return
@@ -726,4 +727,4 @@ class Controller():
         command = "w3af_console -s " + moddedScript_location
 
         self.runCommand('w3af', 'w3af (stage ' + str(stage) + ')', str(ip), '', '', command,
-                        getTimestamp(True), outputfile, textbox, discovery, stage, stop)
+                        getTimestamp(True), outputfile, textbox)
