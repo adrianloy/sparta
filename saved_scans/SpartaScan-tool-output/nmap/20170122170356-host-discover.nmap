@@ -1,0 +1,4 @@
+# Nmap 7.01 scan initiated Sun Jan 22 17:03:57 2017 as: nmap -n -sn -T4 -oA /tmp/sparta-z9FrYc-running/nmap/20170122170356-host-discover 192.168.56.3
+Nmap scan report for 192.168.56.3
+Host is up (0.00039s latency).
+# Nmap done at Sun Jan 22 17:03:57 2017 -- 1 IP address (1 host up) scanned in 0.00 seconds

@@ -30,11 +30,11 @@ function startNetwork() {
             shape: 'dot',
             color: "#0040FF"
           },
-          'services': {
+          'ports': {
             shape: 'triangle',
             color: "#3ADF00"
           },
-          'tools': {
+          'processes': {
             shape: 'square',
             color: "#F78181"
           }

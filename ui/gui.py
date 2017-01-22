@@ -260,9 +260,7 @@ class Ui_MainWindow(QtCore.QObject):
         self.MainTabWidget.addTab(self.GraphViewTab, _fromUtf8(""))
 
     def updateButtonAction(self):
-        self.view.updateHostsInGraph()
-        self.view.updateServicesInGraph()
-        self.view.updateToolsInGraph()
+        self.view.data_graph_.update_graph_from_db()
 
     def addNodeTo(self, parent_id, id, label, group):
         js = "addNode(" + str(parent_id) + ", " + str(id) + ", \"" + label + "\", \"" + group + "\")"

@@ -213,6 +213,16 @@ class Logic():
 
         return metadata.bind.execute(tmp_query).fetchall()
 
+    def getPortsForHostId(self, host_id):
+        tmp_query = 'SELECT * FROM db_tables_nmap_port AS ports INNER JOIN db_tables_nmap_service AS services ON ports.service_id = services.id WHERE state = \'open\' AND host_id = ' + str(host_id)
+
+        return metadata.bind.execute(tmp_query).fetchall()
+
+    def getProcessesForHostId(self, host_id):
+        tmp_query = 'SELECT * FROM db_tables_process AS processes INNER JOIN db_tables_nmap_host AS hosts ON processes.hostip = hosts.ip INNER JOIN db_tables_process_output AS outputs ON processes.id = outputs.process_id WHERE processes.status = \'Finished\' AND hosts.id = ' + str(host_id)
+
+        return metadata.bind.execute(tmp_query).fetchall()
+
     # get distinct service names from DB
     def getServiceNamesFromDB(self, filters):
         tmp_query = ('SELECT DISTINCT service.name FROM db_tables_nmap_service as service ' +

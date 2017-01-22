@@ -420,6 +420,12 @@ class Controller():
     def getHostsFromDB(self, filters):
         return self.logic.getHostsFromDB(filters)
 
+    def getPortsForHostId(self, host_id):
+        return self.logic.getPortsForHostId(host_id)
+
+    def getProcessesForHostId(self, host_id):
+        return self.logic.getProcessesForHostId(host_id)
+
     def getServiceNamesFromDB(self, filters):
         return self.logic.getServiceNamesFromDB(filters)
 

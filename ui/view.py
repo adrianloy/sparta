@@ -22,7 +22,8 @@ from app.servicemodels import *
 from app.scriptmodels import *
 from app.processmodels import *
 from app.auxiliary import *
-import time  # temp
+from graph.datagraph import *
+from graph.node import *
 
 
 # this class handles everything gui-related
@@ -39,6 +40,8 @@ class View(QtCore.QObject):
 
         self.startOnce()  # initialisations that happen only once, when the SPARTA is launched
         self.startConnections()  # signal initialisations (signals/slots, actions, etc)
+
+        self.data_graph_ = DataGraph(self)
 
     def setController(self,
                       controller):  # the view needs access to controller methods to link gui actions with real actions
@@ -1509,26 +1512,3 @@ class View(QtCore.QObject):
             if self.ui.BruteTabWidget.widget(i) == bWidget:
                 self.ui.BruteTabWidget.tabBar().setTabTextColor(i, QtGui.QColor('red'))
                 return
-
-    def updateHostsInGraph(self):
-        for i in range(0, self.HostsTableModel.rowCount("")):
-            host_id = self.HostsTableModel.getHostIdForRow(i)
-            host_ip = self.HostsTableModel.getHostIPForRow(i)
-            self.ui.addNodeTo(0, host_id, host_ip, "hosts")  # adding a node with the same id twice has no effect
-
-    def updateServicesInGraph(self):
-        for i in range(0, self.ServicesTableModel.rowCount("")):
-            service_port = self.ServicesTableModel.getPortForRow(i)
-            service_name = self.ServicesTableModel.getServiceNameForRow(i)
-            service_protocol = self.ServicesTableModel.getProtocolForRow(i)
-            host_ip = self.ServicesTableModel.getIpForRow(i)
-            host_id = self.HostsTableModel.getHostIdForRow(self.HostsTableModel.getRowForIp(host_ip))
-            self.ui.addNodeTo(host_id, service_port, service_port + "/" + service_protocol + " (" + service_name + ")", "services")  # TODO: remove id-hack
-
-    def updateToolsInGraph(self):
-        tools = self.controller.getProcessesFromDB("", False)
-        for tool in tools:
-            #tool.output, tool.hostip, tool.port, tool.tabtitle
-            host_id = self.HostsTableModel.getHostIdForRow(self.HostsTableModel.getRowForIp(tool.hostip))
-            if tool.port != "":
-                self.ui.addNodeTo(tool.port, str(10000 + int(tool.port)), tool.tabtitle, "tools")  # TODO: remove id-hack
