@@ -213,13 +213,19 @@ class Logic():
 
         return metadata.bind.execute(tmp_query).fetchall()
 
-    def getPortsForHostId(self, host_id):
-        tmp_query = 'SELECT * FROM db_tables_nmap_port AS ports INNER JOIN db_tables_nmap_service AS services ON ports.service_id = services.id WHERE state = \'open\' AND host_id = ' + str(host_id)
+    def getPortsFromDB(self):
+        tmp_query = 'SELECT * FROM db_tables_nmap_port AS ports INNER JOIN db_tables_nmap_service AS services ON ports.service_id = services.id WHERE state = \'open\''
 
         return metadata.bind.execute(tmp_query).fetchall()
 
-    def getProcessesForHostId(self, host_id):
-        tmp_query = 'SELECT * FROM db_tables_process AS processes INNER JOIN db_tables_nmap_host AS hosts ON processes.hostip = hosts.ip INNER JOIN db_tables_process_output AS outputs ON processes.id = outputs.process_id WHERE processes.status = \'Finished\' AND hosts.id = ' + str(host_id)
+    def getProcessesWithPortIdFromDB(self):
+        tmp_query = '''SELECT Processes.id, Ports.id AS port_id, Processes.name, Outputs.output
+        FROM db_tables_process AS Processes
+        INNER JOIN db_tables_process_output AS Outputs
+        INNER JOIN db_tables_nmap_host AS Hosts
+        INNER JOIN db_tables_nmap_port AS Ports
+        ON Processes.id = Outputs.process_id AND Processes.hostip = Hosts.ip AND Hosts.id = Ports.host_id AND Ports.port_id = Processes.port
+        WHERE Processes.status = \'Finished\''''
 
         return metadata.bind.execute(tmp_query).fetchall()
 

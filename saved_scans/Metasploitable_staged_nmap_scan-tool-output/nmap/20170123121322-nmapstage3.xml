@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE nmaprun>
+<?xml-stylesheet href="file:///usr/bin/../share/nmap/nmap.xsl" type="text/xsl"?>
+<!-- Nmap 7.01 scan initiated Mon Jan 23 12:13:22 2017 as: nmap -T4 -sV -n -sT -p T:23,21,22,110,111,2049,3389,8080,U:500,5060 -oA /tmp/sparta-m5LFjH-running/nmap/20170123121322-nmapstage3 192.168.56.2 -->
+<nmaprun scanner="nmap" args="nmap -T4 -sV -n -sT -p T:23,21,22,110,111,2049,3389,8080,U:500,5060 -oA /tmp/sparta-m5LFjH-running/nmap/20170123121322-nmapstage3 192.168.56.2" start="1485170002" startstr="Mon Jan 23 12:13:22 2017" version="7.01" xmloutputversion="1.04">
+<scaninfo type="connect" protocol="tcp" numservices="8" services="21-23,110-111,2049,3389,8080"/>
+<verbose level="0"/>
+<debugging level="0"/>
+<host starttime="1485170003" endtime="1485170010"><status state="up" reason="syn-ack" reason_ttl="0"/>
+<address addr="192.168.56.2" addrtype="ipv4"/>
+<hostnames>
+</hostnames>
+<ports><port protocol="tcp" portid="21"><state state="open" reason="syn-ack" reason_ttl="0"/><service name="ftp" product="vsftpd" version="2.3.4" ostype="Unix" method="probed" conf="10"><cpe>cpe:/a:vsftpd:vsftpd:2.3.4</cpe></service></port>
+<port protocol="tcp" portid="22"><state state="open" reason="syn-ack" reason_ttl="0"/><service name="ssh" product="OpenSSH" version="4.7p1 Debian 8ubuntu1" extrainfo="protocol 2.0" ostype="Linux" method="probed" conf="10"><cpe>cpe:/a:openbsd:openssh:4.7p1</cpe><cpe>cpe:/o:linux:linux_kernel</cpe></service></port>
+<port protocol="tcp" portid="23"><state state="open" reason="syn-ack" reason_ttl="0"/><service name="telnet" product="Linux telnetd" ostype="Linux" method="probed" conf="10"><cpe>cpe:/o:linux:linux_kernel</cpe></service></port>
+<port protocol="tcp" portid="110"><state state="closed" reason="conn-refused" reason_ttl="0"/><service name="pop3" method="table" conf="3"/></port>
+<port protocol="tcp" portid="111"><state state="open" reason="syn-ack" reason_ttl="0"/><service name="rpcbind" version="2" extrainfo="RPC #100000" method="probed" conf="10"/></port>
+<port protocol="tcp" portid="2049"><state state="open" reason="syn-ack" reason_ttl="0"/><service name="nfs" version="2-4" extrainfo="RPC #100003" method="probed" conf="10"/></port>
+<port protocol="tcp" portid="3389"><state state="closed" reason="conn-refused" reason_ttl="0"/><service name="ms-wbt-server" method="table" conf="3"/></port>
+<port protocol="tcp" portid="8080"><state state="closed" reason="conn-refused" reason_ttl="0"/><service name="http-proxy" method="table" conf="3"/></port>
+</ports>
+<times srtt="255" rttvar="567" to="100000"/>
+</host>
+<runstats><finished time="1485170010" timestr="Mon Jan 23 12:13:30 2017" elapsed="7.64" summary="Nmap done at Mon Jan 23 12:13:30 2017; 1 IP address (1 host up) scanned in 7.64 seconds" exit="success"/><hosts up="1" down="0" total="1"/>
+</runstats>
+</nmaprun>

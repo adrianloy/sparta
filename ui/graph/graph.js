@@ -3,7 +3,7 @@ var nodeIds, nodesArray, nodes, edgesArray, edges, network;
 function startNetwork() {
     // create an array with nodes
     nodesArray = [
-        {id: 0, label: 'localhost', group: 'localhost', fixed: true}
+        //{id: 0, label: 'localhost', group: 'localhost', fixed: true}
     ];
     nodes = new vis.DataSet(nodesArray);
 
@@ -50,7 +50,9 @@ function startNetwork() {
 
 function addNode(parent_id_, id_, label_, group_) {
     nodes.add({id: id_, label: label_, group: group_});
-    edges.add({from: parent_id_, to: id_});
+    if (parent_id_ != 0) {
+        edges.add({from: parent_id_, to: id_});
+    }
 }
 
 startNetwork();

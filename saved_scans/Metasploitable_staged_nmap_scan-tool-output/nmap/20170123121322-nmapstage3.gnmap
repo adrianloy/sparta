@@ -1,0 +1,4 @@
+# Nmap 7.01 scan initiated Mon Jan 23 12:13:22 2017 as: nmap -T4 -sV -n -sT -p T:23,21,22,110,111,2049,3389,8080,U:500,5060 -oA /tmp/sparta-m5LFjH-running/nmap/20170123121322-nmapstage3 192.168.56.2
+Host: 192.168.56.2 ()	Status: Up
+Host: 192.168.56.2 ()	Ports: 21/open/tcp//ftp//vsftpd 2.3.4/, 22/open/tcp//ssh//OpenSSH 4.7p1 Debian 8ubuntu1 (protocol 2.0)/, 23/open/tcp//telnet//Linux telnetd/, 110/closed/tcp//pop3///, 111/open/tcp//rpcbind//2 (RPC #100000)/, 2049/open/tcp//nfs//2-4 (RPC #100003)/, 3389/closed/tcp//ms-wbt-server///, 8080/closed/tcp//http-proxy///
+# Nmap done at Mon Jan 23 12:13:30 2017 -- 1 IP address (1 host up) scanned in 7.64 seconds

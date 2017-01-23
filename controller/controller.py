@@ -420,11 +420,11 @@ class Controller():
     def getHostsFromDB(self, filters):
         return self.logic.getHostsFromDB(filters)
 
-    def getPortsForHostId(self, host_id):
-        return self.logic.getPortsForHostId(host_id)
+    def getPortsFromDB(self):
+        return self.logic.getPortsFromDB()
 
-    def getProcessesForHostId(self, host_id):
-        return self.logic.getProcessesForHostId(host_id)
+    def getProcessesWithPortIdFromDB(self):
+        return self.logic.getProcessesWithPortIdFromDB()
 
     def getServiceNamesFromDB(self, filters):
         return self.logic.getServiceNamesFromDB(filters)
@@ -730,7 +730,7 @@ class Controller():
         moddedFile.write(script)
         moddedFile.close()
 
-        command = "w3af_console -s " + moddedScript_location
+        command = "/home/cedric/git/w3af/w3af_console -s " + moddedScript_location
 
-        self.runCommand('w3af', 'w3af (stage ' + str(stage) + ')', str(ip), '', '', command,
+        self.runCommand('w3af', 'w3af (stage ' + str(stage) + ')', str(ip), port, '', command,
                         getTimestamp(True), outputfile, textbox)

@@ -1,0 +1,16 @@
+# Nmap 7.01 scan initiated Mon Jan 23 12:13:22 2017 as: nmap -T4 -sV -n -sT -p T:23,21,22,110,111,2049,3389,8080,U:500,5060 -oA /tmp/sparta-m5LFjH-running/nmap/20170123121322-nmapstage3 192.168.56.2
+Nmap scan report for 192.168.56.2
+Host is up (0.00026s latency).
+PORT     STATE  SERVICE       VERSION
+21/tcp   open   ftp           vsftpd 2.3.4
+22/tcp   open   ssh           OpenSSH 4.7p1 Debian 8ubuntu1 (protocol 2.0)
+23/tcp   open   telnet        Linux telnetd
+110/tcp  closed pop3
+111/tcp  open   rpcbind       2 (RPC #100000)
+2049/tcp open   nfs           2-4 (RPC #100003)
+3389/tcp closed ms-wbt-server
+8080/tcp closed http-proxy
+Service Info: OSs: Unix, Linux; CPE: cpe:/o:linux:linux_kernel
+
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+# Nmap done at Mon Jan 23 12:13:30 2017 -- 1 IP address (1 host up) scanned in 7.64 seconds
