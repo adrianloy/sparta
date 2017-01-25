@@ -1,11 +1,11 @@
-<!--not ready-->
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
     <xs:include schemaLocation="host.xsd"/>
 
-    <xs:complexType name="Scan">
+    <xs:complexType name="scan">
         <xs:sequence>
-            <xs:element name="host" type="Host"/>
+            <xs:element name="host" type="host" maxOccurs="unbounded"/>
         </xs:sequence>
+        <xs:attribute name="dateTime" type="xs:dateTime"/>
     </xs:complexType>
-    <xs:element name="Scan" type="Scan"/>
+    <xs:element name="scan" type="scan"/>
 </xs:schema>

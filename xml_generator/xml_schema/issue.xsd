@@ -3,6 +3,7 @@
         <xs:sequence>
             <xs:element name="text" type="xs:string"/>
         </xs:sequence>
+        <xs:attribute name="tool" type="xs:string"/>
     </xs:complexType>
     <xs:element name="issue" type="issue"/>
 </xs:schema>

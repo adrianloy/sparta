@@ -5,6 +5,7 @@
         <xs:sequence>
             <xs:element name="issue" type="issue" maxOccurs="unbounded"/>
         </xs:sequence>
+        <xs:attribute name="port" type="xs:integer"/>
     </xs:complexType>
     <xs:element name="port" type="port"/>
 </xs:schema>
