@@ -1,0 +1,11 @@
+<!--not ready-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:include schemaLocation="host.xsd"/>
+
+    <xs:complexType name="Scan">
+        <xs:sequence>
+            <xs:element name="host" type="Host"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:element name="Scan" type="Scan"/>
+</xs:schema>

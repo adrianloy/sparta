@@ -1,0 +1,11 @@
+<!--not ready-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:include schemaLocation="port.xsd"/>
+
+    <xs:complexType name="Host">
+        <xs:sequence>
+            <xs:element name="port" type="Port"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:element name="Host" type="Host"/>
+</xs:schema>

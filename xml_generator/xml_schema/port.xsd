@@ -1,0 +1,10 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:include schemaLocation="issue.xsd"/>
+
+    <xs:complexType name="port">
+        <xs:sequence>
+            <xs:element name="issue" type="issue" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:element name="port" type="port"/>
+</xs:schema>
