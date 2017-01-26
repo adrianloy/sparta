@@ -1,7 +1,7 @@
 # ./binding.py
 # -*- coding: utf-8 -*-
 # PyXB bindings for NM:e92452c8d3e28a9e27abfc9994d2007779e7f4c9
-# Generated 2017-01-26 14:15:44.489054 by PyXB version 1.2.4 using Python 2.7.12.final.0
+# Generated 2017-01-26 14:50:06.179830 by PyXB version 1.2.4 using Python 2.7.12.final.0
 # Namespace AbsentNamespace0
 
 from __future__ import unicode_literals
@@ -15,7 +15,7 @@ import sys
 import pyxb.utils.six as _six
 
 # Unique identifier for bindings created at the same time
-_GenerationUID = pyxb.utils.utility.UniqueIdentifier('urn:uuid:8b242c98-e3c9-11e6-8fe9-dea12f83a68a')
+_GenerationUID = pyxb.utils.utility.UniqueIdentifier('urn:uuid:58085f78-e3ce-11e6-8fe9-dea12f83a68a')
 
 # Version of PyXB used to generate the bindings
 _PyXBVersion = '1.2.4'
@@ -73,41 +73,6 @@ def CreateFromDOM (node, default_namespace=None):
     return pyxb.binding.basis.element.AnyCreateFromDOM(node, default_namespace)
 
 
-# Complex type host with content type ELEMENT_ONLY
-class host_ (pyxb.binding.basis.complexTypeDefinition):
-    """Complex type host with content type ELEMENT_ONLY"""
-    _TypeDefinition = None
-    _ContentTypeTag = pyxb.binding.basis.complexTypeDefinition._CT_ELEMENT_ONLY
-    _Abstract = False
-    _ExpandedName = pyxb.namespace.ExpandedName(Namespace, 'host')
-    _XSDLocation = pyxb.utils.utility.Location('/home/cedric/git/sparta/xml_generator/xml_schema/host.xsd', 4, 4)
-    _ElementMap = {}
-    _AttributeMap = {}
-    # Base type is pyxb.binding.datatypes.anyType
-    
-    # Element port uses Python identifier port
-    __port = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, 'port'), 'port', '__AbsentNamespace0_host__port', True, pyxb.utils.utility.Location('/home/cedric/git/sparta/xml_generator/xml_schema/host.xsd', 6, 12), )
-
-    
-    port = property(__port.value, __port.set, None, None)
-
-    
-    # Attribute ip uses Python identifier ip
-    __ip = pyxb.binding.content.AttributeUse(pyxb.namespace.ExpandedName(None, 'ip'), 'ip', '__AbsentNamespace0_host__ip', pyxb.binding.datatypes.string)
-    __ip._DeclarationLocation = pyxb.utils.utility.Location('/home/cedric/git/sparta/xml_generator/xml_schema/host.xsd', 8, 8)
-    __ip._UseLocation = pyxb.utils.utility.Location('/home/cedric/git/sparta/xml_generator/xml_schema/host.xsd', 8, 8)
-    
-    ip = property(__ip.value, __ip.set, None, None)
-
-    _ElementMap.update({
-        __port.name() : __port
-    })
-    _AttributeMap.update({
-        __ip.name() : __ip
-    })
-Namespace.addCategoryObject('typeBinding', 'host', host_)
-
-
 # Complex type issue with content type ELEMENT_ONLY
 class issue_ (pyxb.binding.basis.complexTypeDefinition):
     """Complex type issue with content type ELEMENT_ONLY"""
@@ -115,13 +80,13 @@ class issue_ (pyxb.binding.basis.complexTypeDefinition):
     _ContentTypeTag = pyxb.binding.basis.complexTypeDefinition._CT_ELEMENT_ONLY
     _Abstract = False
     _ExpandedName = pyxb.namespace.ExpandedName(Namespace, 'issue')
-    _XSDLocation = pyxb.utils.utility.Location('/home/cedric/git/sparta/xml_generator/xml_schema/issue.xsd', 2, 4)
+    _XSDLocation = pyxb.utils.utility.Location('/home/cedric/git/sparta/xml_schema/scan.xsd', 2, 4)
     _ElementMap = {}
     _AttributeMap = {}
     # Base type is pyxb.binding.datatypes.anyType
     
     # Element text uses Python identifier text
-    __text = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, 'text'), 'text', '__AbsentNamespace0_issue__text', False, pyxb.utils.utility.Location('/home/cedric/git/sparta/xml_generator/xml_schema/issue.xsd', 4, 12), )
+    __text = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, 'text'), 'text', '__AbsentNamespace0_issue__text', False, pyxb.utils.utility.Location('/home/cedric/git/sparta/xml_schema/scan.xsd', 4, 12), )
 
     
     text = property(__text.value, __text.set, None, None)
@@ -129,8 +94,8 @@ class issue_ (pyxb.binding.basis.complexTypeDefinition):
     
     # Attribute tool uses Python identifier tool
     __tool = pyxb.binding.content.AttributeUse(pyxb.namespace.ExpandedName(None, 'tool'), 'tool', '__AbsentNamespace0_issue__tool', pyxb.binding.datatypes.string)
-    __tool._DeclarationLocation = pyxb.utils.utility.Location('/home/cedric/git/sparta/xml_generator/xml_schema/issue.xsd', 6, 8)
-    __tool._UseLocation = pyxb.utils.utility.Location('/home/cedric/git/sparta/xml_generator/xml_schema/issue.xsd', 6, 8)
+    __tool._DeclarationLocation = pyxb.utils.utility.Location('/home/cedric/git/sparta/xml_schema/scan.xsd', 6, 8)
+    __tool._UseLocation = pyxb.utils.utility.Location('/home/cedric/git/sparta/xml_schema/scan.xsd', 6, 8)
     
     tool = property(__tool.value, __tool.set, None, None)
 
@@ -150,13 +115,13 @@ class port_ (pyxb.binding.basis.complexTypeDefinition):
     _ContentTypeTag = pyxb.binding.basis.complexTypeDefinition._CT_ELEMENT_ONLY
     _Abstract = False
     _ExpandedName = pyxb.namespace.ExpandedName(Namespace, 'port')
-    _XSDLocation = pyxb.utils.utility.Location('/home/cedric/git/sparta/xml_generator/xml_schema/port.xsd', 4, 4)
+    _XSDLocation = pyxb.utils.utility.Location('/home/cedric/git/sparta/xml_schema/scan.xsd', 10, 4)
     _ElementMap = {}
     _AttributeMap = {}
     # Base type is pyxb.binding.datatypes.anyType
     
     # Element issue uses Python identifier issue
-    __issue = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, 'issue'), 'issue', '__AbsentNamespace0_port__issue', True, pyxb.utils.utility.Location('/home/cedric/git/sparta/xml_generator/xml_schema/port.xsd', 6, 12), )
+    __issue = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, 'issue'), 'issue', '__AbsentNamespace0_port__issue', True, pyxb.utils.utility.Location('/home/cedric/git/sparta/xml_schema/scan.xsd', 12, 12), )
 
     
     issue = property(__issue.value, __issue.set, None, None)
@@ -164,16 +129,16 @@ class port_ (pyxb.binding.basis.complexTypeDefinition):
     
     # Attribute port uses Python identifier port
     __port = pyxb.binding.content.AttributeUse(pyxb.namespace.ExpandedName(None, 'port'), 'port', '__AbsentNamespace0_port__port', pyxb.binding.datatypes.integer)
-    __port._DeclarationLocation = pyxb.utils.utility.Location('/home/cedric/git/sparta/xml_generator/xml_schema/port.xsd', 8, 8)
-    __port._UseLocation = pyxb.utils.utility.Location('/home/cedric/git/sparta/xml_generator/xml_schema/port.xsd', 8, 8)
+    __port._DeclarationLocation = pyxb.utils.utility.Location('/home/cedric/git/sparta/xml_schema/scan.xsd', 14, 8)
+    __port._UseLocation = pyxb.utils.utility.Location('/home/cedric/git/sparta/xml_schema/scan.xsd', 14, 8)
     
     port = property(__port.value, __port.set, None, None)
 
     
     # Attribute standardService uses Python identifier standardService
     __standardService = pyxb.binding.content.AttributeUse(pyxb.namespace.ExpandedName(None, 'standardService'), 'standardService', '__AbsentNamespace0_port__standardService', pyxb.binding.datatypes.string)
-    __standardService._DeclarationLocation = pyxb.utils.utility.Location('/home/cedric/git/sparta/xml_generator/xml_schema/port.xsd', 9, 8)
-    __standardService._UseLocation = pyxb.utils.utility.Location('/home/cedric/git/sparta/xml_generator/xml_schema/port.xsd', 9, 8)
+    __standardService._DeclarationLocation = pyxb.utils.utility.Location('/home/cedric/git/sparta/xml_schema/scan.xsd', 15, 8)
+    __standardService._UseLocation = pyxb.utils.utility.Location('/home/cedric/git/sparta/xml_schema/scan.xsd', 15, 8)
     
     standardService = property(__standardService.value, __standardService.set, None, None)
 
@@ -187,6 +152,41 @@ class port_ (pyxb.binding.basis.complexTypeDefinition):
 Namespace.addCategoryObject('typeBinding', 'port', port_)
 
 
+# Complex type host with content type ELEMENT_ONLY
+class host_ (pyxb.binding.basis.complexTypeDefinition):
+    """Complex type host with content type ELEMENT_ONLY"""
+    _TypeDefinition = None
+    _ContentTypeTag = pyxb.binding.basis.complexTypeDefinition._CT_ELEMENT_ONLY
+    _Abstract = False
+    _ExpandedName = pyxb.namespace.ExpandedName(Namespace, 'host')
+    _XSDLocation = pyxb.utils.utility.Location('/home/cedric/git/sparta/xml_schema/scan.xsd', 19, 4)
+    _ElementMap = {}
+    _AttributeMap = {}
+    # Base type is pyxb.binding.datatypes.anyType
+    
+    # Element port uses Python identifier port
+    __port = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, 'port'), 'port', '__AbsentNamespace0_host__port', True, pyxb.utils.utility.Location('/home/cedric/git/sparta/xml_schema/scan.xsd', 21, 12), )
+
+    
+    port = property(__port.value, __port.set, None, None)
+
+    
+    # Attribute ip uses Python identifier ip
+    __ip = pyxb.binding.content.AttributeUse(pyxb.namespace.ExpandedName(None, 'ip'), 'ip', '__AbsentNamespace0_host__ip', pyxb.binding.datatypes.string)
+    __ip._DeclarationLocation = pyxb.utils.utility.Location('/home/cedric/git/sparta/xml_schema/scan.xsd', 23, 8)
+    __ip._UseLocation = pyxb.utils.utility.Location('/home/cedric/git/sparta/xml_schema/scan.xsd', 23, 8)
+    
+    ip = property(__ip.value, __ip.set, None, None)
+
+    _ElementMap.update({
+        __port.name() : __port
+    })
+    _AttributeMap.update({
+        __ip.name() : __ip
+    })
+Namespace.addCategoryObject('typeBinding', 'host', host_)
+
+
 # Complex type scan with content type ELEMENT_ONLY
 class scan_ (pyxb.binding.basis.complexTypeDefinition):
     """Complex type scan with content type ELEMENT_ONLY"""
@@ -194,13 +194,13 @@ class scan_ (pyxb.binding.basis.complexTypeDefinition):
     _ContentTypeTag = pyxb.binding.basis.complexTypeDefinition._CT_ELEMENT_ONLY
     _Abstract = False
     _ExpandedName = pyxb.namespace.ExpandedName(Namespace, 'scan')
-    _XSDLocation = pyxb.utils.utility.Location('/home/cedric/git/sparta/xml_generator/xml_schema/scan.xsd', 4, 4)
+    _XSDLocation = pyxb.utils.utility.Location('/home/cedric/git/sparta/xml_schema/scan.xsd', 27, 4)
     _ElementMap = {}
     _AttributeMap = {}
     # Base type is pyxb.binding.datatypes.anyType
     
     # Element host uses Python identifier host
-    __host = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, 'host'), 'host', '__AbsentNamespace0_scan__host', True, pyxb.utils.utility.Location('/home/cedric/git/sparta/xml_generator/xml_schema/scan.xsd', 6, 12), )
+    __host = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, 'host'), 'host', '__AbsentNamespace0_scan__host', True, pyxb.utils.utility.Location('/home/cedric/git/sparta/xml_schema/scan.xsd', 29, 12), )
 
     
     host = property(__host.value, __host.set, None, None)
@@ -208,8 +208,8 @@ class scan_ (pyxb.binding.basis.complexTypeDefinition):
     
     # Attribute dateTime uses Python identifier dateTime
     __dateTime = pyxb.binding.content.AttributeUse(pyxb.namespace.ExpandedName(None, 'dateTime'), 'dateTime', '__AbsentNamespace0_scan__dateTime', pyxb.binding.datatypes.dateTime)
-    __dateTime._DeclarationLocation = pyxb.utils.utility.Location('/home/cedric/git/sparta/xml_generator/xml_schema/scan.xsd', 8, 8)
-    __dateTime._UseLocation = pyxb.utils.utility.Location('/home/cedric/git/sparta/xml_generator/xml_schema/scan.xsd', 8, 8)
+    __dateTime._DeclarationLocation = pyxb.utils.utility.Location('/home/cedric/git/sparta/xml_schema/scan.xsd', 31, 8)
+    __dateTime._UseLocation = pyxb.utils.utility.Location('/home/cedric/git/sparta/xml_schema/scan.xsd', 31, 8)
     
     dateTime = property(__dateTime.value, __dateTime.set, None, None)
 
@@ -222,21 +222,21 @@ class scan_ (pyxb.binding.basis.complexTypeDefinition):
 Namespace.addCategoryObject('typeBinding', 'scan', scan_)
 
 
-host = pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, 'host'), host_, location=pyxb.utils.utility.Location('/home/cedric/git/sparta/xml_generator/xml_schema/host.xsd', 10, 4))
-Namespace.addCategoryObject('elementBinding', host.name().localName(), host)
-
-issue = pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, 'issue'), issue_, location=pyxb.utils.utility.Location('/home/cedric/git/sparta/xml_generator/xml_schema/issue.xsd', 8, 4))
+issue = pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, 'issue'), issue_, location=pyxb.utils.utility.Location('/home/cedric/git/sparta/xml_schema/scan.xsd', 8, 4))
 Namespace.addCategoryObject('elementBinding', issue.name().localName(), issue)
 
-port = pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, 'port'), port_, location=pyxb.utils.utility.Location('/home/cedric/git/sparta/xml_generator/xml_schema/port.xsd', 11, 4))
+port = pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, 'port'), port_, location=pyxb.utils.utility.Location('/home/cedric/git/sparta/xml_schema/scan.xsd', 17, 4))
 Namespace.addCategoryObject('elementBinding', port.name().localName(), port)
 
-scan = pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, 'scan'), scan_, location=pyxb.utils.utility.Location('/home/cedric/git/sparta/xml_generator/xml_schema/scan.xsd', 10, 4))
+host = pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, 'host'), host_, location=pyxb.utils.utility.Location('/home/cedric/git/sparta/xml_schema/scan.xsd', 25, 4))
+Namespace.addCategoryObject('elementBinding', host.name().localName(), host)
+
+scan = pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, 'scan'), scan_, location=pyxb.utils.utility.Location('/home/cedric/git/sparta/xml_schema/scan.xsd', 33, 4))
 Namespace.addCategoryObject('elementBinding', scan.name().localName(), scan)
 
 
 
-host_._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, 'port'), port_, scope=host_, location=pyxb.utils.utility.Location('/home/cedric/git/sparta/xml_generator/xml_schema/host.xsd', 6, 12)))
+issue_._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, 'text'), pyxb.binding.datatypes.string, scope=issue_, location=pyxb.utils.utility.Location('/home/cedric/git/sparta/xml_schema/scan.xsd', 4, 12)))
 
 def _BuildAutomaton ():
     # Remove this helper function from the namespace after it is invoked
@@ -245,25 +245,20 @@ def _BuildAutomaton ():
     import pyxb.utils.fac as fac
 
     counters = set()
-    cc_0 = fac.CounterCondition(min=0, max=None, metadata=pyxb.utils.utility.Location('/home/cedric/git/sparta/xml_generator/xml_schema/host.xsd', 6, 12))
-    counters.add(cc_0)
     states = []
     final_update = set()
-    final_update.add(fac.UpdateInstruction(cc_0, False))
-    symbol = pyxb.binding.content.ElementUse(host_._UseForTag(pyxb.namespace.ExpandedName(None, 'port')), pyxb.utils.utility.Location('/home/cedric/git/sparta/xml_generator/xml_schema/host.xsd', 6, 12))
+    symbol = pyxb.binding.content.ElementUse(issue_._UseForTag(pyxb.namespace.ExpandedName(None, 'text')), pyxb.utils.utility.Location('/home/cedric/git/sparta/xml_schema/scan.xsd', 4, 12))
     st_0 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
     states.append(st_0)
     transitions = []
-    transitions.append(fac.Transition(st_0, [
-        fac.UpdateInstruction(cc_0, True) ]))
     st_0._set_transitionSet(transitions)
-    return fac.Automaton(states, counters, True, containing_state=None)
-host_._Automaton = _BuildAutomaton()
+    return fac.Automaton(states, counters, False, containing_state=None)
+issue_._Automaton = _BuildAutomaton()
 
 
 
 
-issue_._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, 'text'), pyxb.binding.datatypes.string, scope=issue_, location=pyxb.utils.utility.Location('/home/cedric/git/sparta/xml_generator/xml_schema/issue.xsd', 4, 12)))
+port_._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, 'issue'), issue_, scope=port_, location=pyxb.utils.utility.Location('/home/cedric/git/sparta/xml_schema/scan.xsd', 12, 12)))
 
 def _BuildAutomaton_ ():
     # Remove this helper function from the namespace after it is invoked
@@ -272,20 +267,25 @@ def _BuildAutomaton_ ():
     import pyxb.utils.fac as fac
 
     counters = set()
+    cc_0 = fac.CounterCondition(min=0, max=None, metadata=pyxb.utils.utility.Location('/home/cedric/git/sparta/xml_schema/scan.xsd', 12, 12))
+    counters.add(cc_0)
     states = []
     final_update = set()
-    symbol = pyxb.binding.content.ElementUse(issue_._UseForTag(pyxb.namespace.ExpandedName(None, 'text')), pyxb.utils.utility.Location('/home/cedric/git/sparta/xml_generator/xml_schema/issue.xsd', 4, 12))
+    final_update.add(fac.UpdateInstruction(cc_0, False))
+    symbol = pyxb.binding.content.ElementUse(port_._UseForTag(pyxb.namespace.ExpandedName(None, 'issue')), pyxb.utils.utility.Location('/home/cedric/git/sparta/xml_schema/scan.xsd', 12, 12))
     st_0 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
     states.append(st_0)
     transitions = []
+    transitions.append(fac.Transition(st_0, [
+        fac.UpdateInstruction(cc_0, True) ]))
     st_0._set_transitionSet(transitions)
-    return fac.Automaton(states, counters, False, containing_state=None)
-issue_._Automaton = _BuildAutomaton_()
+    return fac.Automaton(states, counters, True, containing_state=None)
+port_._Automaton = _BuildAutomaton_()
 
 
 
 
-port_._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, 'issue'), issue_, scope=port_, location=pyxb.utils.utility.Location('/home/cedric/git/sparta/xml_generator/xml_schema/port.xsd', 6, 12)))
+host_._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, 'port'), port_, scope=host_, location=pyxb.utils.utility.Location('/home/cedric/git/sparta/xml_schema/scan.xsd', 21, 12)))
 
 def _BuildAutomaton_2 ():
     # Remove this helper function from the namespace after it is invoked
@@ -294,12 +294,12 @@ def _BuildAutomaton_2 ():
     import pyxb.utils.fac as fac
 
     counters = set()
-    cc_0 = fac.CounterCondition(min=0, max=None, metadata=pyxb.utils.utility.Location('/home/cedric/git/sparta/xml_generator/xml_schema/port.xsd', 6, 12))
+    cc_0 = fac.CounterCondition(min=0, max=None, metadata=pyxb.utils.utility.Location('/home/cedric/git/sparta/xml_schema/scan.xsd', 21, 12))
     counters.add(cc_0)
     states = []
     final_update = set()
     final_update.add(fac.UpdateInstruction(cc_0, False))
-    symbol = pyxb.binding.content.ElementUse(port_._UseForTag(pyxb.namespace.ExpandedName(None, 'issue')), pyxb.utils.utility.Location('/home/cedric/git/sparta/xml_generator/xml_schema/port.xsd', 6, 12))
+    symbol = pyxb.binding.content.ElementUse(host_._UseForTag(pyxb.namespace.ExpandedName(None, 'port')), pyxb.utils.utility.Location('/home/cedric/git/sparta/xml_schema/scan.xsd', 21, 12))
     st_0 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
     states.append(st_0)
     transitions = []
@@ -307,12 +307,12 @@ def _BuildAutomaton_2 ():
         fac.UpdateInstruction(cc_0, True) ]))
     st_0._set_transitionSet(transitions)
     return fac.Automaton(states, counters, True, containing_state=None)
-port_._Automaton = _BuildAutomaton_2()
+host_._Automaton = _BuildAutomaton_2()
 
 
 
 
-scan_._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, 'host'), host_, scope=scan_, location=pyxb.utils.utility.Location('/home/cedric/git/sparta/xml_generator/xml_schema/scan.xsd', 6, 12)))
+scan_._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, 'host'), host_, scope=scan_, location=pyxb.utils.utility.Location('/home/cedric/git/sparta/xml_schema/scan.xsd', 29, 12)))
 
 def _BuildAutomaton_3 ():
     # Remove this helper function from the namespace after it is invoked
@@ -321,12 +321,12 @@ def _BuildAutomaton_3 ():
     import pyxb.utils.fac as fac
 
     counters = set()
-    cc_0 = fac.CounterCondition(min=0, max=None, metadata=pyxb.utils.utility.Location('/home/cedric/git/sparta/xml_generator/xml_schema/scan.xsd', 6, 12))
+    cc_0 = fac.CounterCondition(min=0, max=None, metadata=pyxb.utils.utility.Location('/home/cedric/git/sparta/xml_schema/scan.xsd', 29, 12))
     counters.add(cc_0)
     states = []
     final_update = set()
     final_update.add(fac.UpdateInstruction(cc_0, False))
-    symbol = pyxb.binding.content.ElementUse(scan_._UseForTag(pyxb.namespace.ExpandedName(None, 'host')), pyxb.utils.utility.Location('/home/cedric/git/sparta/xml_generator/xml_schema/scan.xsd', 6, 12))
+    symbol = pyxb.binding.content.ElementUse(scan_._UseForTag(pyxb.namespace.ExpandedName(None, 'host')), pyxb.utils.utility.Location('/home/cedric/git/sparta/xml_schema/scan.xsd', 29, 12))
     st_0 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
     states.append(st_0)
     transitions = []

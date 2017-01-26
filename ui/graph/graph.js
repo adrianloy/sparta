@@ -55,4 +55,9 @@ function addNode(parent_id_, id_, label_, group_) {
     }
 }
 
+function clear() {
+    nodes.clear();
+    edges.clear();
+}
+
 startNetwork();

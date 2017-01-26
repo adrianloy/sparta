@@ -22,7 +22,15 @@ class DataGraph(object):
     def get_node(self, node_id):
         return self.nodes_[node_id]
 
-    def update_graph_from_db(self):
+    def clear(self):
+        self.root_ = Node(self)
+        self.counter_ = 1
+        self.nodes_ = {0: self.root_}
+        self.host_dict_ = {}
+        self.port_dict_ = {}
+        self.process_dict_ = {}
+
+    def build_graph_from_db(self):
         # insert host when not already inserted
         hosts = self.view_.controller.getHostsFromDB(Filters())
         for host in hosts:

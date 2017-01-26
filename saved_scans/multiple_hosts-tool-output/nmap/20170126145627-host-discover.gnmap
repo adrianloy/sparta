@@ -1,0 +1,5 @@
+# Nmap 7.01 scan initiated Thu Jan 26 14:56:28 2017 as: nmap -n -sn -T4 -oA /tmp/sparta-NbK0Pe-running/nmap/20170126145627-host-discover 192.168.56.0/24
+Host: 192.168.56.1 ()	Status: Up
+Host: 192.168.56.2 ()	Status: Up
+Host: 192.168.56.3 ()	Status: Up
+# Nmap done at Thu Jan 26 14:56:30 2017 -- 256 IP addresses (3 hosts up) scanned in 2.54 seconds

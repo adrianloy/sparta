@@ -1,5 +1,5 @@
 <?xml version="1.0" ?>
-<scan dateTime="2017-01-26T14:23:58.367971">
+<scan dateTime="2017-01-26T15:05:14.48951">
   <host ip="192.168.56.2">
     <port port="80" standardService="http">
       <issue tool="screenshooter">

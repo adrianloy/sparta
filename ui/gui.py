@@ -245,8 +245,8 @@ class Ui_MainWindow(QtCore.QObject):
         self.graphViewLayout.setObjectName(_fromUtf8("graphViewLayout"))
         self.graphViewLayout.setDefaultPositioning(0, QtCore.Qt.Vertical)
 
-        self.button1 = QtGui.QPushButton('update...')
-        self.button1.clicked.connect(self.updateButtonAction)
+        self.button1 = QtGui.QPushButton('reload...')
+        self.button1.clicked.connect(self.reloadButtonAction)
         self.graphViewLayout.addWidget(self.button1)
 
         self.button2 = QtGui.QPushButton('save as XML...')
@@ -263,15 +263,16 @@ class Ui_MainWindow(QtCore.QObject):
 
         self.MainTabWidget.addTab(self.GraphViewTab, _fromUtf8(""))
 
-    def updateButtonAction(self):
-        self.view.data_graph_.update_graph_from_db()
+    def reloadButtonAction(self):
+        self.GraphViewWidget.page().mainFrame().evaluateJavaScript("clear()")
+        self.view.data_graph_.clear();
+        self.view.data_graph_.build_graph_from_db()
 
     def saveButtonAction(self):
         self.view.data_graph_.save_as_xml()
 
     def addNodeTo(self, parent_id, id, label, group):
         js = "addNode(" + str(parent_id) + ", " + str(id) + ", \"" + label + "\", \"" + group + "\")"
-        print js
         self.GraphViewWidget.page().mainFrame().evaluateJavaScript(js)
 
     @QtCore.pyqtSlot(str)
