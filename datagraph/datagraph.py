@@ -46,7 +46,7 @@ class DataGraph(object):
             if port.id not in self.port_dict_:  # port.id is the port id, port.port_id is the port
                 host_id = port.host_id
                 if host_id not in self.host_dict_:
-                    print "error"
+                    print "error importing ports from db"
                     continue
                 host_node = self.host_dict_[host_id]
                 port_node = PortNode(self, port.id, port.port_id, port.name)
@@ -60,7 +60,7 @@ class DataGraph(object):
             if process.id not in self.process_dict_:
                 port_id = process.port_id
                 if port_id not in self.port_dict_:
-                    print "error"
+                    print "error importing process from db"
                     continue
                 port_node = self.port_dict_[port_id]
                 process_node = ProcessNode(self, process.id, process.name, process.output)
