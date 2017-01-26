@@ -1,0 +1,6 @@
+#python modules, can be installed via pip
+pyxb
+
+#other stuff:
+#w3af version > 1.6
+#vis

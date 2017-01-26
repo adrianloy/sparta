@@ -20,8 +20,8 @@ _GenerationUID = pyxb.utils.utility.UniqueIdentifier('urn:uuid:58085f78-e3ce-11e
 # Version of PyXB used to generate the bindings
 _PyXBVersion = '1.2.4'
 # Generated bindings are not compatible across PyXB versions
-if pyxb.__version__ != _PyXBVersion:
-    raise pyxb.PyXBVersionError(_PyXBVersion)
+#if pyxb.__version__ != _PyXBVersion:
+#    raise pyxb.PyXBVersionError(_PyXBVersion)
 
 # Import bindings for namespaces imported into schema
 import pyxb.binding.datatypes
