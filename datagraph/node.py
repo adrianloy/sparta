@@ -1,4 +1,4 @@
-import xml_generator.xml_schema.binding as bind
+import xml_schema.binding as bind
 
 
 class Node(object):
@@ -48,16 +48,10 @@ class PortNode(Node):
     def generate_dom(self):
         port = bind.port()
         port.port = self.port_
+        port.standardService = self.standard_service_name_
         port.issue = []
         for child in self.children_:
             port.issue.append(child.generate_dom())
-
-        # TODO: remove
-        test_issue = bind.issue()
-        test_issue.tool = "test_issue"
-        test_issue.text = "test_issue"
-        port.issue.append(test_issue)
-
         return port
 
 

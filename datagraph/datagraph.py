@@ -1,6 +1,6 @@
 from node import *
 from app.auxiliary import *
-import xml_generator.xml_schema.binding as bind
+import xml_schema.binding as bind
 
 
 class DataGraph(object):

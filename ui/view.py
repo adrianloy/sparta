@@ -11,19 +11,18 @@ Copyright (c) 2015 SECFORCE (Antonio Quina and Leonidas Stavliotis)
     You should have received a copy of the GNU General Public License along with this program.  If not, see <http://www.gnu.org/licenses/>.
 '''
 
-import sys, os, ntpath, signal, re  # for file operations, to kill processes and for regex
-from PyQt4.QtCore import *  # for filters dialog
-from PyQt4 import QtWebKit  # to show html code (help menu)
-from ui.gui import *
-from ui.dialogs import *
-from ui.settingsdialogs import *
-from app.hostmodels import *
-from app.servicemodels import *
-from app.scriptmodels import *
-from app.processmodels import *
+import ntpath  # for file operations, to kill processes and for regex
+
+from datagraph.datagraph import *
+
 from app.auxiliary import *
-from graph.datagraph import *
-from graph.node import *
+from app.hostmodels import *
+from app.processmodels import *
+from app.scriptmodels import *
+from app.servicemodels import *
+from ui.dialogs import *
+from ui.gui import *
+from ui.settingsdialogs import *
 
 
 # this class handles everything gui-related

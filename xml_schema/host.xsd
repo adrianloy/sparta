@@ -3,7 +3,7 @@
 
     <xs:complexType name="host">
         <xs:sequence>
-            <xs:element name="port" type="port" maxOccurs="unbounded"/>
+            <xs:element name="port" type="port" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
         <xs:attribute name="ip" type="xs:string"/>
     </xs:complexType>

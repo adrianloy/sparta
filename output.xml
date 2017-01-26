@@ -1,30 +1,15 @@
 <?xml version="1.0" ?>
-<scan dateTime="2017-01-26T10:20:14.934506">
+<scan dateTime="2017-01-26T14:23:58.367971">
   <host ip="192.168.56.2">
-    <port port="80">
+    <port port="80" standardService="http">
       <issue tool="screenshooter">
         <text></text>
       </issue>
-      <issue tool="test_issue">
-        <text>test_issue</text>
-      </issue>
     </port>
-    <port port="25">
-      <issue tool="test_issue">
-        <text>test_issue</text>
-      </issue>
-    </port>
-    <port port="139">
-      <issue tool="test_issue">
-        <text>test_issue</text>
-      </issue>
-    </port>
-    <port port="3306">
-      <issue tool="test_issue">
-        <text>test_issue</text>
-      </issue>
-    </port>
-    <port port="5432">
+    <port port="25" standardService="smtp"/>
+    <port port="139" standardService="netbios-ssn"/>
+    <port port="3306" standardService="mysql"/>
+    <port port="5432" standardService="postgresql">
       <issue tool="mysql-default">
         <text>Hydra v8.1 (c) 2014 by van Hauser/THC - Please do not use in military or secret service organizations, or for illegal purposes.
 
@@ -36,11 +21,8 @@ Hydra (http://www.thc.org/thc-hydra) finished at 2017-01-23 12:13:23
 
 [INFO] Reduced number of tasks to 4 (mysql does not like many parallel connections)</text>
       </issue>
-      <issue tool="test_issue">
-        <text>test_issue</text>
-      </issue>
     </port>
-    <port port="21">
+    <port port="21" standardService="ftp">
       <issue tool="postgres-default">
         <text>Hydra v8.1 (c) 2014 by van Hauser/THC - Please do not use in military or secret service organizations, or for illegal purposes.
 
@@ -52,11 +34,8 @@ Hydra (http://www.thc.org/thc-hydra) starting at 2017-01-23 12:13:23
 1 of 1 target successfully completed, 1 valid password found
 Hydra (http://www.thc.org/thc-hydra) finished at 2017-01-23 12:13:23</text>
       </issue>
-      <issue tool="test_issue">
-        <text>test_issue</text>
-      </issue>
     </port>
-    <port port="22">
+    <port port="22" standardService="ssh">
       <issue tool="ftp-default">
         <text>Hydra v8.1 (c) 2014 by van Hauser/THC - Please do not use in military or secret service organizations, or for illegal purposes.
 
@@ -68,61 +47,18 @@ Hydra (http://www.thc.org/thc-hydra) starting at 2017-01-23 12:13:31
 1 of 1 target successfully completed, 1 valid password found
 Hydra (http://www.thc.org/thc-hydra) finished at 2017-01-23 12:13:31</text>
       </issue>
-      <issue tool="test_issue">
-        <text>test_issue</text>
-      </issue>
     </port>
-    <port port="23">
-      <issue tool="test_issue">
-        <text>test_issue</text>
-      </issue>
-    </port>
-    <port port="111">
-      <issue tool="test_issue">
-        <text>test_issue</text>
-      </issue>
-    </port>
-    <port port="2049">
-      <issue tool="test_issue">
-        <text>test_issue</text>
-      </issue>
-    </port>
-    <port port="53">
-      <issue tool="test_issue">
-        <text>test_issue</text>
-      </issue>
-    </port>
-    <port port="512">
-      <issue tool="test_issue">
-        <text>test_issue</text>
-      </issue>
-    </port>
-    <port port="513">
-      <issue tool="test_issue">
-        <text>test_issue</text>
-      </issue>
-    </port>
-    <port port="514">
-      <issue tool="test_issue">
-        <text>test_issue</text>
-      </issue>
-    </port>
-    <port port="1099">
-      <issue tool="test_issue">
-        <text>test_issue</text>
-      </issue>
-    </port>
-    <port port="1524">
-      <issue tool="test_issue">
-        <text>test_issue</text>
-      </issue>
-    </port>
-    <port port="2121">
-      <issue tool="test_issue">
-        <text>test_issue</text>
-      </issue>
-    </port>
-    <port port="3632">
+    <port port="23" standardService="telnet"/>
+    <port port="111" standardService="rpcbind"/>
+    <port port="2049" standardService="nfs"/>
+    <port port="53" standardService="domain"/>
+    <port port="512" standardService="exec"/>
+    <port port="513" standardService="login"/>
+    <port port="514" standardService="shell"/>
+    <port port="1099" standardService="rmiregistry"/>
+    <port port="1524" standardService="shell"/>
+    <port port="2121" standardService="ftp"/>
+    <port port="3632" standardService="distccd">
       <issue tool="ftp-default">
         <text>Hydra v8.1 (c) 2014 by van Hauser/THC - Please do not use in military or secret service organizations, or for illegal purposes.
 Hydra (http://www.thc.org/thc-hydra) starting at 2017-01-23 12:13:48
@@ -131,57 +67,19 @@ Hydra (http://www.thc.org/thc-hydra) starting at 2017-01-23 12:13:48
 1 of 1 target completed, 0 valid passwords found
 Hydra (http://www.thc.org/thc-hydra) finished at 2017-01-23 12:13:54</text>
       </issue>
-      <issue tool="test_issue">
-        <text>test_issue</text>
-      </issue>
     </port>
-    <port port="5900">
-      <issue tool="test_issue">
-        <text>test_issue</text>
-      </issue>
-    </port>
-    <port port="6000">
-      <issue tool="test_issue">
-        <text>test_issue</text>
-      </issue>
-    </port>
-    <port port="6667">
-      <issue tool="test_issue">
-        <text>test_issue</text>
-      </issue>
-    </port>
-    <port port="8009">
-      <issue tool="test_issue">
-        <text>test_issue</text>
-      </issue>
-    </port>
-    <port port="8180">
-      <issue tool="test_issue">
-        <text>test_issue</text>
-      </issue>
-    </port>
-    <port port="8787">
-      <issue tool="test_issue">
-        <text>test_issue</text>
-      </issue>
-    </port>
-    <port port="39709">
+    <port port="5900" standardService="vnc"/>
+    <port port="6000" standardService="X11"/>
+    <port port="6667" standardService="irc"/>
+    <port port="8009" standardService="ajp13"/>
+    <port port="8180" standardService="http"/>
+    <port port="8787" standardService="drb"/>
+    <port port="39709" standardService="status">
       <issue tool="screenshooter">
         <text></text>
       </issue>
-      <issue tool="test_issue">
-        <text>test_issue</text>
-      </issue>
     </port>
-    <port port="53771">
-      <issue tool="test_issue">
-        <text>test_issue</text>
-      </issue>
-    </port>
-    <port port="54827">
-      <issue tool="test_issue">
-        <text>test_issue</text>
-      </issue>
-    </port>
+    <port port="53771" standardService="nlockmgr"/>
+    <port port="54827" standardService="mountd"/>
   </host>
 </scan>

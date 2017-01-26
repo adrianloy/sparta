@@ -3,7 +3,7 @@
 
     <xs:complexType name="scan">
         <xs:sequence>
-            <xs:element name="host" type="host" maxOccurs="unbounded"/>
+            <xs:element name="host" type="host" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
         <xs:attribute name="dateTime" type="xs:dateTime"/>
     </xs:complexType>
