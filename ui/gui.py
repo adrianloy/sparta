@@ -245,9 +245,13 @@ class Ui_MainWindow(QtCore.QObject):
         self.graphViewLayout.setObjectName(_fromUtf8("graphViewLayout"))
         self.graphViewLayout.setDefaultPositioning(0, QtCore.Qt.Vertical)
 
-        self.button = QtGui.QPushButton('update')
-        self.button.clicked.connect(self.updateButtonAction)
-        self.graphViewLayout.addWidget(self.button)
+        self.button1 = QtGui.QPushButton('update...')
+        self.button1.clicked.connect(self.updateButtonAction)
+        self.graphViewLayout.addWidget(self.button1)
+
+        self.button2 = QtGui.QPushButton('save as XML...')
+        self.button2.clicked.connect(self.saveButtonAction)
+        self.graphViewLayout.addWidget(self.button2)
 
         self.GraphViewWidget = QtWebKit.QWebView()
         file_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "graph/graph.html"))
@@ -261,6 +265,9 @@ class Ui_MainWindow(QtCore.QObject):
 
     def updateButtonAction(self):
         self.view.data_graph_.update_graph_from_db()
+
+    def saveButtonAction(self):
+        self.view.data_graph_.save_as_xml()
 
     def addNodeTo(self, parent_id, id, label, group):
         js = "addNode(" + str(parent_id) + ", " + str(id) + ", \"" + label + "\", \"" + group + "\")"

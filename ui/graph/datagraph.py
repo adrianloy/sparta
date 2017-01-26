@@ -1,8 +1,9 @@
 from node import *
 from app.auxiliary import *
+import xml_generator.xml_schema.binding as bind
 
 
-class DataGraph(Node):
+class DataGraph(object):
 
     def __init__(self, view):
         self.root_ = Node(self)
@@ -58,3 +59,14 @@ class DataGraph(Node):
                 process_node_id = port_node.add_child(process_node)
                 self.process_dict_[process.id] = process_node
                 self.view_.ui.addNodeTo(port_node.node_id_, process_node_id, process.name, "processes")
+
+    def save_as_xml(self):
+        scan = bind.scan()
+        scan.dateTime = datetime.datetime.now()
+        scan.host = []
+        for child in self.root_.children_:
+            scan.host.append(child.generate_dom())
+
+        xml = scan.toDOM(None).toprettyxml(indent="  ")
+        with open('output.xml', 'w') as f:
+            f.write(xml)
