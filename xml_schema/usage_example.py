@@ -1,27 +1,27 @@
-import xml_generator.xml_schema.binding as bin
+import xml_schema.binding as bind
 import datetime
 
-issue1 = bin.issue()
+issue1 = bind.issue()
 issue1.tool = "w3af"
 issue1.text = "test1"
 
-issue2 = bin.issue()
+issue2 = bind.issue()
 issue2.tool = "nmap"
 issue2.text = "test2"
 
-port1 = bin.port()
+port1 = bind.port()
 port1.issue = [issue1]
 port1.port = 1337
 
-port2 = bin.port()
+port2 = bind.port()
 port2.issue = [issue2]
 port2.port = 42
 
-host = bin.host()
+host = bind.host()
 host.ip = "192.168.56.3"
 host.port = [port1, port2]
 
-scan = bin.scan()
+scan = bind.scan()
 scan.dateTime = datetime.datetime.now()
 scan.host = [host]
 

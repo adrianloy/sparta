@@ -242,7 +242,7 @@ class Ui_MainWindow(QtCore.QObject):
 
         self.graphViewLayout = QtGui.QGridLayout(self.GraphViewTab)
         self.graphViewLayout.setObjectName(_fromUtf8("graphViewLayout"))
-        self.graphViewLayout.setDefaultPositioning(0, QtCore.Qt.Vertical)
+        self.graphViewLayout.setDefaultPositioning(0, QtCore.Qt.Horizontal)
 
         self.button1 = QtGui.QPushButton('reload...')
         self.button1.clicked.connect(self.reloadButtonAction)

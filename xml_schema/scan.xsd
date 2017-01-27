@@ -1,4 +1,17 @@
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+    <xs:complexType name="vuln">
+        <xs:sequence>
+            <xs:element name="name" type="xs:string"/>
+            <xs:element name="url" type="xs:string"/>
+            <xs:element name="severity" type="xs:string"/>
+            <xs:element name="descr" type="xs:string"/>
+            <xs:element name="longdescr" type="xs:string"/>
+            <xs:element name="fixstr" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:element name="vuln" type="vuln"/>
+
     <xs:complexType name="issue">
         <xs:sequence>
             <xs:element name="text" type="xs:string"/>

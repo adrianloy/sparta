@@ -2,14 +2,11 @@ var nodeIds, nodesArray, nodes, edgesArray, edges, network;
 
 function startNetwork() {
     // create an array with nodes
-    nodesArray = [
-        //{id: 0, label: 'localhost', group: 'localhost', fixed: true}
-    ];
+    nodesArray = [];
     nodes = new vis.DataSet(nodesArray);
 
     // create an array with edges
-    edgesArray = [
-    ];
+    edgesArray = [];
     edges = new vis.DataSet(edgesArray);
 
     // create a network
@@ -22,10 +19,6 @@ function startNetwork() {
     // http://html-color-codes.info/webfarben_hexcodes/
     var options = {
         groups: {
-          'localhost': {
-            shape: 'dot',
-            color: "#848484"
-          },
           'hosts': {
             shape: 'dot',
             color: "#0040FF"
@@ -35,6 +28,10 @@ function startNetwork() {
             color: "#3ADF00"
           },
           'processes': {
+            shape: 'square',
+            color: "#F78181"
+          },
+          'vulnerabilities': {
             shape: 'square',
             color: "#F78181"
           }

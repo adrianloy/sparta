@@ -1,189 +1,85 @@
 <?xml version="1.0" ?>
-<scan dateTime="2017-01-27T01:41:54.791785">
-  <host ip="192.168.1.1">
+<scan dateTime="2017-01-27T11:29:44.902796">
+  <host ip="192.168.56.2">
     <port port="80" standardService="http">
-      <issue tool="w3af">
-        <text>[34mw3af&gt;&gt;&gt; [0mhttp-settings
-[34mw3af/config:http-settings&gt;&gt;&gt; [0mset timeout 30
-[34mw3af/config:http-settings&gt;&gt;&gt; [0mback
-The configuration has been saved.
-[34mw3af&gt;&gt;&gt; [0mmisc-settings
-[34mw3af/config:misc-settings&gt;&gt;&gt; [0mset max_discovery_time 20
-[34mw3af/config:misc-settings&gt;&gt;&gt; [0mset fuzz_cookies True
-[34mw3af/config:misc-settings&gt;&gt;&gt; [0mset fuzz_form_files True
-[34mw3af/config:misc-settings&gt;&gt;&gt; [0mset fuzz_url_parts True
-[34mw3af/config:misc-settings&gt;&gt;&gt; [0mset fuzz_url_filenames True
-[34mw3af/config:misc-settings&gt;&gt;&gt; [0mback
-The configuration has been saved.
-[34mw3af&gt;&gt;&gt; [0mplugins
-[34mw3af/plugins&gt;&gt;&gt; [0mcrawl web_spider
-[34mw3af/plugins&gt;&gt;&gt; [0mcrawl config web_spider
-[34mw3af/plugins/crawl/config:web_spider&gt;&gt;&gt; [0mset only_forward False
-[34mw3af/plugins/crawl/config:web_spider&gt;&gt;&gt; [0mset ignore_regex (?i)(logout|disconnect|signout|exit)+
-[34mw3af/plugins/crawl/config:web_spider&gt;&gt;&gt; [0mback
-The configuration has been saved.
-[34mw3af/plugins&gt;&gt;&gt; [0maudit blind_sqli, buffer_overflow, cors_origin, csrf, eval, file_upload, ldapi, lfi, os_commanding, phishing_vector, redos, response_splitting, sqli, xpath, xss, xst
-[34mw3af/plugins&gt;&gt;&gt; [0maudit config file_upload
-[34mw3af/plugins/audit/config:file_upload&gt;&gt;&gt; [0mset extensions jsp,php,php2,php3,php4,php5,asp,aspx,pl,cfm,rb,py,sh,ksh,csh,bat,ps,exe
-[34mw3af/plugins/audit/config:file_upload&gt;&gt;&gt; [0mback
-The configuration has been saved.
-[34mw3af/plugins&gt;&gt;&gt; [0mgrep analyze_cookies, click_jacking, code_disclosure, cross_domain_js, csp, directory_indexing, dom_xss, error_500, error_pages,
-[34mw3af/plugins&gt;&gt;&gt; [0mhtml_comments, objects, path_disclosure, private_ip, strange_headers, strange_http_codes, strange_parameters, strange_reason, url_session, xss_protection_header
-Unknown command 'html_comments,'
-[34mw3af/plugins&gt;&gt;&gt; [0minfrastructure server_header, server_status, domain_dot, dot_net_errors
-[34mw3af/plugins&gt;&gt;&gt; [0mauth detailed
-[34mw3af/plugins&gt;&gt;&gt; [0mauth config detailed
-[34mw3af/plugins/auth/config:detailed&gt;&gt;&gt; [0mset username admin
-[34mw3af/plugins/auth/config:detailed&gt;&gt;&gt; [0mset password password
-[34mw3af/plugins/auth/config:detailed&gt;&gt;&gt; [0mset method POST
-[34mw3af/plugins/auth/config:detailed&gt;&gt;&gt; [0mset auth_url 192.168.1.1/login.php
-[34mw3af/plugins/auth/config:detailed&gt;&gt;&gt; [0mset username_field user
-[34mw3af/plugins/auth/config:detailed&gt;&gt;&gt; [0mset password_field pass
-[34mw3af/plugins/auth/config:detailed&gt;&gt;&gt; [0mset check_url 192.168.1.1/index.php
-[34mw3af/plugins/auth/config:detailed&gt;&gt;&gt; [0mset check_string 'admin'
-[34mw3af/plugins/auth/config:detailed&gt;&gt;&gt; [0mset data_format username=%U&amp;password=%P&amp;Login=Login
-[34mw3af/plugins/auth/config:detailed&gt;&gt;&gt; [0mback
-The configuration has been saved.
-[34mw3af/plugins&gt;&gt;&gt; [0moutput console, xml_file
-[34mw3af/plugins&gt;&gt;&gt; [0moutput config xml_file
-[34mw3af/plugins/output/config:xml_file&gt;&gt;&gt; [0mset output_file /tmp/sparta-snXRJI-running/w3af/20170127010047-w3afstage1.xml
-[34mw3af/plugins/output/config:xml_file&gt;&gt;&gt; [0mset verbose False
-Unknown option: &quot;verbose&quot;.
-[34mw3af/plugins/output/config:xml_file&gt;&gt;&gt; [0mback
-The configuration has been saved.
-[34mw3af/plugins&gt;&gt;&gt; [0moutput config console
-[34mw3af/plugins/output/config:console&gt;&gt;&gt; [0mset verbose False
-[34mw3af/plugins/output/config:console&gt;&gt;&gt; [0mback
-The configuration has been saved.
-[34mw3af/plugins&gt;&gt;&gt; [0mback
-[34mw3af&gt;&gt;&gt; [0mtarget
-[34mw3af/config:target&gt;&gt;&gt; [0mset target 192.168.1.1
-[34mw3af/config:target&gt;&gt;&gt; [0mback
-The configuration has been saved.
-[34mw3af&gt;&gt;&gt; [0mcleanup
-
-[34mw3af&gt;&gt;&gt; [0mstart
-
-[31mCan't login into web application as admin/password
-[0m
-The server header for the remote web server is: &quot;httpd/2.0&quot;.This information was found in the request with id 42.
-Found 1 URLs and 1 different injections points.
-The URL list is:
-- http://192.168.1.1/
-The list of fuzzable requests is:
-- Method: GET | http://192.168.1.1/
-[33mThe whole target has no protection (X-Frame-Options header) against Click-Jacking attacks. This vulnerability was found in the requests with ids 19, 21 and 45.
-[0m
-Scan finished in 8 seconds.
-Stopping the core...
-[34mw3af&gt;&gt;&gt; [0mexit
-[34mw3af&gt;&gt;&gt; [0m
-Liked it? Contribute with some lines of code!</text>
-      </issue>
       <issue tool="screenshooter">
         <text></text>
       </issue>
     </port>
+    <port port="25" standardService="smtp"/>
+    <port port="139" standardService="netbios-ssn"/>
+    <port port="3306" standardService="mysql"/>
+    <port port="5432" standardService="postgresql">
+      <issue tool="mysql-default">
+        <text>Hydra v8.1 (c) 2014 by van Hauser/THC - Please do not use in military or secret service organizations, or for illegal purposes.
+
+Hydra (http://www.thc.org/thc-hydra) starting at 2017-01-23 12:13:22
+[DATA] max 3 tasks per 1 server, overall 64 tasks, 3 login tries, ~0 tries per task
+[DATA] attacking service mysql on port 3306
+1 of 1 target completed, 0 valid passwords found
+Hydra (http://www.thc.org/thc-hydra) finished at 2017-01-23 12:13:23
+
+[INFO] Reduced number of tasks to 4 (mysql does not like many parallel connections)</text>
+      </issue>
+    </port>
+    <port port="21" standardService="ftp">
+      <issue tool="postgres-default">
+        <text>Hydra v8.1 (c) 2014 by van Hauser/THC - Please do not use in military or secret service organizations, or for illegal purposes.
+
+Hydra (http://www.thc.org/thc-hydra) starting at 2017-01-23 12:13:23
+[DATA] max 6 tasks per 1 server, overall 64 tasks, 6 login tries, ~0 tries per task
+[DATA] attacking service postgres on port 5432
+[5432][postgres] host: 192.168.56.2   login: postgres   password: postgres
+[STATUS] attack finished for 192.168.56.2 (valid pair found)
+1 of 1 target successfully completed, 1 valid password found
+Hydra (http://www.thc.org/thc-hydra) finished at 2017-01-23 12:13:23</text>
+      </issue>
+    </port>
+    <port port="22" standardService="ssh">
+      <issue tool="ftp-default">
+        <text>Hydra v8.1 (c) 2014 by van Hauser/THC - Please do not use in military or secret service organizations, or for illegal purposes.
+
+Hydra (http://www.thc.org/thc-hydra) starting at 2017-01-23 12:13:31
+[DATA] max 10 tasks per 1 server, overall 64 tasks, 10 login tries, ~0 tries per task
+[DATA] attacking service ftp on port 21
+[21][ftp] host: 192.168.56.2   login: anonymous   password: anonymous
+[STATUS] attack finished for 192.168.56.2 (valid pair found)
+1 of 1 target successfully completed, 1 valid password found
+Hydra (http://www.thc.org/thc-hydra) finished at 2017-01-23 12:13:31</text>
+      </issue>
+    </port>
+    <port port="23" standardService="telnet"/>
+    <port port="111" standardService="rpcbind"/>
+    <port port="2049" standardService="nfs"/>
     <port port="53" standardService="domain"/>
-    <port port="1723" standardService="pptp"/>
-    <port port="18017" standardService="http">
-      <issue tool="w3af">
-        <text>[34mw3af&gt;&gt;&gt; [0mhttp-settings
-
-[34mw3af/config:http-settings&gt;&gt;&gt; [0mset timeout 30
-[34mw3af/config:http-settings&gt;&gt;&gt; [0mback
-The configuration has been saved.
-[34mw3af&gt;&gt;&gt; [0mmisc-settings
-[34mw3af/config:misc-settings&gt;&gt;&gt; [0mset max_discovery_time 20
-[34mw3af/config:misc-settings&gt;&gt;&gt; [0mset fuzz_cookies True
-[34mw3af/config:misc-settings&gt;&gt;&gt; [0m
-set fuzz_form_files True
-[34mw3af/config:misc-settings&gt;&gt;&gt; [0mset fuzz_url_parts True
-[34mw3af/config:misc-settings&gt;&gt;&gt; [0mset fuzz_url_filenames True
-[34mw3af/config:misc-settings&gt;&gt;&gt; [0m
-back
-The configuration has been saved.
-[34mw3af&gt;&gt;&gt; [0mplugins
-[34mw3af/plugins&gt;&gt;&gt; [0mcrawl web_spider
-
-[34mw3af/plugins&gt;&gt;&gt; [0m
-crawl config web_spider
-
-[34mw3af/plugins/crawl/config:web_spider&gt;&gt;&gt; [0mset only_forward False
-[34mw3af/plugins/crawl/config:web_spider&gt;&gt;&gt; [0mset ignore_regex (?i)(logout|disconnect|signout|exit)+
-[34mw3af/plugins/crawl/config:web_spider&gt;&gt;&gt; [0mback
-The configuration has been saved.
-[34mw3af/plugins&gt;&gt;&gt; [0maudit blind_sqli, buffer_overflow, cors_origin, csrf, eval, file_upload, ldapi, lfi, os_commanding, phishing_vector, redos, response_splitting, sqli, xpath, xss, xst
-
-[34mw3af/plugins&gt;&gt;&gt; [0maudit config file_upload
-[34mw3af/plugins/audit/config:file_upload&gt;&gt;&gt; [0m
-set extensions jsp,php,php2,php3,php4,php5,asp,aspx,pl,cfm,rb,py,sh,ksh,csh,bat,ps,exe
-[34mw3af/plugins/audit/config:file_upload&gt;&gt;&gt; [0mback
-The configuration has been saved.
-[34mw3af/plugins&gt;&gt;&gt; [0mgrep analyze_cookies, click_jacking, code_disclosure, cross_domain_js, csp, directory_indexing, dom_xss, error_500, error_pages,
-[34mw3af/plugins&gt;&gt;&gt; [0mhtml_comments, objects, path_disclosure, private_ip, strange_headers, strange_http_codes, strange_parameters, strange_reason, url_session, xss_protection_header
-Unknown command 'html_comments,'
-[34mw3af/plugins&gt;&gt;&gt; [0minfrastructure server_header, server_status, domain_dot, dot_net_errors
-[34mw3af/plugins&gt;&gt;&gt; [0mauth detailed
-[34mw3af/plugins&gt;&gt;&gt; [0mauth config detailed
-[34mw3af/plugins/auth/config:detailed&gt;&gt;&gt; [0mset username admin
-[34mw3af/plugins/auth/config:detailed&gt;&gt;&gt; [0mset password password
-[34mw3af/plugins/auth/config:detailed&gt;&gt;&gt; [0mset method POST
-[34mw3af/plugins/auth/config:detailed&gt;&gt;&gt; [0mset auth_url 192.168.1.1/login.php
-
-[34mw3af/plugins/auth/config:detailed&gt;&gt;&gt; [0mset username_field user
-[34mw3af/plugins/auth/config:detailed&gt;&gt;&gt; [0mset password_field pass
-[34mw3af/plugins/auth/config:detailed&gt;&gt;&gt; [0mset check_url 192.168.1.1/index.php
-[34mw3af/plugins/auth/config:detailed&gt;&gt;&gt; [0mset check_string 'admin'
-
-[34mw3af/plugins/auth/config:detailed&gt;&gt;&gt; [0mset data_format username=%U&amp;password=%P&amp;Login=Login
-[34mw3af/plugins/auth/config:detailed&gt;&gt;&gt; [0mback
-The configuration has been saved.
-[34mw3af/plugins&gt;&gt;&gt; [0moutput console, xml_file
-[34mw3af/plugins&gt;&gt;&gt; [0moutput config xml_file
-
-[34mw3af/plugins/output/config:xml_file&gt;&gt;&gt; [0mset output_file /tmp/sparta-snXRJI-running/w3af/20170127010103-w3afstage1.xml
-[34mw3af/plugins/output/config:xml_file&gt;&gt;&gt; [0mset verbose False
-Unknown option: &quot;verbose&quot;.
-[34mw3af/plugins/output/config:xml_file&gt;&gt;&gt; [0mback
-The configuration has been saved.
-[34mw3af/plugins&gt;&gt;&gt; [0m
-output config console
-
-[34mw3af/plugins/output/config:console&gt;&gt;&gt; [0mset verbose False
-[34mw3af/plugins/output/config:console&gt;&gt;&gt; [0mback
-The configuration has been saved.
-[34mw3af/plugins&gt;&gt;&gt; [0mback
-[34mw3af&gt;&gt;&gt; [0mtarget
-[34mw3af/config:target&gt;&gt;&gt; [0mset target 192.168.1.1
-
-[34mw3af/config:target&gt;&gt;&gt; [0mback
-
-The configuration has been saved.
-[34mw3af&gt;&gt;&gt; [0mcleanup
-
-[34mw3af&gt;&gt;&gt; [0mstart
-
-[31mCan't login into web application as admin/password
-[0m
-The server header for the remote web server is: &quot;httpd/2.0&quot;.This information was found in the request with id 38.
-Found 1 URLs and 1 different injections points.
-The URL list is:
-- http://192.168.1.1/
-The list of fuzzable requests is:
-- Method: GET | http://192.168.1.1/
-[33mThe whole target has no protection (X-Frame-Options header) against Click-Jacking attacks. This vulnerability was found in the requests with ids 19, 21 and 42.
-[0m
-Scan finished in 9 seconds.
-Stopping the core...
-[34mw3af&gt;&gt;&gt; [0mexit
-[34mw3af&gt;&gt;&gt; [0m
-spawned a remote shell today?</text>
+    <port port="512" standardService="exec"/>
+    <port port="513" standardService="login"/>
+    <port port="514" standardService="shell"/>
+    <port port="1099" standardService="rmiregistry"/>
+    <port port="1524" standardService="shell"/>
+    <port port="2121" standardService="ftp"/>
+    <port port="3632" standardService="distccd">
+      <issue tool="ftp-default">
+        <text>Hydra v8.1 (c) 2014 by van Hauser/THC - Please do not use in military or secret service organizations, or for illegal purposes.
+Hydra (http://www.thc.org/thc-hydra) starting at 2017-01-23 12:13:48
+[DATA] max 10 tasks per 1 server, overall 64 tasks, 10 login tries, ~0 tries per task
+[DATA] attacking service ftp on port 2121
+1 of 1 target completed, 0 valid passwords found
+Hydra (http://www.thc.org/thc-hydra) finished at 2017-01-23 12:13:54</text>
       </issue>
+    </port>
+    <port port="5900" standardService="vnc"/>
+    <port port="6000" standardService="X11"/>
+    <port port="6667" standardService="irc"/>
+    <port port="8009" standardService="ajp13"/>
+    <port port="8180" standardService="http"/>
+    <port port="8787" standardService="drb"/>
+    <port port="39709" standardService="status">
       <issue tool="screenshooter">
         <text></text>
       </issue>
     </port>
-    <port port="46168" standardService="upnp"/>
+    <port port="53771" standardService="nlockmgr"/>
+    <port port="54827" standardService="mountd"/>
   </host>
 </scan>
