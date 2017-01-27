@@ -214,7 +214,11 @@ class Logic():
         return metadata.bind.execute(tmp_query).fetchall()
 
     def getPortsFromDB(self):
-        tmp_query = 'SELECT * FROM db_tables_nmap_port AS ports INNER JOIN db_tables_nmap_service AS services ON ports.service_id = services.id WHERE state = \'open\''
+        tmp_query = '''SELECT ports.id, services.name, ports.port_id as number, ports.protocol, ports.host_id
+        FROM db_tables_nmap_port AS ports
+        INNER JOIN db_tables_nmap_service AS services
+        ON ports.service_id = services.id
+        WHERE state = \'open\''''
 
         return metadata.bind.execute(tmp_query).fetchall()
 

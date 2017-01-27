@@ -51,16 +51,16 @@ class DataGraph(object):
         # insert port when not already inserted
         ports = self.view.controller.getPortsFromDB()
         for port in ports:
-            if port.id not in self.port_dict:  # port.id is the port id, port.port_id is the port
+            if port.id not in self.port_dict:
                 host_id = port.host_id
                 if host_id not in self.host_dict:
-                    print "error importing ports from db"
+                    print "error importing ports from db (host id " + str(host_id) + " not in host_dict)"
                     continue
                 host_node = self.host_dict[host_id]
-                port_node = PortNode(self, port.id, port.port_id, port.name)
+                port_node = PortNode(self, port.id, port.number, port.name)
                 port_node_id = host_node.add_child(port_node)
                 self.port_dict[port.id] = port_node
-                self.view.ui.addNodeTo(host_node.node_id, port_node_id, port.port_id + "/" + port.protocol + " (" + port.name + ")", "ports")
+                self.view.ui.addNodeTo(host_node.node_id, port_node_id, port.number + "/" + port.protocol + " (" + port.name + ")", "ports")
 
         # insert process when not already inserted
         processes = self.view.controller.getProcessesWithPortIdFromDB()
@@ -68,7 +68,7 @@ class DataGraph(object):
             if process.id not in self.process_dict:
                 port_id = process.port_id
                 if port_id not in self.port_dict:
-                    print "error importing process from db"
+                    print "error importing process from db (port id " + str(port_id) + " not in port_dict)"
                     continue
                 port_node = self.port_dict[port_id]
                 process_node = ProcessNode(self, process.id, process.name, process.output)
