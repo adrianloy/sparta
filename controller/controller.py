@@ -45,7 +45,6 @@ class Controller():
         self.nmapImporter.setDB(self.logic.db)  # tell nmap importer which db to use
         self.updateOutputFolder()  # tell screenshooter where the output folder is
         self.view.start(title)
-        wparser.test()
 
     def initNmapImporter(self):
         self.nmapImporter = NmapImporter()
@@ -634,7 +633,7 @@ class Controller():
                             if self.view.menuVisible == False:
                                 self.view.importProgressWidget.show()
 
-                    elif 'w3af' in qProcess.name:  # if the process was nmap, use the parser to store it
+                    elif 'w3affgh' in qProcess.name:  # if the process was nmap, use the parser to store it
                         if qProcess.exitCode() == 0:  # if the process finished successfully
                             newoutputfile = qProcess.outputfile.replace(self.logic.runningfolder,
                                                                         self.logic.outputfolder)
@@ -730,12 +729,14 @@ class Controller():
         self.logic.createFolderForTool("w3af")  # create folder for tool if necessary
 #        if not stop:
         textbox = self.view.createNewTabForHost(str(ip), 'w3af (stage ' + str(stage) + ')', True)
-        outputfile = self.logic.runningfolder + "/w3af/" + getTimestamp() + '-w3afstage' + str(stage)
+        outputfile = self.logic.runningfolder + "/w3af/" + getTimestamp() + '-w3afstage' + str(stage) + ".xml"
         if not os.path.exists('./scripts/w3af_script1.w3af'):
             print("Cannot find a w3af script to execute.")
             return
 
         #print '-----------------DEBUG DEBUG DEBUG BRO------------------------------'
+        #print self.logic.runningfolder
+        #print self.logic.outputfolder
         script = ""
         moddedScript_location = self.logic.runningfolder + "/w3af/w3afscript" + str(ip) + ".w3af"
         with open('./scripts/w3af_script1.w3af', 'r') as scriptfile:
