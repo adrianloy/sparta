@@ -741,7 +741,7 @@ class Controller():
         moddedScript_location = self.logic.runningfolder + "/w3af/w3afscript" + str(ip) + ".w3af"
         with open('./scripts/w3af_script1.w3af', 'r') as scriptfile:
             script=scriptfile.read()
-            script=script.replace('[[VAR_TARGET_URL]]', ip)
+            script=script.replace('[[VAR_TARGET_URL]]', ip+":"+port)
             script=script.replace('[[VAR_OUTFILE]]', outputfile)
         moddedFile = open(moddedScript_location,'w')
         moddedFile.write(script)
