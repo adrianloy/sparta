@@ -17,9 +17,6 @@ class DataGraph(object):
         self.vul_dict = {}
         self.process_dict = {}
 
-    def setController(self, controller): #ugly design, but controller isnt set in view.py when init is called
-        self.controller = controller
-
     def get_new_id(self):
         new_id = self.counter
         self.counter += 1
@@ -83,16 +80,17 @@ class DataGraph(object):
         #the file is located in the outputfolder, that is copied when saving the project
         #path is not in db but is built from the location to the saved file, so we need the logic obj
         #print(self.controller.logic.outputfolder + '/w3af')
-        w3dir = self.controller.logic.outputfolder + '/w3af/'
-        for filename in os.listdir(w3dir):
-            #if filename.endswith(".asm") or filename.endswith(".py"):
-            myparser = W3afParser(self, w3dir+filename)
-            ip = myparser.getHost()
-            parent = self.getHostNodeByIP(ip)
-            for vulNode in myparser.getVulNodes():
-                vulNodeID = parent.add_child(vulNode)
-                self.view.ui.addNodeTo(parent.node_id, vulNodeID, vulNode.name, "vulnerabilities")
-                self.vul_dict[vulNodeID] = vulNode
+        w3dir = self.view.controller.logic.outputfolder + '/w3af/'
+        if os.path.isdir(w3dir):
+            for filename in os.listdir(w3dir):
+                #if filename.endswith(".asm") or filename.endswith(".py"):
+                myparser = W3afParser(self, w3dir+filename)
+                ip = myparser.getHost()
+                parent = self.getHostNodeByIP(ip)
+                for vulNode in myparser.getVulNodes():
+                    vulNodeID = parent.add_child(vulNode)
+                    self.view.ui.addNodeTo(parent.node_id, vulNodeID, vulNode.name, "vulnerabilities")
+                    self.vul_dict[vulNodeID] = vulNode
 
 
     def save_as_xml(self):

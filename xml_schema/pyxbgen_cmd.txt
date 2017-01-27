@@ -1,0 +1,1 @@
+pyxbgen -u scan.xsd  -m binding

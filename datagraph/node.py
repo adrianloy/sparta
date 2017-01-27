@@ -39,8 +39,7 @@ class HostNode(Node):
         host.ip = self.host_ip
         host.port = []
         for child in self.children:
-            if type(child) is not VulNode: #TODO adapt vulnode class
-                host.port.append(child.generate_dom())
+            host.port.append(child.generate_dom())
         return host
 
 
@@ -57,8 +56,12 @@ class PortNode(Node):
         port.port = self.port
         port.standardService = self.standard_service_name
         port.issue = []
+        port.vuln = []
         for child in self.children:
-            port.issue.append(child.generate_dom())
+            if type(child) is VulNode:
+                port.vuln.append(child.generate_dom())
+            if type(child) is ProcessNode:
+                port.issue.append(child.generate_dom())
         return port
 
 
@@ -73,7 +76,7 @@ class ProcessNode(Node):
     def generate_dom(self):
         issue = bind.issue()
         issue.tool = self.process_name
-        issue.text = self.process_output
+        issue.output = self.process_output
         return issue
 
 
@@ -88,8 +91,12 @@ class VulNode(Node):
         self.longdescr = longdescr
         self.fixstr = fixstr
 
-    #def generate_dom(self):
-    #    issue = bind.issue()
-    #    issue.tool = self.name
-    #    issue.text = self.descr
-    #    return issue
+    def generate_dom(self):
+        vuln = bind.vuln()
+        vuln.severity = self.severity
+        vuln.url = self.url
+        vuln.name = self.name
+        vuln.descr = self.descr
+        vuln.longdescr = self.longdescr
+        vuln.fixstr = self.fixstr
+        return vuln
