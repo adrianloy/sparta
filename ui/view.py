@@ -45,6 +45,7 @@ class View(QtCore.QObject):
     def setController(self,
                       controller):  # the view needs access to controller methods to link gui actions with real actions
         self.controller = controller
+        self.data_graph_.setController(controller) #TODO not so nice design atm
 
     def startOnce(self):
         self.fixedTabsCount = self.ui.ServicesTabWidget.count()  # the number of fixed host tabs (services, scripts, information, notes)

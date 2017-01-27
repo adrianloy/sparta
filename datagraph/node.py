@@ -17,6 +17,12 @@ class Node(object):
         self.data_graph_.nodes_[child.node_id_] = child
         return child.node_id_
 
+    def add_childlist(self, childlist):
+        childIDs = []
+        for child in childlist:
+            childIDs.append(self.add_child(child))
+        return childIDs
+
     def generate_dom(self):
         return
 
@@ -33,7 +39,8 @@ class HostNode(Node):
         host.ip = self.host_ip_
         host.port = []
         for child in self.children_:
-            host.port.append(child.generate_dom())
+            if type(child) is not VulNode: #TODO adapt vulnode class
+                host.port.append(child.generate_dom())
         return host
 
 
@@ -68,3 +75,21 @@ class ProcessNode(Node):
         issue.tool = self.process_name_
         issue.text = self.process_output_
         return issue
+
+
+class VulNode(Node):
+
+    def __init__(self, data_graph, severity, url,name, descr, longdescr, fixstr):
+        Node.__init__(self, data_graph)
+        self.severity = severity
+        self.url = url
+        self.name = name
+        self.descr = descr
+        self.longdescr = longdescr
+        self.fixstr = fixstr
+
+    #def generate_dom(self):
+    #    issue = bind.issue()
+    #    issue.tool = self.name
+    #    issue.text = self.descr
+    #    return issue

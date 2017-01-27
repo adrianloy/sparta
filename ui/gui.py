@@ -20,7 +20,6 @@ try:
 except AttributeError:
     _fromUtf8 = lambda s: s
 
-
 class Ui_MainWindow(QtCore.QObject):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName(_fromUtf8("MainWindow"))

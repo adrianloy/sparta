@@ -1,6 +1,8 @@
 from node import *
 from app.auxiliary import *
 import xml_schema.binding as bind
+import app.logic as logic
+from parsers.W3afParser import *
 
 
 class DataGraph(object):
@@ -12,7 +14,11 @@ class DataGraph(object):
         self.view_ = view
         self.host_dict_ = {}
         self.port_dict_ = {}
+        self.vul_dict_ = {}
         self.process_dict_ = {}
+
+    def setController(self, controller): #ugly design, but controller isnt set in view.py when init is called
+        self.controller = controller
 
     def get_new_id(self):
         new_id = self.counter_
@@ -21,6 +27,11 @@ class DataGraph(object):
 
     def get_node(self, node_id):
         return self.nodes_[node_id]
+
+    def getHostNodeByIP(self,ip): #normally host list is short so its fine
+        for node in self.host_dict_.values():
+            if node.host_ip_ == ip:
+                return node
 
     def clear(self):
         self.root_ = Node(self)
@@ -67,6 +78,22 @@ class DataGraph(object):
                 process_node_id = port_node.add_child(process_node)
                 self.process_dict_[process.id] = process_node
                 self.view_.ui.addNodeTo(port_node.node_id_, process_node_id, process.name, "processes")
+
+        #parse the w3af xml output file to generate vulnodes
+        #the file is located in the outputfolder, that is copied when saving the project
+        #path is not in db but is built from the location to the saved file, so we need the logic obj
+        #print(self.controller.logic.outputfolder + '/w3af')
+        w3dir = self.controller.logic.outputfolder + '/w3af/'
+        for filename in os.listdir(w3dir):
+            #if filename.endswith(".asm") or filename.endswith(".py"):
+            myparser = W3afParser(self, w3dir+filename)
+            ip = myparser.getHost()
+            parent = self.getHostNodeByIP(ip)
+            for vulNode in myparser.getVulNodes():
+                vulNodeID = parent.add_child(vulNode)
+                self.view_.ui.addNodeTo(parent.node_id_, vulNodeID, vulNode.name, "vulnerabilities")
+                self.vul_dict_[vulNodeID] = vulNode
+
 
     def save_as_xml(self):
         scan = bind.scan()
