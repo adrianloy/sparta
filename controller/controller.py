@@ -683,9 +683,6 @@ class Controller():
                         s = p.get_service()
                         if not (s is None):
                             self.runToolsFor(s.name, h.ip, p.portId, p.protocol)
-                        if p.get_service().name == 'http' or p.get_service().name == 'https':
-                            print('\t[+] Running tools for: w3af on ' + str(h.ip) + ":" + str(p.portId))
-                            self.runW3af(h.ip,p.portId)
 
             print '-----------------------------------------------'
         print '[+] Scheduler ended!'
@@ -724,34 +721,3 @@ class Controller():
                             break
 
     #
-    def runW3af(self, ip, port):
-        stage = 1
-        self.logic.createFolderForTool("w3af")  # create folder for tool if necessary
-#        if not stop:
-        textbox = self.view.createNewTabForHost(str(ip), 'w3af (stage ' + str(stage) + ')', True)
-        outputfile = self.logic.runningfolder + "/w3af/" + getTimestamp() + '-w3afstage' + str(stage) + ".xml"
-        if not os.path.exists('./scripts/w3af_script1.w3af'):
-            print("Cannot find a w3af script to execute.")
-            return
-
-        #print '-----------------DEBUG DEBUG DEBUG BRO------------------------------'
-        #print self.logic.runningfolder
-        #print self.logic.outputfolder
-        script = ""
-        moddedScript_location = self.logic.runningfolder + "/w3af/w3afscript" + str(ip) + ".w3af"
-        with open('./scripts/w3af_script1.w3af', 'r') as scriptfile:
-            script=scriptfile.read()
-            script=script.replace('[[VAR_TARGET_URL]]', ip)
-            script=script.replace('[[VAR_OUTFILE]]', outputfile)
-        moddedFile = open(moddedScript_location,'w')
-        moddedFile.write(script)
-        moddedFile.close()
-
-
-        if os.path.exists('/home/cedric/git/w3af/w3af_console'):
-            command = "/home/cedric/git/w3af/w3af_console -s " + moddedScript_location
-        else:
-            command = "w3af_console -s " + moddedScript_location
-
-        self.runCommand('w3af', 'w3af (stage ' + str(stage) + ')', str(ip), port, '', command,
-                        getTimestamp(True), outputfile, textbox)
