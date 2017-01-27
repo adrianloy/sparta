@@ -16,8 +16,15 @@ class W3afParser:
         try:
             self.__dom = xml.dom.minidom.parse(xml_input)
             targetstr = self.__dom.getElementsByTagName('scan-info')[0].getAttribute('target')
-            finds = re.findall(r'[0-9]+(?:\.[0-9]+){3}', targetstr)
-            self.host = finds[0]
+            finds = re.findall(r'[0-9]+(?:\.[0-9]+){3}:[0-9]+', targetstr)
+            split = finds[0].split(":")
+            if len(split) == 0:
+                print('Error: Could not parse port from w3af xml. Maybe you set target = [ip] instead of [ip:port]?')
+                self.host = re.findall(r'[0-9]+(?:\.[0-9]+){3}', targetstr)[0]
+                self.port = ''
+            else:
+                self.host = split[0]
+                self.port = split[1]
             for vul_xml_node in self.__dom.getElementsByTagName('vulnerability'):
                 severity = vul_xml_node.getAttribute('severity')
                 url = vul_xml_node.getAttribute('url')
@@ -43,6 +50,9 @@ class W3afParser:
 
     def getHost(self):
         return self.host
+
+    def getPort(self):
+        return self.port
 
 
 def test():

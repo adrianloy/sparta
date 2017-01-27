@@ -33,6 +33,12 @@ class HostNode(Node):
         Node.__init__(self, data_graph)
         self.host_id = host_id
         self.host_ip = host_ip
+        self.portNodeDict = {}
+
+    def add_child(self, child):
+        if type(child) is PortNode:
+            self.portNodeDict[child.port] = child
+        return Node.add_child(self,child)
 
     def generate_dom(self):
         host = bind.host()

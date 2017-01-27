@@ -86,7 +86,9 @@ class DataGraph(object):
                 #if filename.endswith(".asm") or filename.endswith(".py"):
                 myparser = W3afParser(self, w3dir+filename)
                 ip = myparser.getHost()
-                parent = self.getHostNodeByIP(ip)
+                port = myparser.getPort()
+                grandfather = self.getHostNodeByIP(ip)
+                parent = grandfather.portNodeDict[port]
                 for vulNode in myparser.getVulNodes():
                     vulNodeID = parent.add_child(vulNode)
                     self.view.ui.addNodeTo(parent.node_id, vulNodeID, vulNode.name, "vulnerabilities")
