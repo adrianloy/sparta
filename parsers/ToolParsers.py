@@ -55,6 +55,47 @@ class W3afParser:
         return self.port
 
 
+class HydraParser:
+
+    def __init__(self,data_graph, hydraoutstr):
+        '''constructor function, need a w3af xml file name as the argument. Adds vulnNodes to the gui dom'''
+        self.__vulnodes = []
+        self.host = re.findall(r'[0-9]+(?:\.[0-9]+){3}', targetstr)[0]
+        portstr = re.findall(r'port [0-9]+', targetstr)[0]
+        self.port = portstr[5:]
+        split = finds[0].split(":")
+
+        for line in hydraoutstr.split('\n'):
+            for vul_xml_node in self.__dom.getElementsByTagName('vulnerability'):
+                severity = vul_xml_node.getAttribute('severity')
+                url = vul_xml_node.getAttribute('url')
+                name = vul_xml_node.getAttribute('name')
+                descr = vul_xml_node.getElementsByTagName('description')[0].firstChild.data
+                if len(vul_xml_node.getElementsByTagName('long-description')) == 0:
+                    longdescr = ''
+                else:
+                    longdescr = vul_xml_node.getElementsByTagName('long-description')[0].firstChild.data
+                if len(vul_xml_node.getElementsByTagName('fix-guidance')) == 0:
+                    fixstr = ''
+                else:
+                    fixstr = vul_xml_node.getElementsByTagName('fix-guidance')[0].firstChild.data
+                newnode = gnode.VulNode(data_graph, severity, url,name, descr, longdescr, fixstr)
+                self.__vulnodes.append(newnode)
+        #except Exception as ex:
+        #    print "\t[-] Parser error! Invalid w3af xml output file!"
+        #    print(str(ex))
+        #    raise
+
+    def getVulNodes(self):
+        return self.__vulnodes
+
+    def getHost(self):
+        return self.host
+
+    def getPort(self):
+        return self.port
+
+
 def test():
     print('start test')
     myparser = W3afParser('/home/adrian/Documents/WS16/security/w3afScanAsus.xml')

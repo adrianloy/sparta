@@ -13,7 +13,7 @@ Copyright (c) 2015 SECFORCE (Antonio Quina and Leonidas Stavliotis)
 
 import sys, os, ntpath, signal, re, subprocess  # for file operations, to kill processes, for regex, for subprocesses
 import Queue
-import parsers.W3afParser as wparser
+import parsers.ToolParsers as wparser
 from PyQt4.QtGui import *  # for filters dialog
 from app.logic import *
 from app.auxiliary import *

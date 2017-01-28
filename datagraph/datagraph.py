@@ -2,7 +2,7 @@ from node import *
 from app.auxiliary import *
 import xml_schema.binding as bind
 import app.logic as logic
-from parsers.W3afParser import *
+from parsers.ToolParsers import *
 
 
 class DataGraph(object):
