@@ -75,11 +75,28 @@ class DataGraph(object):
                 process_node_id = port_node.add_child(process_node)
                 self.process_dict[process.id] = process_node
                 self.view.ui.addNodeTo(port_node.node_id, process_node_id, process.name, "processes")
+                #check if it was a hydra process, and add vuln nodes if hydra found any valid creds
+                if 'Hydra' in process.output:
+                    hydrapars = HydraParser(self,process.output)
+                    for vulNode in hydrapars.getVulNodes():
+
+                        if hydrapars.getHost() is None or hydrapars.getHost() is '':
+                            grandfather = host_dict[port_node.parent_node_id]
+                        else:
+                            grandfather = self.getHostNodeByIP(hydrapars.getHost())
+
+                        if hydrapars.getHost() is None or hydrapars.getHost() is '':
+                            parent = grandfather.portNodeDict[port_node.port]
+                        else:
+                            parent = grandfather.portNodeDict[hydrapars.getPort()]
+
+                        vulNodeID = parent.add_child(vulNode)
+                        self.view.ui.addNodeTo(parent.node_id, vulNodeID, vulNode.name, "vulnerabilities")
+                        self.vul_dict[vulNodeID] = vulNode
 
         #parse the w3af xml output file to generate vulnodes
         #the file is located in the outputfolder, that is copied when saving the project
         #path is not in db but is built from the location to the saved file, so we need the logic obj
-        #print(self.controller.logic.outputfolder + '/w3af')
         w3dir = self.view.controller.logic.outputfolder + '/w3af/'
         if os.path.isdir(w3dir):
             for filename in os.listdir(w3dir):
