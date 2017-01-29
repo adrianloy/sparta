@@ -539,10 +539,10 @@ class Controller():
         self.updateUITimer.stop()  # update the processes table
         self.updateUITimer.start(900)
         # while the process is running, when there's output to read, display it in the GUI
-        if name is "w3afblabla":
+        if name is 'w3af':
             #TODO overwrite what is shown for w3af by doing a new process cat outputfile and show the console output of that
-            QObject.connect(qProcess, SIGNAL("tests "), qProcess, SLOT("readStdOutput()"))
-            QObject.connect(qProcess, SIGNAL("test test"), qProcess, SLOT("readStdOutput()"))
+            QObject.connect(qProcess, SIGNAL("readyReadStandardOutput()"), qProcess, SLOT("readStdOutput()"))
+            QObject.connect(qProcess, SIGNAL("readyReadStandardError()"), qProcess, SLOT("readStdOutput()"))
         else:
             QObject.connect(qProcess, SIGNAL("readyReadStandardOutput()"), qProcess, SLOT("readStdOutput()"))
             QObject.connect(qProcess, SIGNAL("readyReadStandardError()"), qProcess, SLOT("readStdOutput()"))
