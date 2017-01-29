@@ -39,15 +39,22 @@ class DataGraph(object):
         self.process_dict = {}
 
     def build_graph_from_db(self):
+        self.create_host_nodes_from_db()
+        self.create_port_nodes_from_db()
+        self.create_process_nodes_from_db()
+        self.create_vuln_nodes_from_processes_output()
+
+    def create_host_nodes_from_db(self):
         # insert host when not already inserted
         hosts = self.view.controller.getHostsFromDB(Filters())
         for host in hosts:
             if host.id not in self.host_dict:
-                host_node = HostNode(self, host.id, host.ip)
+                host_node = HostNode(self, host.id, host.ip, host.hostname)
                 host_node_id = self.root.add_child(host_node)
                 self.host_dict[host.id] = host_node
                 self.view.ui.addNodeTo(self.root.node_id, host_node_id, host.ip, "hosts")
 
+    def create_port_nodes_from_db(self):
         # insert port when not already inserted
         ports = self.view.controller.getPortsFromDB()
         for port in ports:
@@ -57,11 +64,13 @@ class DataGraph(object):
                     print "error importing ports from db (host id " + str(host_id) + " not in host_dict)"
                     continue
                 host_node = self.host_dict[host_id]
-                port_node = PortNode(self, port.id, port.number, port.name)
+                port_node = PortNode(self, port.id, port.number, port.name, port.protocol)
                 port_node_id = host_node.add_child(port_node)
                 self.port_dict[port.id] = port_node
-                self.view.ui.addNodeTo(host_node.node_id, port_node_id, port.number + "/" + port.protocol + " (" + port.name + ")", "ports")
+                self.view.ui.addNodeTo(host_node.node_id, port_node_id,
+                                       port.number + "/" + port.protocol + " (" + port.name + ")", "ports")
 
+    def create_process_nodes_from_db(self):
         # insert process when not already inserted
         processes = self.view.controller.getProcessesWithPortIdFromDB()
         for process in processes:
@@ -71,32 +80,16 @@ class DataGraph(object):
                     print "error importing process from db (port id " + str(port_id) + " not in port_dict)"
                     continue
                 port_node = self.port_dict[port_id]
-                process_node = ProcessNode(self, process.id, process.name, process.output)
+                process_node = ProcessNode(self, process.id, process.name, process.output, process.outputfile)
                 process_node_id = port_node.add_child(process_node)
                 self.process_dict[process.id] = process_node
-                self.view.ui.addNodeTo(port_node.node_id, process_node_id, process.name, "processes")
-                #check if it was a hydra process, and add vuln nodes if hydra found any valid creds
-                if 'Hydra' in process.output:
-                    hydrapars = HydraParser(self,process.output)
-                    for vulNode in hydrapars.getVulNodes():
+                #self.view.ui.addNodeTo(port_node.node_id, process_node_id, process.name, "processes")
 
-                        if hydrapars.getHost() is None or hydrapars.getHost() is '':
-                            grandfather = host_dict[port_node.parent_node_id]
-                        else:
-                            grandfather = self.getHostNodeByIP(hydrapars.getHost())
-
-                        if hydrapars.getHost() is None or hydrapars.getHost() is '':
-                            parent = grandfather.portNodeDict[port_node.port]
-                        else:
-                            parent = grandfather.portNodeDict[hydrapars.getPort()]
-
-                        vulNodeID = parent.add_child(vulNode)
-                        self.view.ui.addNodeTo(parent.node_id, vulNodeID, vulNode.name, "vulnerabilities")
-                        self.vul_dict[vulNodeID] = vulNode
-
+    def create_vuln_nodes_from_processes_output(self):
         #parse the w3af xml output file to generate vulnodes
         #the file is located in the outputfolder, that is copied when saving the project
         #path is not in db but is built from the location to the saved file, so we need the logic obj
+        #print(self.controller.logic.outputfolder + '/w3af')
         w3dir = self.view.controller.logic.outputfolder + '/w3af/'
         if os.path.isdir(w3dir):
             for filename in os.listdir(w3dir):
@@ -110,7 +103,6 @@ class DataGraph(object):
                     vulNodeID = parent.add_child(vulNode)
                     self.view.ui.addNodeTo(parent.node_id, vulNodeID, vulNode.name, "vulnerabilities")
                     self.vul_dict[vulNodeID] = vulNode
-
 
     def save_as_xml(self):
         scan = bind.scan()

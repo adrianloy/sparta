@@ -40,7 +40,7 @@ class View(QtCore.QObject):
         self.startOnce()  # initialisations that happen only once, when the SPARTA is launched
         self.startConnections()  # signal initialisations (signals/slots, actions, etc)
 
-        self.data_graph_ = DataGraph(self)
+        self.data_graph = DataGraph(self)
 
     def setController(self,
                       controller):  # the view needs access to controller methods to link gui actions with real actions

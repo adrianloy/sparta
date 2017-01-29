@@ -223,7 +223,7 @@ class Logic():
         return metadata.bind.execute(tmp_query).fetchall()
 
     def getProcessesWithPortIdFromDB(self):
-        tmp_query = '''SELECT Processes.id, Ports.id AS port_id, Processes.name, Outputs.output
+        tmp_query = '''SELECT Processes.id, Ports.id AS port_id, Processes.name, Processes.outputfile, Outputs.output
         FROM db_tables_process AS Processes
         INNER JOIN db_tables_process_output AS Outputs
         INNER JOIN db_tables_nmap_host AS Hosts
