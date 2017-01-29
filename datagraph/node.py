@@ -26,6 +26,10 @@ class Node(object):
     def generate_dom(self):
         return
 
+    def __str__(self):
+        result = "Node (id = " + str(self.node_id) + ")"
+        return result
+
 
 class HostNode(Node):
 
@@ -49,6 +53,10 @@ class HostNode(Node):
         for child in self.children:
             host.port.append(child.generate_dom())
         return host
+
+    def __str__(self):
+        result = "HostNode (id = " + str(self.node_id) + ")\n\nIP: " + self.host_ip + "\nHostname: " + self.host_name
+        return result
 
 
 class PortNode(Node):
@@ -74,6 +82,10 @@ class PortNode(Node):
                 port.issue.append(child.generate_dom())
         return port
 
+    def __str__(self):
+        result = "PortNode (id = " + str(self.node_id) + ")\n\nNumber: " + self.port_number + "\nProtocol: " + self.port_protocol + "\nStandard Service: " + self.standard_service_name
+        return result
+
 
 class ProcessNode(Node):
 
@@ -90,6 +102,10 @@ class ProcessNode(Node):
         process.output = self.process_output
         process.outputfile = self.process_outputfile
         return process
+
+    def __str__(self):
+        result = "ProcessNode (id = " + str(self.node_id) + ")\n\nName: " + self.process_name + "\nOutput: " + self.process_output + "\nOutputfile: " + self.process_outputfile
+        return result
 
 
 class VulNode(Node):
@@ -112,3 +128,7 @@ class VulNode(Node):
         vuln.longdescr = self.longdescr
         vuln.fixstr = self.fixstr
         return vuln
+
+    def __str__(self):
+        result = "VulnNode (id = " + str(self.node_id) + ")\n\nName: " + self.name + "\nSeverity: " + self.severity + "\nURL: " + self.url + "\nDescription: " + self.descr + "\nLong Description: " + self.longdescr + "\nFix: " + self.fixstr
+        return result

@@ -14,6 +14,7 @@ Copyright (c) 2014 SECFORCE (Antonio Quina and Leonidas Stavliotis)
 # from PyQt4 import QtCore, QtGui
 from ui.dialogs import *  # for the screenshots (image viewer)
 from PyQt4 import QtWebKit
+from PyQt4 import Qt as qt
 
 try:
     _fromUtf8 = QtCore.QString.fromUtf8
@@ -252,23 +253,33 @@ class Ui_MainWindow(QtCore.QObject):
         self.button2.clicked.connect(self.saveButtonAction)
         self.graphViewLayout.addWidget(self.button2)
 
+        self.splitter_5 = QtGui.QSplitter(self.GraphViewTab)
+        self.graphViewLayout.addWidget(self.splitter_5)
+        self.splitter_5.setOrientation(QtCore.Qt.Horizontal)
+        self.splitter_5.setObjectName(_fromUtf8("splitter_5"))
+
+        self.NodeText = QtGui.QPlainTextEdit()
+        self.NodeText.setObjectName(_fromUtf8("NodeText"))
+        self.NodeText.setReadOnly(True)
+        self.splitter_5.addWidget(self.NodeText)
+
         self.GraphViewWidget = QtWebKit.QWebView()
         file_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "graph/graph.html"))
         local_url = QUrl.fromLocalFile(file_path)
         self.GraphViewWidget.load(local_url)
         self.GraphViewWidget.setObjectName(_fromUtf8("GraphViewTab"))
         self.GraphViewWidget.page().mainFrame().addToJavaScriptWindowObject("graphViewObject", self)
-        self.graphViewLayout.addWidget(self.GraphViewWidget)
+        self.splitter_5.addWidget(self.GraphViewWidget)
 
         self.MainTabWidget.addTab(self.GraphViewTab, _fromUtf8(""))
 
     def reloadButtonAction(self):
         self.GraphViewWidget.page().mainFrame().evaluateJavaScript("clear()")
-        self.view.data_graph_.clear();
-        self.view.data_graph_.build_graph_from_db()
+        self.view.data_graph.clear();
+        self.view.data_graph.build_graph_from_db()
 
     def saveButtonAction(self):
-        self.view.data_graph_.save_as_xml()
+        self.view.data_graph.save_as_xml()
 
     def addNodeTo(self, parent_id, id, label, group):
         js = "addNode(" + str(parent_id) + ", " + str(id) + ", \"" + label + "\", \"" + group + "\")"
@@ -276,7 +287,7 @@ class Ui_MainWindow(QtCore.QObject):
 
     @QtCore.pyqtSlot(str)
     def clickedOnNode(self, node_id):
-        print "clicked on node with id " + node_id
+        self.NodeText.setPlainText(qt.QString(str(self.view.data_graph.get_node(node_id.toInt()[0]))))
 
     ####################
 
