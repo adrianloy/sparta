@@ -1,4 +1,5 @@
 import xml_schema.binding as bind
+import os.path
 
 
 class Node(object):
@@ -93,18 +94,23 @@ class ProcessNode(Node):
         Node.__init__(self, data_graph)
         self.process_id = process_id
         self.process_name = process_name
-        self.process_output = process_output
+        self.process_terminal_output = process_output
         self.process_outputfile = process_outputfile
+        self.process_file_output = ''
+        if os.path.isfile(self.process_outputfile):
+            f = open(self.process_outputfile, 'r')
+            self.process_file_output = f.read()
 
     def generate_dom(self):
         process = bind.process()
         process.tool = self.process_name
-        process.output = self.process_output
+        process.terminal_output = self.process_terminal_output
         process.outputfile = self.process_outputfile
+        process.file_output = self.process_file_output
         return process
 
     def __str__(self):
-        result = "ProcessNode (id = " + str(self.node_id) + ")\n\nName: " + self.process_name + "\nOutput: " + self.process_output + "\nOutputfile: " + self.process_outputfile
+        result = "ProcessNode (id = " + str(self.node_id) + ")\n\nName: " + self.process_name + "\nTerminal Output: " + self.process_terminal_output + "\nOutputfile: " + self.process_outputfile + "\nFile Output: " + self.process_file_output
         return result
 
 

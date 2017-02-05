@@ -14,8 +14,9 @@
 
     <xs:complexType name="process">
         <xs:sequence>
-            <xs:element name="output" type="xs:string"/>
+            <xs:element name="terminal_output" type="xs:string"/>
             <xs:element name="outputfile" type="xs:string"/>
+            <xs:element name="file_output" type="xs:string"/>
         </xs:sequence>
         <xs:attribute name="tool" type="xs:string"/>
     </xs:complexType>

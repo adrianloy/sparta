@@ -19,23 +19,23 @@ else:
     protocol = 'http'
 
 zap = '/opt/ZAP_2.5.0/zap.sh'
-host = '127.0.0.1'
+host = 'localhost'
 port = '8080'
 api_key = 'ZAPROXY-PLUGIN'
 
 command = 'bash ' + zap + ' -daemon -host ' + host + ' -port ' + port + ' -config api.key=' + api_key + ' > ' + output
 process = subprocess.Popen(command, stdout=subprocess.PIPE, shell=True, preexec_fn=os.setsid)
 
-def kill_thread():
-    os.killpg(os.getpgid(process.pid), signal.SIGTERM)
-
-atexit.register(kill_thread)
+#def kill_thread():
+#    os.killpg(os.getpgid(process.pid), signal.SIGTERM)
+#
+#atexit.register(kill_thread)
 
 time.sleep(10)
 
-zap = ZAPv2(proxies={'http': 'http://' + host + ':' + port, 'https': 'https://' + host + ':' + port})
+zap = ZAPv2(proxies={'http': 'http://' + host + ':' + port})
 
-target_url = protocol + '://' + target_ip + ':' + target_port + '/'
+target_url = protocol + '://' + target_ip + ':' + target_port
 
 print 'Accessing target %s' % target_url
 # try have a unique enough session...
