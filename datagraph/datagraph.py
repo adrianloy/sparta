@@ -36,6 +36,7 @@ class DataGraph(object):
         self.nodes = {0: self.root}
         self.host_dict = {}
         self.port_dict = {}
+        self.vul_dict = {}
         self.process_dict = {}
 
     def build_graph_from_db(self):
@@ -52,7 +53,7 @@ class DataGraph(object):
                 host_node = HostNode(self, host.id, host.ip, host.hostname)
                 host_node_id = self.root.add_child(host_node)
                 self.host_dict[host.id] = host_node
-                self.view.ui.addNodeTo(self.root.node_id, host_node_id, host.ip, "hosts")
+                self.view.ui.addNodeTo(self.root.node_id, host_node_id, host.ip + " (" + host.hostname + ")", "hosts")
 
     def create_port_nodes_from_db(self):
         # insert port when not already inserted
@@ -86,14 +87,14 @@ class DataGraph(object):
                 self.view.ui.addNodeTo(port_node.node_id, process_node_id, process.name, "processes")
                 #check if it was a hydra process, and add vuln nodes if hydra found any valid creds
                 if 'Hydra' in process.output:
-                    self.create_vuln_nodes_from_hydra_output(process.output)
+                    self.create_vuln_nodes_from_hydra_output(process.output, port_node)
 
-    def create_vuln_nodes_from_hydra_output(self, hydraoutput):
+    def create_vuln_nodes_from_hydra_output(self, hydraoutput, port_node):
         hydrapars = HydraParser(self,hydraoutput)
         for vulNode in hydrapars.getVulNodes():
 
             if hydrapars.getHost() is None or hydrapars.getHost() is '':
-                grandfather = host_dict[port_node.parent_node_id]
+                grandfather = self.host_dict[port_node.parent_node_id]
             else:
                 grandfather = self.getHostNodeByIP(hydrapars.getHost())
 

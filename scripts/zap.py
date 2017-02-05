@@ -19,11 +19,12 @@ else:
     protocol = 'http'
 
 zap = '/opt/ZAP_2.5.0/zap.sh'
-host = 'localhost'
+host = '127.0.0.1'
 port = '8080'
 api_key = 'ZAPROXY-PLUGIN'
 
 command = 'bash ' + zap + ' -daemon -host ' + host + ' -port ' + port + ' -config api.key=' + api_key + ' > ' + output
+print 'Starting ZAP daemon...'
 process = subprocess.Popen(command, stdout=subprocess.PIPE, shell=True, preexec_fn=os.setsid)
 
 #def kill_thread():
@@ -31,7 +32,8 @@ process = subprocess.Popen(command, stdout=subprocess.PIPE, shell=True, preexec_
 #
 #atexit.register(kill_thread)
 
-time.sleep(10)
+print 'wait 30 sec...'
+time.sleep(30)
 
 zap = ZAPv2(proxies={'http': 'http://' + host + ':' + port})
 

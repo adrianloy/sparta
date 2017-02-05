@@ -20,13 +20,13 @@ class NodesTreeViewer(QtGui.QWidget):
     def build_from(self, data_graph):
         root = self.treeWidget.invisibleRootItem()
         for host_id, host_node in data_graph.host_dict.iteritems():
-            host_item = self.add_child(root, 0, host_node.host_ip)
+            host_item = self.add_child(root, 0, host_node.host_ip + " (" + host_node.host_name + ")")
             self.host_dict[host_id] = host_item
             self.item_dict[host_node.node_id] = host_item
 
         for port_id, port_node in data_graph.port_dict.iteritems():
             host_item = self.host_dict[data_graph.get_node(port_node.parent_node_id).host_id]
-            port_item = self.add_child(host_item, 1, port_node.port_number)
+            port_item = self.add_child(host_item, 1, port_node.port_number + "/" + port_node.port_protocol + " (" + port_node.standard_service_name + ")")
             self.port_dict[port_id] = port_item
             self.item_dict[port_node.node_id] = port_item
 
