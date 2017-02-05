@@ -12,9 +12,10 @@ Copyright (c) 2014 SECFORCE (Antonio Quina and Leonidas Stavliotis)
 '''
 
 # from PyQt4 import QtCore, QtGui
-from ui.dialogs import *  # for the screenshots (image viewer)
 from PyQt4 import QtWebKit
-from PyQt4 import Qt as qt
+
+from ui.dialogs import *  # for the screenshots (image viewer)
+from ui.graph.nodestreeviewer import NodesTreeViewer
 
 try:
     _fromUtf8 = QtCore.QString.fromUtf8
@@ -258,10 +259,8 @@ class Ui_MainWindow(QtCore.QObject):
         self.splitter_5.setOrientation(QtCore.Qt.Horizontal)
         self.splitter_5.setObjectName(_fromUtf8("splitter_5"))
 
-        self.NodeText = QtGui.QPlainTextEdit()
-        self.NodeText.setObjectName(_fromUtf8("NodeText"))
-        self.NodeText.setReadOnly(True)
-        self.splitter_5.addWidget(self.NodeText)
+        self.NodesTreeView = NodesTreeViewer()
+        self.splitter_5.addWidget(self.NodesTreeView)
 
         self.GraphViewWidget = QtWebKit.QWebView()
         file_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "graph/graph.html"))
@@ -275,8 +274,10 @@ class Ui_MainWindow(QtCore.QObject):
 
     def reloadButtonAction(self):
         self.GraphViewWidget.page().mainFrame().evaluateJavaScript("clear()")
-        self.view.data_graph.clear();
+        self.view.data_graph.clear()
+        self.NodesTreeView.clear()
         self.view.data_graph.build_graph_from_db()
+        self.NodesTreeView.build_from(self.view.data_graph)
 
     def saveButtonAction(self):
         self.view.data_graph.save_as_xml()
@@ -287,7 +288,14 @@ class Ui_MainWindow(QtCore.QObject):
 
     @QtCore.pyqtSlot(str)
     def clickedOnNode(self, node_id):
-        self.NodeText.setPlainText(qt.QString(str(self.view.data_graph.get_node(node_id.toInt()[0]))))
+        node_id_int = node_id.toInt()[0]
+        if node_id_int != 0:
+            item = self.NodesTreeView.item_dict[node_id_int]
+            self.NodesTreeView.treeWidget.scrollToItem(item)
+            self.NodesTreeView.treeWidget.clearSelection()
+            self.NodesTreeView.treeWidget.setItemSelected(item, True)
+            self.NodesTreeView.treeWidget.expandItem(item)
+        return
 
     ####################
 
