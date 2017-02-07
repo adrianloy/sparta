@@ -5,9 +5,8 @@ import sys
 import time
 from pprint import pprint
 from zapv2 import ZAPv2
-import atexit
 import subprocess
-import signal
+import socket
 
 
 target_ip = sys.argv[1]
@@ -25,46 +24,35 @@ api_key = 'ZAPROXY-PLUGIN'
 
 command = 'bash ' + zap + ' -daemon -host ' + host + ' -port ' + port + ' -config api.key=' + api_key + ' > ' + output
 print 'Starting ZAP daemon...'
+print '!!! Remember to shutdown the ZAP daemon after all scans are done !!!'
 process = subprocess.Popen(command, stdout=subprocess.PIPE, shell=True, preexec_fn=os.setsid)
 
-#def kill_thread():
-#    os.killpg(os.getpgid(process.pid), signal.SIGTERM)
-#
-#atexit.register(kill_thread)
-
-print 'wait 30 sec...'
-time.sleep(30)
+connected = False
+port_number = int(port)
+while not connected:
+    s = socket.socket()
+    try:
+        s.connect((host, port_number))
+        connected = True
+    except Exception as e:
+        print 'Retrying to connect in 10 sec...'
+        time.sleep(10)
+    finally:
+        s.close()
 
 zap = ZAPv2(proxies={'http': 'http://' + host + ':' + port})
-
 target_url = protocol + '://' + target_ip + ':' + target_port
-
-print 'Accessing target %s' % target_url
 zap.urlopen(target_url)
-# Give the sites tree a chance to get updated
-time.sleep(5)
-
-#print 'Spidering target %s' % target_url
-#scanid = zap.spider.scan(target_url, apikey=api_key)
-# Give the Spider a chance to start
-#time.sleep(2)
-#while (int(zap.spider.status(scanid)) < 100):
-#    print 'Spider progress %: ' + zap.spider.status(scanid)
-#    time.sleep(10)
-
-print 'Spider completed'
-# Give the passive scanner a chance to finish
-time.sleep(5)
-
+time.sleep(10)
 print 'Scanning target %s' % target_url
 print '(report every 10 sec)'
-scanid = zap.ascan.scan(target_url, apikey=api_key)
-while (int(zap.ascan.status(scanid)) < 100):
-    print 'Scan progress %: ' + zap.ascan.status(scanid)
+scan_id = zap.ascan.scan(target_url, apikey=api_key)
+while int(zap.ascan.status(scan_id)) < 100:
+    print 'Scan progress %: ' + zap.ascan.status(scan_id)
     time.sleep(10)
 
 print 'Scan completed'
 
-# Report the results
 print 'Alerts: '
-pprint(zap.core.alerts())
+for alert in zap.core.alerts():
+    pprint(alert)

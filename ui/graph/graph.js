@@ -29,7 +29,7 @@ function startNetwork() {
           },
           'processes': {
             shape: 'square',
-            color: "#F78181"
+            color: "#FFFF00"
           },
           'vulnerabilities': {
             shape: 'square',
