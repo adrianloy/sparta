@@ -1,7 +1,7 @@
-# Nmap 7.01 scan initiated Tue Feb  7 22:49:19 2017 as: nmap -Pn -F -T4 -vvvv -oA /tmp/sparta-8xI3E4-running/nmap/20170207224918-nmapfasttcp-192.168.56.2 192.168.56.2
+# Nmap 7.01 scan initiated Thu Feb  9 21:27:02 2017 as: nmap -Pn -F -T4 -vvvv -oA /tmp/sparta-J4vxHs-running/nmap/20170209212702-nmapfasttcp-192.168.56.2 192.168.56.2
 Nmap scan report for 192.168.56.2
-Host is up, received user-set (0.00089s latency).
-Scanned at 2017-02-07 22:49:19 CET for 0s
+Host is up, received user-set (0.0031s latency).
+Scanned at 2017-02-09 21:27:04 CET for 0s
 PORT      STATE  SERVICE          REASON
 7/tcp     closed echo             conn-refused
 9/tcp     closed discard          conn-refused
@@ -105,4 +105,4 @@ PORT      STATE  SERVICE          REASON
 49157/tcp closed unknown          conn-refused
 
 Read data files from: /usr/bin/../share/nmap
-# Nmap done at Tue Feb  7 22:49:19 2017 -- 1 IP address (1 host up) scanned in 0.07 seconds
+# Nmap done at Thu Feb  9 21:27:04 2017 -- 1 IP address (1 host up) scanned in 1.29 seconds

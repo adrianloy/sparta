@@ -1,3 +1,4 @@
+dicttoxml
 PyQt4
 
 #python modules, can be installed via pip

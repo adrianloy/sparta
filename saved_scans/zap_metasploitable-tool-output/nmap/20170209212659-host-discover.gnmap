@@ -1,0 +1,3 @@
+# Nmap 7.01 scan initiated Thu Feb  9 21:27:00 2017 as: nmap -n -sn -T4 -oA /tmp/sparta-J4vxHs-running/nmap/20170209212659-host-discover 192.168.56.2
+Host: 192.168.56.2 ()	Status: Up
+# Nmap done at Thu Feb  9 21:27:00 2017 -- 1 IP address (1 host up) scanned in 0.00 seconds
