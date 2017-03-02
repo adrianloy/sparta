@@ -1,8 +1,8 @@
+#python modules, can be installed via pip
 dicttoxml
 PyQt4
-
-#python modules, can be installed via pip
 pyxb
+nessrest
 
 #other stuff:
 #w3af version > 1.6
