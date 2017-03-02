@@ -1,3 +1,0 @@
-# Nmap 7.01 scan initiated Fri Jan 27 20:31:35 2017 as: nmap -n -sn -T4 -oA /tmp/sparta-PFiQCt-running/nmap/20170127203133-host-discover 91.45.153.16
-Host: 91.45.153.16 ()	Status: Up
-# Nmap done at Fri Jan 27 20:31:35 2017 -- 1 IP address (1 host up) scanned in 0.41 seconds

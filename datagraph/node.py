@@ -1,4 +1,4 @@
-import xml_schema.binding as bind
+import xml_bindings.aggregation as bind
 import os.path
 
 

@@ -1,4 +1,0 @@
-# Nmap 7.01 scan initiated Mon Jan 23 12:13:01 2017 as: nmap -T4 -sV -sT -p T:80,443 -oA /tmp/sparta-m5LFjH-running/nmap/20170123121301-nmapstage1 192.168.56.2
-Host: 192.168.56.2 ()	Status: Up
-Host: 192.168.56.2 ()	Ports: 80/open/tcp//http//Apache httpd 2.2.8 ((Ubuntu) DAV|2)/, 443/closed/tcp//https///
-# Nmap done at Mon Jan 23 12:13:08 2017 -- 1 IP address (1 host up) scanned in 6.84 seconds

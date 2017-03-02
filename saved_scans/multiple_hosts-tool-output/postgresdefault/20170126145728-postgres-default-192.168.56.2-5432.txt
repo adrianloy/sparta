@@ -1,2 +1,0 @@
-# Hydra v8.1 run at 2017-01-26 14:57:29 on 192.168.56.2 postgres (hydra -s 5432 -C ./wordlists/postgres-default-userpass.txt -u -o /tmp/sparta-NbK0Pe-running/postgresdefault/20170126145728-postgres-default-192.168.56.2-5432.txt -f 192.168.56.2 postgres)
-[5432][postgres] host: 192.168.56.2   login: postgres   password: postgres

@@ -1,6 +1,6 @@
 from node import *
 from app.auxiliary import *
-import xml_schema.binding as bind
+import xml_bindings.aggregation as bind
 import app.logic as logic
 from parsers.ToolParsers import *
 

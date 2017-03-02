@@ -1,4 +1,0 @@
-# Nmap 7.01 scan initiated Mon Jan 23 12:13:09 2017 as: nmap -T4 -sV -n -sT -p T:25,135,137,139,445,1433,3306,5432,U:137,161,162,1434 -oA /tmp/sparta-m5LFjH-running/nmap/20170123121309-nmapstage2 192.168.56.2
-Host: 192.168.56.2 ()	Status: Up
-Host: 192.168.56.2 ()	Ports: 25/open/tcp//smtp//Postfix smtpd/, 135/closed/tcp//msrpc///, 137/closed/tcp//netbios-ns///, 139/open/tcp//netbios-ssn//Samba smbd 3.X (workgroup: WORKGROUP)/, 445/open/tcp//netbios-ssn//Samba smbd 3.X (workgroup: WORKGROUP)/, 1433/closed/tcp//ms-sql-s///, 3306/open/tcp//mysql//MySQL 5.0.51a-3ubuntu5/, 5432/open/tcp//postgresql//PostgreSQL DB 8.3.0 - 8.3.7/
-# Nmap done at Mon Jan 23 12:13:22 2017 -- 1 IP address (1 host up) scanned in 12.79 seconds

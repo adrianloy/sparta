@@ -177,6 +177,7 @@ class Logic():
 
             self.db.openDB(str(filename))  # inform the DB to use the new file
             self.cwd = ntpath.dirname(str(filename)) + '/'  # update cwd so it appears nicely in the window title
+            self.updateToolOutputPathsInDB(foldername)
             self.projectname = str(filename)
             self.outputfolder = str(foldername)
 
@@ -190,6 +191,10 @@ class Logic():
             print '\t[-] Something went wrong while saving the project..'
             print "\t[-] Unexpected error:", sys.exc_info()[0]
             return False
+
+    def updateToolOutputPathsInDB(self, foldername):
+        tmp_query = 'UPDATE db_tables_process SET outputfile = REPLACE(outputfile, \'%s\', \'%s\')'
+        result = metadata.bind.execute(tmp_query % (self.runningfolder, foldername)).fetchall()
 
     def isHostInDB(self, host):  # used we don't run tools on hosts out of scope
         tmp_query = 'SELECT host.ip FROM db_tables_nmap_host AS host WHERE host.ip == ? OR host.hostname == ?'

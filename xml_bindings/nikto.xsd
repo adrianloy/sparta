@@ -1,0 +1,60 @@
+
+
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="niktoscan">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="scandetails">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="item" maxOccurs="unbounded" minOccurs="0">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element type="xs:string" name="description"/>
+                    <xs:element type="xs:string" name="uri"/>
+                    <xs:element type="xs:anyURI" name="namelink"/>
+                    <xs:element type="xs:anyURI" name="iplink"/>
+                  </xs:sequence>
+                  <xs:attribute type="xs:int" name="id" use="optional"/>
+                  <xs:attribute type="xs:short" name="osvdbid" use="optional"/>
+                  <xs:attribute type="xs:anyURI" name="osvdblink" use="optional"/>
+                  <xs:attribute type="xs:string" name="method" use="optional"/>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="statistics">
+                <xs:complexType>
+                  <xs:simpleContent>
+                    <xs:extension base="xs:string">
+                      <xs:attribute type="xs:byte" name="elapsed"/>
+                      <xs:attribute type="xs:byte" name="itemsfound"/>
+                      <xs:attribute type="xs:short" name="itemstested"/>
+                      <xs:attribute type="xs:string" name="endtime"/>
+                    </xs:extension>
+                  </xs:simpleContent>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+            <xs:attribute type="xs:string" name="targetip"/>
+            <xs:attribute type="xs:string" name="targethostname"/>
+            <xs:attribute type="xs:byte" name="targetport"/>
+            <xs:attribute type="xs:string" name="targetbanner"/>
+            <xs:attribute type="xs:string" name="starttime"/>
+            <xs:attribute type="xs:anyURI" name="sitename"/>
+            <xs:attribute type="xs:anyURI" name="siteip"/>
+            <xs:attribute type="xs:string" name="hostheader"/>
+            <xs:attribute type="xs:byte" name="errors"/>
+            <xs:attribute type="xs:short" name="checks"/>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+      <xs:attribute type="xs:byte" name="hoststest"/>
+      <xs:attribute type="xs:string" name="options"/>
+      <xs:attribute type="xs:string" name="version"/>
+      <xs:attribute type="xs:string" name="scanstart"/>
+      <xs:attribute type="xs:string" name="scanend"/>
+      <xs:attribute type="xs:string" name="scanelapsed"/>
+      <xs:attribute type="xs:float" name="nxmlversion"/>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
+
