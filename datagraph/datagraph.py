@@ -1,8 +1,9 @@
 from node import *
 from app.auxiliary import *
-import xml_bindings.aggregation as bind
-import app.logic as logic
-from parsers.ToolParsers import *
+# import xml_bindings.aggregation as bind
+from parsers.HydraParser import *
+from parsers.W3afParser import *
+from parsers.NiktoParser import *
 
 
 class DataGraph(object):
@@ -25,7 +26,7 @@ class DataGraph(object):
     def get_node(self, node_id):
         return self.nodes[node_id]
 
-    def getHostNodeByIP(self, ip): #normally host list is short so its fine
+    def get_host_node_by_ip(self, ip):  # normally host list is short so its fine
         for node in self.host_dict.values():
             if node.host_ip == ip:
                 return node
@@ -85,7 +86,10 @@ class DataGraph(object):
                 process_node_id = port_node.add_child(process_node)
                 self.process_dict[process.id] = process_node
                 self.view.ui.addNodeTo(port_node.node_id, process_node_id, process.name, "processes")
-                #check if it was a hydra process, and add vuln nodes if hydra found any valid creds
+                # TODO: remove dev code
+                if 'Nikto' in process.output:
+                    NiktoParser.create_vuln_nodes(process_node)
+                # check if it was a hydra process, and add vuln nodes if hydra found any valid creds
                 if 'Hydra' in process.output:
                     self.create_vuln_nodes_from_hydra_output(process.output, port_node)
 
@@ -96,7 +100,7 @@ class DataGraph(object):
             if hydrapars.getHost() is None or hydrapars.getHost() is '':
                 grandfather = self.host_dict[port_node.parent_node_id]
             else:
-                grandfather = self.getHostNodeByIP(hydrapars.getHost())
+                grandfather = self.get_host_node_by_ip(hydrapars.getHost())
 
             if hydrapars.getHost() is None or hydrapars.getHost() is '':
                 parent = grandfather.portNodeDict[port_node.port]
@@ -108,17 +112,17 @@ class DataGraph(object):
             self.vul_dict[vulNodeID] = vulNode
 
     def create_vuln_nodes_from_w3af_output(self):
-        #parse the w3af xml output file to generate vulnodes
-        #the file is located in the outputfolder, that is copied when saving the project
-        #path is not in db but is built from the location to the saved file, so we need the logic obj
+        # parse the w3af xml output file to generate vulnodes
+        # the file is located in the output folder, that is copied when saving the project
+        # path is not in db but is built from the location to the saved file, so we need the logic obj
         w3dir = self.view.controller.logic.outputfolder + '/w3af/'
         if os.path.isdir(w3dir):
             for filename in os.listdir(w3dir):
-                #if filename.endswith(".asm") or filename.endswith(".py"):
+                # if filename.endswith(".asm") or filename.endswith(".py"):
                 myparser = W3afParser(self, w3dir+filename)
                 ip = myparser.getHost()
                 port = myparser.getPort()
-                grandfather = self.getHostNodeByIP(ip)
+                grandfather = self.get_host_node_by_ip(ip)
                 parent = grandfather.portNodeDict[port]
                 for vulNode in myparser.getVulNodes():
                     vulNodeID = parent.add_child(vulNode)

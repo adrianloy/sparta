@@ -1,5 +1,6 @@
 import xml_bindings.aggregation as bind
 import os.path
+import glob
 
 
 class Node(object):
@@ -18,11 +19,11 @@ class Node(object):
         self.data_graph.nodes[child.node_id] = child
         return child.node_id
 
-    def add_childlist(self, childlist):
-        childIDs = []
-        for child in childlist:
-            childIDs.append(self.add_child(child))
-        return childIDs
+    def add_child_list(self, child_list):
+        child_ids = []
+        for child in child_list:
+            child_ids.append(self.add_child(child))
+        return child_ids
 
     def generate_dom(self):
         return
@@ -84,22 +85,25 @@ class PortNode(Node):
         return port
 
     def __str__(self):
-        result = "PortNode (id = " + str(self.node_id) + ")\n\nNumber: " + self.port_number + "\nProtocol: " + self.port_protocol + "\nStandard Service: " + self.standard_service_name
+        result = "PortNode (id = " + str(self.node_id) + ")\n\nNumber: " + self.port_number + "\nProtocol: " + \
+                 self.port_protocol + "\nStandard Service: " + self.standard_service_name
         return result
 
 
 class ProcessNode(Node):
 
-    def __init__(self, data_graph, process_id, process_name, process_output, process_outputfile):
+    def __init__(self, data_graph, process_id, process_name, process_output, process_output_file):
         Node.__init__(self, data_graph)
         self.process_id = process_id
         self.process_name = process_name
         self.process_terminal_output = process_output
-        self.process_outputfile = process_outputfile
+        self.process_outputfile = process_output_file
         self.process_file_output = ''
-        if os.path.isfile(self.process_outputfile):
-            f = open(self.process_outputfile, 'r')
-            self.process_file_output = f.read()
+        file_candidates = glob.glob(self.process_outputfile + '.*')
+        if len(file_candidates) <= 1:
+            self.process_file_output = open(file_candidates[0], 'r').read()
+        else:
+            print 'error: more than one file found'
 
     def generate_dom(self):
         process = bind.process()
@@ -110,13 +114,15 @@ class ProcessNode(Node):
         return process
 
     def __str__(self):
-        result = "ProcessNode (id = " + str(self.node_id) + ")\n\nName: " + self.process_name + "\nTerminal Output: " + self.process_terminal_output + "\nOutputfile: " + self.process_outputfile + "\nFile Output: " + self.process_file_output
+        result = "ProcessNode (id = " + str(self.node_id) + ")\n\nName: " + self.process_name +\
+                 "\nTerminal Output: " + self.process_terminal_output +\
+                 "\nOutput file: " + self.process_outputfile + "\nFile Output: " + self.process_file_output
         return result
 
 
 class VulNode(Node):
 
-    def __init__(self, data_graph, severity, url,name, descr, longdescr, fixstr):
+    def __init__(self, data_graph, severity, url, name, descr, longdescr, fixstr):
         Node.__init__(self, data_graph)
         self.severity = severity
         self.url = url
@@ -136,5 +142,7 @@ class VulNode(Node):
         return vuln
 
     def __str__(self):
-        result = "VulnNode (id = " + str(self.node_id) + ")\n\nName: " + self.name + "\nSeverity: " + self.severity + "\nURL: " + self.url + "\nDescription: " + self.descr + "\nLong Description: " + self.longdescr + "\nFix: " + self.fixstr
+        result = "VulnNode (id = " + str(self.node_id) + ")\n\nName: " + self.name + "\nSeverity: " + self.severity +\
+                 "\nURL: " + self.url + "\nDescription: " + self.descr + "\nLong Description: " + self.longdescr +\
+                 "\nFix: " + self.fixstr
         return result
