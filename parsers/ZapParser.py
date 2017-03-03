@@ -1,18 +1,26 @@
-import xml_bindings.zap as bind
 from datagraph.node import *
+import untangle
 
 
-class ZAPParser(object):
+class ZapParser(object):
 
-    def __init__(self, process_node):
-        self.process_node = process_node
-        self.data_graph = process_node.data_graph
+    @staticmethod
+    def create_vuln_nodes(process_node):
+        data_graph = process_node.data_graph
 
-    def process(self, output):
-        scan = bind.CreateFromDocument(output)
-        for result in scan.result:
-            vuln = VulNode(self.data_graph, '', '', '', result.name, '', '')
-            self.process_node.add_child(vuln)
+        if process_node.process_file_output == '':
+            print 'process_file_output is empty'
+            return
 
-output = open('zap_output.xml', 'r').read()
-scan = bind.CreateFromDocument(output)
+        scan = untangle.parse(process_node.process_file_output)
+        for issue in scan.zap.issue:
+            try:
+                # TODO: improve vuln node data
+                name = 'ZapIssue'
+                vuln_node = VulNode(data_graph, '', '', name, issue.description.cdata, '', '')
+                port_node = data_graph.get_node(process_node.parent_node_id)
+                vuln_node_id = port_node.add_child(vuln_node)
+                data_graph.view.ui.addNodeTo(port_node.node_id, vuln_node_id, name, "vulnerabilities")
+                data_graph.vul_dict[vuln_node_id] = vuln_node
+            except IndexError:
+                pass

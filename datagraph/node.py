@@ -99,11 +99,11 @@ class ProcessNode(Node):
         self.process_terminal_output = process_output
         self.process_outputfile = process_output_file
         self.process_file_output = ''
-        file_candidates = glob.glob(self.process_outputfile + '.*')
-        if len(file_candidates) <= 1:
+        file_candidates = glob.glob(self.process_outputfile + '*')
+        if len(file_candidates) == 1:
             self.process_file_output = open(file_candidates[0], 'r').read()
         else:
-            print 'error: more than one file found'
+            print 'error: no or more than one file found'
 
     def generate_dom(self):
         process = bind.process()

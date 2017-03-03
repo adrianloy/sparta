@@ -4,6 +4,7 @@ from app.auxiliary import *
 from parsers.HydraParser import *
 from parsers.W3afParser import *
 from parsers.NiktoParser import *
+from parsers.ZapParser import *
 
 
 class DataGraph(object):
@@ -89,6 +90,8 @@ class DataGraph(object):
                 # TODO: remove dev code
                 if 'Nikto' in process.output:
                     NiktoParser.create_vuln_nodes(process_node)
+                if 'ZAP' in process.output:
+                    ZapParser.create_vuln_nodes(process_node)
                 # check if it was a hydra process, and add vuln nodes if hydra found any valid creds
                 if 'Hydra' in process.output:
                     self.create_vuln_nodes_from_hydra_output(process.output, port_node)

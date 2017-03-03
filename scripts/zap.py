@@ -38,7 +38,8 @@ if not connected:
     command = 'bash ' + zap + ' -daemon -host ' + host + ' -port ' + port + ' -config api.key=' + api_key + ' > /dev/null'
     print 'Starting ZAP daemon...'
     print '!!! Remember to shutdown the ZAP daemon after all scans are done !!!'
-    process = subprocess.Popen(command, stdout=subprocess.PIPE, shell=True, preexec_fn=os.setsid)
+    process = subprocess.Popen(command, stdout=subprocess.PIPE, shell=True)
+    print 'PID: ' + str(process.pid)
 
 while not connected:
     s = socket.socket()
@@ -68,8 +69,10 @@ print 'Results written in ' + output
 
 with open(output, 'w') as f:
     f.write('<?xml version="1.0" ?>')
-    f.write('<result>')
+    f.write('<zap>')
     for alert in zap.core.alerts():
         xml = dicttoxml.dicttoxml(alert, root=False)
+        f.write('<issue>')
         f.write(xml)
-    f.write('</result>')
+        f.write('</issue>')
+    f.write('</zap>')
