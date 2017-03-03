@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 
-import os
 import sys
 import time
 from zapv2 import ZAPv2
@@ -38,8 +37,8 @@ if not connected:
     command = 'bash ' + zap + ' -daemon -host ' + host + ' -port ' + port + ' -config api.key=' + api_key + ' > /dev/null'
     print 'Starting ZAP daemon...'
     print '!!! Remember to shutdown the ZAP daemon after all scans are done !!!'
-    process = subprocess.Popen(command, stdout=subprocess.PIPE, shell=True)
-    print 'PID: ' + str(process.pid)
+    process = subprocess.Popen(command, shell=True)
+    print 'pkill -TERM -P ' + str(process.pid)
 
 while not connected:
     s = socket.socket()

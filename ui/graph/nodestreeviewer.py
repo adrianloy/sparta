@@ -13,6 +13,7 @@ class NodesTreeViewer(QtGui.QWidget):
         self.host_dict = {}
         self.port_dict = {}
         self.item_dict = {}
+        self.process_dict = {}
 
     def clear(self):
         self.treeWidget.clear()
@@ -33,6 +34,7 @@ class NodesTreeViewer(QtGui.QWidget):
         for process_id, process_node in data_graph.process_dict.iteritems():
             port_item = self.port_dict[data_graph.get_node(process_node.parent_node_id).port_id]
             process_item = self.add_child(port_item, 2, process_node.process_name)
+            self.process_dict[process_id] = process_item
             self.item_dict[process_node.node_id] = process_item
             item = self.add_child(process_item, 3, '')
             label = QtGui.QLabel(process_node.process_terminal_output)
@@ -40,8 +42,8 @@ class NodesTreeViewer(QtGui.QWidget):
             self.treeWidget.setItemWidget(item, 0, label)
 
         for vuln_id, vuln_node in data_graph.vul_dict.iteritems():
-            port_item = self.port_dict[data_graph.get_node(vuln_node.parent_node_id).port_id]
-            vuln_item = self.add_child(port_item, 2, vuln_node.name)
+            process_item = self.process_dict[data_graph.get_node(vuln_node.parent_node_id).process_id]
+            vuln_item = self.add_child(process_item, 2, vuln_node.name)
             self.item_dict[vuln_node.node_id] = vuln_item
             item = self.add_child(vuln_item, 3, '')
             label = QtGui.QLabel(vuln_node.longdescr)

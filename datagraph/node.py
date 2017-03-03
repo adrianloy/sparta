@@ -103,7 +103,7 @@ class ProcessNode(Node):
         if len(file_candidates) == 1:
             self.process_file_output = open(file_candidates[0], 'r').read()
         else:
-            print 'error: no or more than one file found'
+            print 'info: ' + str(len(file_candidates)) + ' file(s) \'' + self.process_outputfile + '*\' found'
 
     def generate_dom(self):
         process = bind.process()

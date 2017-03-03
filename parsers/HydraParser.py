@@ -1,27 +1,21 @@
 #!/usr/bin/python
 
+from datagraph.node import *
+import re
+
 '''this module used to parse w3af xml report'''
 __author__ = 'adrian'
 
-import xml.dom.minidom
-import re
-import datagraph.node as gnode
 
+class HydraParser(object):
 
-class HydraParser:
-
-    def __init__(self,data_graph, hydraoutstr):
-        '''constructor function, need a w3af xml file name as the argument. Adds vulnNodes to the gui dom'''
-        self.__vulnodes = []
-        ipfinds = re.findall(r'[0-9]+(?:\.[0-9]+){3}', hydraoutstr)
-        if len(ipfinds) > 0:
-            self.host = ipfinds[0]
-        portfinds = re.findall(r'port [0-9]+', hydraoutstr)
-        if len(portfinds) > 0:
-            self.port = portfinds[0][5:]
-        if 'password: ' in hydraoutstr:
-            login = re.findall(r'login: [a-z]+',hydraoutstr)[0]
-            pw = re.findall(r'password: [a-z]+',hydraoutstr)[0]
+    @staticmethod
+    def create_vuln_nodes(process_node):
+        output = process_node.process_terminal_output
+        data_graph = process_node.data_graph
+        if 'password: ' in output:
+            login = re.findall(r'login: [a-z]+', output)[0]
+            pw = re.findall(r'password: [a-z]+', output)[0]
             login = login[7:]
             pw = pw[10:]
 
@@ -29,14 +23,7 @@ class HydraParser:
             longdescr = 'The service uses these unsafe credentials: login: ' + login + ' \t password: ' + pw
             severity = '5.0'
             name = 'Unsafe credentials'
-            newnode = gnode.VulNode(data_graph, severity, '',name, descr, longdescr, '')
-            self.__vulnodes.append(newnode)
-
-    def getVulNodes(self):
-        return self.__vulnodes
-
-    def getHost(self):
-        return self.host
-
-    def getPort(self):
-        return self.port
+            vuln_node = VulNode(data_graph, severity, '', name, descr, longdescr, '')
+            vuln_node_id = process_node.add_child(vuln_node)
+            data_graph.view.ui.addNodeTo(process_node.node_id, vuln_node_id, name, "vulnerabilities")
+            data_graph.vul_dict[vuln_node_id] = vuln_node

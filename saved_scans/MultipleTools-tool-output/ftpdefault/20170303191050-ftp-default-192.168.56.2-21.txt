@@ -1,0 +1,2 @@
+# Hydra v8.1 run at 2017-03-03 19:10:59 on 192.168.56.2 ftp (hydra -s 21 -C ./wordlists/ftp-default-userpass.txt -u -o /tmp/sparta-M1eG0n-running/ftpdefault/20170303191050-ftp-default-192.168.56.2-21.txt -f 192.168.56.2 ftp)
+[21][ftp] host: 192.168.56.2   login: ftp   password: ftp

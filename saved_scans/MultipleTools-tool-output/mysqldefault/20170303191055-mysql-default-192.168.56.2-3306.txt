@@ -1,0 +1,1 @@
+# Hydra v8.1 run at 2017-03-03 19:10:59 on 192.168.56.2 mysql (hydra -s 3306 -C ./wordlists/mysql-default-userpass.txt -u -o /tmp/sparta-M1eG0n-running/mysqldefault/20170303191055-mysql-default-192.168.56.2-3306.txt -f 192.168.56.2 mysql)

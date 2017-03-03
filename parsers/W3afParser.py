@@ -1,66 +1,41 @@
 #!/usr/bin/python
 
+import xml.dom.minidom
+from datagraph.node import *
+
 '''this module used to parse w3af xml report'''
 __author__ = 'adrian'
 
-import xml.dom.minidom
-import re
-import datagraph.node as gnode
 
+class W3afParser(object):
 
-class W3afParser:
-
-    def __init__(self,data_graph, xml_input):
-        '''constructor function, need a w3af xml file name as the argument. Adds vulnNodes to the gui dom'''
-        self.__vulnodes = []
-
+    @staticmethod
+    def create_vuln_nodes(process_node):
+        data_graph = process_node.data_graph
+        output_file = process_node.process_outputfile + '.xml'
         try:
-            self.__dom = xml.dom.minidom.parse(xml_input)
-            targetstr = self.__dom.getElementsByTagName('scan-info')[0].getAttribute('target')
-            ipfinds = re.findall(r'[0-9]+(?:\.[0-9]+){3}', targetstr)
-            if len(ipfinds) > 0:
-                self.host = ipfinds[0]
-            ipportfinds = re.findall(r'[0-9]+(?:\.[0-9]+){3}:[0-9]+', targetstr)
-            if len(ipportfinds) == 0:
-                #if port 80 is specified, w3af omits printing the port at target
-                self.port = '80'
-            else:
-                split = ipportfinds[0].split(":")
-                self.port = split[1]
-            for vul_xml_node in self.__dom.getElementsByTagName('vulnerability'):
+            __dom = xml.dom.minidom.parse(output_file)
+            for vul_xml_node in __dom.getElementsByTagName('vulnerability'):
                 severity = vul_xml_node.getAttribute('severity')
                 url = vul_xml_node.getAttribute('url')
                 name = vul_xml_node.getAttribute('name')
                 descr = vul_xml_node.getElementsByTagName('description')[0].firstChild.data
+
                 if len(vul_xml_node.getElementsByTagName('long-description')) == 0:
                     longdescr = ''
                 else:
                     longdescr = vul_xml_node.getElementsByTagName('long-description')[0].firstChild.data
+
                 if len(vul_xml_node.getElementsByTagName('fix-guidance')) == 0:
                     fixstr = ''
                 else:
                     fixstr = vul_xml_node.getElementsByTagName('fix-guidance')[0].firstChild.data
-                newnode = gnode.VulNode(data_graph, severity, url,name, descr, longdescr, fixstr)
-                self.__vulnodes.append(newnode)
+
+                vuln_node = VulNode(data_graph, severity, url, name, descr, longdescr, fixstr)
+                vuln_node_id = process_node.add_child(vuln_node)
+                data_graph.view.ui.addNodeTo(process_node.node_id, vuln_node_id, name, "vulnerabilities")
+                data_graph.vul_dict[vuln_node_id] = vuln_node
         except Exception as ex:
             print "\t[-] Parser error! Invalid w3af xml output file!"
             print(str(ex))
             raise
-
-    def getVulNodes(self):
-        return self.__vulnodes
-
-    def getHost(self):
-        return self.host
-
-    def getPort(self):
-        return self.port
-
-
-def test():
-    print('start test')
-    myparser = W3afParser('/home/adrian/Documents/WS16/security/w3afScanAsus.xml')
-    #myparser = W3afParser(path)
-
-if __name__ == '__main__':
-    myparser = W3afParser(None,'/home/adrian/Documents/WS16/security/w3afScanAsus.xml')
