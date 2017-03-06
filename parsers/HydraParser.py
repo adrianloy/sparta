@@ -23,7 +23,7 @@ class HydraParser(object):
             longdescr = 'The service uses these unsafe credentials: login: ' + login + ' \t password: ' + pw
             severity = '5.0'
             name = 'Unsafe credentials'
-            vuln_node = VulNode(data_graph, severity, '', name, descr, longdescr, '')
+            vuln_node = IssueNode(data_graph, severity, '', name, descr, longdescr, '')
             vuln_node_id = process_node.add_child(vuln_node)
             data_graph.view.ui.addNodeTo(process_node.node_id, vuln_node_id, name, "vulnerabilities")
             data_graph.vul_dict[vuln_node_id] = vuln_node

@@ -25,11 +25,6 @@ class DataGraph(object):
     def get_node(self, node_id):
         return self.nodes[node_id]
 
-    def get_host_node_by_ip(self, ip):  # normally host list is short so its fine
-        for node in self.host_dict.values():
-            if node.host_ip == ip:
-                return node
-
     def clear(self):
         self.root = Node(self)
         self.counter = 1
@@ -80,7 +75,7 @@ class DataGraph(object):
                     print "error importing process from db (port id " + str(port_id) + " not in port_dict)"
                     continue
                 port_node = self.port_dict[port_id]
-                process_node = ProcessNode(self, process.id, process.name, process.output, process.outputfile)
+                process_node = ToolNode(self, process.id, process.name, process.output, process.outputfile)
                 process_node_id = port_node.add_child(process_node)
                 self.process_dict[process.id] = process_node
                 self.view.ui.addNodeTo(port_node.node_id, process_node_id, process.name, "processes")

@@ -74,14 +74,11 @@ class PortNode(Node):
         port = bind.port()
         port.number = self.port_number
         port.standardService = self.standard_service_name
-        port.issue = []
-        port.vuln = []
+        port.tool = []
         port.protocol = self.port_protocol
         for child in self.children:
-            if type(child) is VulNode:
-                port.vuln.append(child.generate_dom())
-            if type(child) is ProcessNode:
-                port.issue.append(child.generate_dom())
+            port.tool.append(child.generate_dom())
+
         return port
 
     def __str__(self):
@@ -90,7 +87,7 @@ class PortNode(Node):
         return result
 
 
-class ProcessNode(Node):
+class ToolNode(Node):
 
     def __init__(self, data_graph, process_id, process_name, process_output, process_output_file):
         Node.__init__(self, data_graph)
@@ -106,12 +103,12 @@ class ProcessNode(Node):
             print 'info: ' + str(len(file_candidates)) + ' file(s) \'' + self.process_outputfile + '*\' found'
 
     def generate_dom(self):
-        process = bind.process()
-        process.tool = self.process_name
-        process.terminal_output = self.process_terminal_output
-        process.outputfile = self.process_outputfile
-        process.file_output = self.process_file_output
-        return process
+        tool = bind.tool()
+        tool.tool = self.process_name
+        tool.issue = []
+        for child in self.children:
+            tool.issue.append(child.generate_dom())
+        return tool
 
     def __str__(self):
         result = "ProcessNode (id = " + str(self.node_id) + ")\n\nName: " + self.process_name +\
@@ -120,7 +117,7 @@ class ProcessNode(Node):
         return result
 
 
-class VulNode(Node):
+class IssueNode(Node):
 
     def __init__(self, data_graph, severity, url, name, descr, longdescr, fixstr):
         Node.__init__(self, data_graph)
@@ -132,14 +129,14 @@ class VulNode(Node):
         self.fixstr = fixstr
 
     def generate_dom(self):
-        vuln = bind.vuln()
-        vuln.severity = self.severity
-        vuln.url = self.url
-        vuln.name = self.name
-        vuln.descr = self.descr
-        vuln.longdescr = self.longdescr
-        vuln.fixstr = self.fixstr
-        return vuln
+        issue = bind.issue()
+        issue.severity = self.severity
+        issue.url = self.url
+        issue.name = self.name
+        issue.descr = self.descr
+        issue.longdescr = self.longdescr
+        issue.fixstr = self.fixstr
+        return issue
 
     def __str__(self):
         result = "VulnNode (id = " + str(self.node_id) + ")\n\nName: " + self.name + "\nSeverity: " + self.severity +\

@@ -17,7 +17,7 @@ class ZapParser(object):
             try:
                 # TODO: improve vuln node data
                 name = 'ZapIssue'
-                vuln_node = VulNode(data_graph, '', '', name, issue.description.cdata, '', '')
+                vuln_node = IssueNode(data_graph, '', '', name, issue.description.cdata, '', '')
                 # port_node = data_graph.get_node(process_node.parent_node_id)
                 vuln_node_id = process_node.add_child(vuln_node)
                 data_graph.view.ui.addNodeTo(process_node.node_id, vuln_node_id, name, "vulnerabilities")

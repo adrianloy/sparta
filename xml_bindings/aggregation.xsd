@@ -1,6 +1,6 @@
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
 
-    <xs:complexType name="vuln">
+    <xs:complexType name="issue">
         <xs:sequence>
             <xs:element name="name" type="xs:string"/>
             <xs:element name="url" type="xs:string"/>
@@ -10,22 +10,22 @@
             <xs:element name="fixstr" type="xs:string"/>
         </xs:sequence>
     </xs:complexType>
-    <xs:element name="vuln" type="vuln"/>
+    <xs:element name="issue" type="issue"/>
 
-    <xs:complexType name="process">
+    <xs:complexType name="tool">
         <xs:sequence>
-            <xs:element name="terminal_output" type="xs:string"/>
-            <xs:element name="outputfile" type="xs:string"/>
-            <xs:element name="file_output" type="xs:string"/>
+            <!--<xs:element name="terminal_output" type="xs:string"/>-->
+            <!--<xs:element name="outputfile" type="xs:string"/>-->
+            <!--<xs:element name="file_output" type="xs:string"/>-->
+            <xs:element name="issue" type="issue" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
         <xs:attribute name="tool" type="xs:string"/>
     </xs:complexType>
-    <xs:element name="issue" type="process"/>
+    <xs:element name="tool" type="tool"/>
 
     <xs:complexType name="port">
         <xs:sequence>
-            <xs:element name="issue" type="process" minOccurs="0" maxOccurs="unbounded"/>
-            <xs:element name="vuln" type="vuln" minOccurs="0" maxOccurs="unbounded"/>
+            <xs:element name="tool" type="tool" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
         <xs:attribute name="number" type="xs:integer"/>
         <xs:attribute name="protocol" type="xs:string"/>
