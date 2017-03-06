@@ -14,8 +14,8 @@ class DataGraph(object):
         self.view = view
         self.host_dict = {}
         self.port_dict = {}
-        self.vul_dict = {}
-        self.process_dict = {}
+        self.issue_dict = {}
+        self.tool_dict = {}
 
     def get_new_id(self):
         new_id = self.counter
@@ -31,13 +31,13 @@ class DataGraph(object):
         self.nodes = {0: self.root}
         self.host_dict = {}
         self.port_dict = {}
-        self.vul_dict = {}
-        self.process_dict = {}
+        self.tool_dict = {}
+        self.issue_dict = {}
 
     def build_graph_from_db(self):
         self.create_host_nodes_from_db()
         self.create_port_nodes_from_db()
-        self.create_process_nodes_from_db()
+        self.create_tool_nodes_from_db()
 
     def create_host_nodes_from_db(self):
         # insert host when not already inserted
@@ -65,11 +65,11 @@ class DataGraph(object):
                 self.view.ui.addNodeTo(host_node.node_id, port_node_id,
                                        port.number + "/" + port.protocol + " (" + port.name + ")", "ports")
 
-    def create_process_nodes_from_db(self):
+    def create_tool_nodes_from_db(self):
         # insert process when not already inserted
         processes = self.view.controller.getProcessesWithPortIdFromDB()
         for process in processes:
-            if process.id not in self.process_dict:
+            if process.id not in self.tool_dict:
                 port_id = process.port_id
                 if port_id not in self.port_dict:
                     print "error importing process from db (port id " + str(port_id) + " not in port_dict)"
@@ -77,17 +77,17 @@ class DataGraph(object):
                 port_node = self.port_dict[port_id]
                 process_node = ToolNode(self, process.id, process.name, process.output, process.outputfile)
                 process_node_id = port_node.add_child(process_node)
-                self.process_dict[process.id] = process_node
+                self.tool_dict[process.id] = process_node
                 self.view.ui.addNodeTo(port_node.node_id, process_node_id, process.name, "processes")
                 # TODO: find better solution
                 if 'Nikto' in process.output:
-                    NiktoParser.create_vuln_nodes(process_node)
+                    NiktoParser.create_issue_nodes(process_node)
                 if 'ZAP' in process.output:
-                    ZapParser.create_vuln_nodes(process_node)
+                    ZapParser.create_issue_nodes(process_node)
                 if 'Hydra' in process.output:
-                    HydraParser.create_vuln_nodes(process_node)
+                    HydraParser.create_issue_nodes(process_node)
                 if 'w3af' in process.output:
-                    W3afParser.create_vuln_nodes(process_node)
+                    W3afParser.create_issue_nodes(process_node)
 
     def save_as_xml(self):
         scan = bind.scan()

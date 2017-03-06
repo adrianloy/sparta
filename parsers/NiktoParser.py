@@ -5,19 +5,19 @@ import untangle
 class NiktoParser(object):
 
     @staticmethod
-    def create_vuln_nodes(process_node):
-        data_graph = process_node.data_graph
+    def create_issue_nodes(tool_node):
+        data_graph = tool_node.data_graph
 
-        if process_node.process_file_output == '':
+        if tool_node.file_output == '':
             print 'process_file_output is empty'
             return
 
-        scan = untangle.parse(process_node.process_file_output)
+        scan = untangle.parse(tool_node.file_output)
         for item in scan.niktoscan.scandetails.item:
-            # TODO: improve vuln node data
+            # TODO: improve issue node data
             name = 'NiktoIssue'
-            vuln_node = IssueNode(data_graph, '', '', name, item.description.cdata, '', '')
+            issue_node = IssueNode(data_graph, '', '', name, item.description.cdata, '', '')
             # port_node = data_graph.get_node(process_node.parent_node_id)
-            vuln_node_id = process_node.add_child(vuln_node)
-            data_graph.view.ui.addNodeTo(process_node.node_id, vuln_node_id, name, "vulnerabilities")
-            data_graph.vul_dict[vuln_node_id] = vuln_node
+            issue_node_id = tool_node.add_child(issue_node)
+            data_graph.view.ui.addNodeTo(tool_node.node_id, issue_node_id, name, "vulnerabilities")
+            data_graph.issue_dict[issue_node_id] = issue_node

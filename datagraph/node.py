@@ -38,52 +38,52 @@ class HostNode(Node):
     def __init__(self, data_graph, host_id, host_ip, host_name):
         Node.__init__(self, data_graph)
         self.host_id = host_id
-        self.host_ip = host_ip
-        self.host_name = host_name
+        self.ip = host_ip
+        self.name = host_name
         self.portNodeDict = {}
 
     def add_child(self, child):
         if type(child) is PortNode:
-            self.portNodeDict[child.port_number] = child
-        return Node.add_child(self,child)
+            self.portNodeDict[child.number] = child
+        return Node.add_child(self, child)
 
     def generate_dom(self):
         host = bind.host()
-        host.ip = self.host_ip
-        host.hostname = self.host_name
+        host.ip = self.ip
+        host.hostname = self.name
         host.port = []
         for child in self.children:
             host.port.append(child.generate_dom())
         return host
 
     def __str__(self):
-        result = "HostNode (id = " + str(self.node_id) + ")\n\nIP: " + self.host_ip + "\nHostname: " + self.host_name
+        result = "HostNode (id = " + str(self.node_id) + ")\n\nIP: " + self.ip + "\nHostname: " + self.name
         return result
 
 
 class PortNode(Node):
 
-    def __init__(self, data_graph, port_id, port_number, standard_service_name, port_protocol):
+    def __init__(self, data_graph, port_id, port_number, service_name, port_protocol):
         Node.__init__(self, data_graph)
         self.port_id = port_id
-        self.port_number = port_number
-        self.port_protocol = port_protocol
-        self.standard_service_name = standard_service_name
+        self.number = port_number
+        self.protocol = port_protocol
+        self.service_name = service_name
 
     def generate_dom(self):
         port = bind.port()
-        port.number = self.port_number
-        port.standardService = self.standard_service_name
+        port.number = self.number
+        port.standardService = self.service_name
         port.tool = []
-        port.protocol = self.port_protocol
+        port.protocol = self.protocol
         for child in self.children:
             port.tool.append(child.generate_dom())
 
         return port
 
     def __str__(self):
-        result = "PortNode (id = " + str(self.node_id) + ")\n\nNumber: " + self.port_number + "\nProtocol: " + \
-                 self.port_protocol + "\nStandard Service: " + self.standard_service_name
+        result = "PortNode (id = " + str(self.node_id) + ")\n\nNumber: " + self.number + "\nProtocol: " + \
+                 self.protocol + "\nStandard Service: " + self.service_name
         return result
 
 
@@ -91,29 +91,29 @@ class ToolNode(Node):
 
     def __init__(self, data_graph, process_id, process_name, process_output, process_output_file):
         Node.__init__(self, data_graph)
-        self.process_id = process_id
-        self.process_name = process_name
-        self.process_terminal_output = process_output
-        self.process_outputfile = process_output_file
-        self.process_file_output = ''
-        file_candidates = glob.glob(self.process_outputfile + '*')
+        self.process_id = process_id  # in data base it is called process
+        self.name = process_name
+        self.terminal_output = process_output
+        self.outputfile = process_output_file
+        self.file_output = ''
+        file_candidates = glob.glob(self.outputfile + '*')
         if len(file_candidates) == 1:
-            self.process_file_output = open(file_candidates[0], 'r').read()
+            self.file_output = open(file_candidates[0], 'r').read()
         else:
-            print 'info: ' + str(len(file_candidates)) + ' file(s) \'' + self.process_outputfile + '*\' found'
+            print 'info: ' + str(len(file_candidates)) + ' file(s) \'' + self.outputfile + '*\' found'
 
     def generate_dom(self):
         tool = bind.tool()
-        tool.tool = self.process_name
+        tool.tool = self.name
         tool.issue = []
         for child in self.children:
             tool.issue.append(child.generate_dom())
         return tool
 
     def __str__(self):
-        result = "ProcessNode (id = " + str(self.node_id) + ")\n\nName: " + self.process_name +\
-                 "\nTerminal Output: " + self.process_terminal_output +\
-                 "\nOutput file: " + self.process_outputfile + "\nFile Output: " + self.process_file_output
+        result = "ProcessNode (id = " + str(self.node_id) + ")\n\nName: " + self.name +\
+                 "\nTerminal Output: " + self.terminal_output +\
+                 "\nOutput file: " + self.outputfile + "\nFile Output: " + self.file_output
         return result
 
 
