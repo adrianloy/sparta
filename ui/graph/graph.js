@@ -27,11 +27,11 @@ function startNetwork() {
             shape: 'triangle',
             color: "#3ADF00"
           },
-          'processes': {
+          'tools': {
             shape: 'square',
             color: "#FFFF00"
           },
-          'vulnerabilities': {
+          'issues': {
             shape: 'square',
             color: "#F78181"
           }

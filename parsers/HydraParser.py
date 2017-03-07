@@ -25,5 +25,5 @@ class HydraParser(object):
             name = 'Unsafe credentials'
             issue_node = IssueNode(data_graph, severity, '', name, descr, longdescr, '')
             issue_node_id = process_node.add_child(issue_node)
-            data_graph.view.ui.addNodeTo(process_node.node_id, issue_node_id, name, "vulnerabilities")
+            data_graph.view.ui.addNodeTo(process_node.node_id, issue_node_id, name, "issues")
             data_graph.issue_dict[issue_node_id] = issue_node

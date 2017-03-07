@@ -36,21 +36,14 @@ class NodesTreeViewer(QtGui.QWidget):
             tool_item = self.add_child(port_item, 2, tool_node.name)
             self.tool_dict[tool_id] = tool_item
             self.item_dict[tool_node.node_id] = tool_item
-            item = self.add_child(tool_item, 3, '')
-            label = QtGui.QLabel(tool_node.terminal_output)
-            label.setWordWrap(True)
-            self.treeWidget.setItemWidget(item, 0, label)
 
         for issue_id, issue_node in data_graph.issue_dict.iteritems():
             tool_item = self.tool_dict[data_graph.get_node(issue_node.parent_node_id).process_id]
             issue_item = self.add_child(tool_item, 2, issue_node.name)
             self.item_dict[issue_node.node_id] = issue_item
-            item = self.add_child(issue_item, 3, '')
-            label = QtGui.QLabel(issue_node.longdescr)
-            label.setWordWrap(True)
-            self.treeWidget.setItemWidget(item, 0, label)
 
-    def add_child(self, parent, column, title):
+    @staticmethod
+    def add_child(parent, column, title):
         item = QtGui.QTreeWidgetItem(parent, [title])
         item.setData(column, QtCore.Qt.UserRole, True)
         return item

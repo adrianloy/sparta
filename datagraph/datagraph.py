@@ -78,7 +78,7 @@ class DataGraph(object):
                 process_node = ToolNode(self, process.id, process.name, process.output, process.outputfile)
                 process_node_id = port_node.add_child(process_node)
                 self.tool_dict[process.id] = process_node
-                self.view.ui.addNodeTo(port_node.node_id, process_node_id, process.name, "processes")
+                self.view.ui.addNodeTo(port_node.node_id, process_node_id, process.name, "tools")
                 # TODO: find better solution
                 if 'Nikto' in process.output:
                     NiktoParser.create_issue_nodes(process_node)

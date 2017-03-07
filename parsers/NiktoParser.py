@@ -19,5 +19,5 @@ class NiktoParser(object):
             issue_node = IssueNode(data_graph, '', '', name, item.description.cdata, '', '')
             # port_node = data_graph.get_node(process_node.parent_node_id)
             issue_node_id = tool_node.add_child(issue_node)
-            data_graph.view.ui.addNodeTo(tool_node.node_id, issue_node_id, name, "vulnerabilities")
+            data_graph.view.ui.addNodeTo(tool_node.node_id, issue_node_id, name, "issues")
             data_graph.issue_dict[issue_node_id] = issue_node
