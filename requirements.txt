@@ -3,7 +3,11 @@ untangle
 dicttoxml
 PyQt4
 pyxb
-nessrest
+#-----for nessus integration:
+#nessrest: pip install is too old!
+#do: git clone https://github.com/tenable/nessrest.git; cd nessrest; python setup.py install --user
+#Also, the following environment variables must be set: NESSUS_USER, NESSUS_PASSWORD, NESSUS_SERVER, NESSUS_PORT
+
 
 #other stuff:
 #w3af version > 1.6
