@@ -3,7 +3,7 @@
 from datagraph.node import *
 import re
 
-'''this module used to parse w3af xml report'''
+'''this module used to parse hydra console output'''
 __author__ = 'adrian'
 
 
