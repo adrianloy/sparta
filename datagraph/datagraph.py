@@ -69,28 +69,28 @@ class DataGraph(object):
     def create_tool_nodes_from_db(self):
         # insert process when not already inserted
         processes = self.view.controller.getProcessesWithPortIdFromDB()
-        for process in processes:
-            if process.id not in self.tool_dict:
-                port_id = process.port_id
+        for tool in processes:
+            if tool.id not in self.tool_dict:
+                port_id = tool.port_id
                 if port_id not in self.port_dict:
                     print "error importing process from db (port id " + str(port_id) + " not in port_dict)"
                     continue
                 port_node = self.port_dict[port_id]
-                process_node = ToolNode(self, process.id, process.name, process.output, process.outputfile)
-                process_node_id = port_node.add_child(process_node)
-                self.tool_dict[process.id] = process_node
-                self.view.ui.addNodeTo(port_node.node_id, process_node_id, process.name, "tools")
+                tool_node = ToolNode(self, tool.id, tool.name, tool.output, tool.outputfile)
+                process_node_id = port_node.add_child(tool_node)
+                self.tool_dict[tool.id] = tool_node
+                self.view.ui.addNodeTo(port_node.node_id, process_node_id, tool.name, "tools")
                 # TODO: find better solution
-                if 'Nikto' in process.output:
-                    NiktoParser.create_issue_nodes(process_node)
-                if 'ZAP' in process.output:
-                    ZapParser.create_issue_nodes(process_node)
-                if 'Hydra' in process.output:
-                    HydraParser.create_issue_nodes(process_node)
-                if 'w3af' in process.output:
-                    W3afParser.create_issue_nodes(process_node)
-                if 'Nessus' in process.output:
-                    NessusParser.create_issue_nodes(process_node)
+                if 'Nikto' in tool.output:
+                    NiktoParser.create_issue_nodes(tool_node)
+                if 'ZAP' in tool.output:
+                    ZapParser.create_issue_nodes(tool_node)
+                if 'Hydra' in tool.output:
+                    HydraParser.create_issue_nodes(tool_node)
+                if 'w3af' in tool.output:
+                    W3afParser.create_issue_nodes(tool_node)
+                if 'Nessus' in tool.output:
+                    NessusParser.create_issue_nodes(tool_node)
 
     def save_as_xml(self):
         scan = bind.scan()
