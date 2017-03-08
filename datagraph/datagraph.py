@@ -3,6 +3,7 @@ from parsers.HydraParser import *
 from parsers.W3afParser import *
 from parsers.NiktoParser import *
 from parsers.ZapParser import *
+from parsers.NessusParser import *
 
 
 class DataGraph(object):
@@ -88,6 +89,8 @@ class DataGraph(object):
                     HydraParser.create_issue_nodes(process_node)
                 if 'w3af' in process.output:
                     W3afParser.create_issue_nodes(process_node)
+                if 'Nessus' in process.output:
+                    NessusParser.create_issue_nodes(process_node)
 
     def save_as_xml(self):
         scan = bind.scan()
