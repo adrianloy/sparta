@@ -25,7 +25,7 @@ class Node(object):
             child_ids.append(self.add_child(child))
         return child_ids
 
-    def generate_dom(self):
+    def generate_xml_binding_instance(self):
         return
 
     def __str__(self):
@@ -47,13 +47,13 @@ class HostNode(Node):
             self.portNodeDict[child.number] = child
         return Node.add_child(self, child)
 
-    def generate_dom(self):
+    def generate_xml_binding_instance(self):
         host = bind.host()
         host.ip = self.ip
         host.hostname = self.name
         host.port = []
         for child in self.children:
-            host.port.append(child.generate_dom())
+            host.port.append(child.generate_xml_binding_instance())
         return host
 
     def __str__(self):
@@ -70,14 +70,14 @@ class PortNode(Node):
         self.protocol = port_protocol
         self.service_name = service_name
 
-    def generate_dom(self):
+    def generate_xml_binding_instance(self):
         port = bind.port()
         port.number = self.number
         port.standardService = self.service_name
         port.tool = []
         port.protocol = self.protocol
         for child in self.children:
-            port.tool.append(child.generate_dom())
+            port.tool.append(child.generate_xml_binding_instance())
 
         return port
 
@@ -102,12 +102,12 @@ class ToolNode(Node):
         else:
             print 'info: ' + str(len(file_candidates)) + ' file(s) \'' + self.outputfile + '*\' found'
 
-    def generate_dom(self):
+    def generate_xml_binding_instance(self):
         tool = bind.tool()
         tool.tool = self.name
         tool.issue = []
         for child in self.children:
-            tool.issue.append(child.generate_dom())
+            tool.issue.append(child.generate_xml_binding_instance())
         return tool
 
     def __str__(self):
@@ -128,7 +128,7 @@ class IssueNode(Node):
         self.longdescr = longdescr
         self.fixstr = fixstr
 
-    def generate_dom(self):
+    def generate_xml_binding_instance(self):
         issue = bind.issue()
         issue.severity = self.severity
         issue.url = self.url

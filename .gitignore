@@ -56,4 +56,4 @@ docs/_build/
 .idea/
 
 # XML output
-output.xml
+scan_aggregation.xml
