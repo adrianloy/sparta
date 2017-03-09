@@ -270,6 +270,12 @@ class Ui_MainWindow(QtCore.QObject):
         self.GraphViewWidget.page().mainFrame().addToJavaScriptWindowObject("graphViewObject", self)
         self.splitter_5.addWidget(self.GraphViewWidget)
 
+        self.nodeTextWidget = QTextEdit()
+        self.nodeTextWidget.setReadOnly(True)
+        self.NodesTreeView.set_selection_changed_callback(self.selection_changed)
+
+        self.splitter_5.addWidget(self.nodeTextWidget)
+
         self.MainTabWidget.addTab(self.GraphViewTab, _fromUtf8(""))
 
     def reloadButtonAction(self):
@@ -278,6 +284,10 @@ class Ui_MainWindow(QtCore.QObject):
         self.NodesTreeView.clear()
         self.view.data_graph.build_graph_from_db()
         self.NodesTreeView.build_from(self.view.data_graph)
+
+    def selection_changed(self, item):
+        text = str(self.view.data_graph.get_node(item.data(0, QtCore.Qt.UserRole).toInt()[0]))
+        self.nodeTextWidget.setText(QString(text))
 
     def saveButtonAction(self):
         self.view.data_graph.save_as_xml()

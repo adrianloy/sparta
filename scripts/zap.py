@@ -10,7 +10,7 @@ import dicttoxml
 
 target_ip = sys.argv[1]
 target_port = sys.argv[2]
-output = sys.argv[3]
+output = sys.argv[3] + '.xml'
 if target_port == '443':
     protocol = 'https'
 else:

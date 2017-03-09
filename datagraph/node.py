@@ -57,7 +57,7 @@ class HostNode(Node):
         return host
 
     def __str__(self):
-        result = "HostNode (id = " + str(self.node_id) + ")\n\nIP: " + self.ip + "\nHostname: " + self.name
+        result = "IP:\n" + self.ip + "\n\nHostname:\n" + self.name
         return result
 
 
@@ -82,8 +82,7 @@ class PortNode(Node):
         return port
 
     def __str__(self):
-        result = "PortNode (id = " + str(self.node_id) + ")\n\nNumber: " + self.number + "\nProtocol: " + \
-                 self.protocol + "\nStandard Service: " + self.service_name
+        result = "Number:\n" + self.number + "\n\nProtocol:\n" + self.protocol
         return result
 
 
@@ -111,9 +110,7 @@ class ToolNode(Node):
         return tool
 
     def __str__(self):
-        result = "ProcessNode (id = " + str(self.node_id) + ")\n\nName: " + self.name +\
-                 "\nTerminal Output: " + self.terminal_output +\
-                 "\nOutput file: " + self.outputfile + "\nFile Output: " + self.file_output
+        result = "Name:\n" + self.name
         return result
 
 
@@ -139,7 +136,5 @@ class IssueNode(Node):
         return issue
 
     def __str__(self):
-        result = "VulnNode (id = " + str(self.node_id) + ")\n\nName: " + self.name + "\nSeverity: " + self.severity +\
-                 "\nURL: " + self.url + "\nDescription: " + self.descr + "\nLong Description: " + self.longdescr +\
-                 "\nFix: " + self.fixstr
+        result = "Name:\n" + self.name + "\n\nDescription:\n" + self.descr
         return result
