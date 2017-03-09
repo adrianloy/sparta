@@ -246,18 +246,23 @@ class Ui_MainWindow(QtCore.QObject):
         self.graphViewLayout.setObjectName(_fromUtf8("graphViewLayout"))
         self.graphViewLayout.setDefaultPositioning(0, QtCore.Qt.Horizontal)
 
+        self.splitter_6 = QtGui.QSplitter(self.GraphViewTab)
+        self.splitter_6.setOrientation(QtCore.Qt.Horizontal)
+        self.splitter_6.setObjectName(_fromUtf8("splitter_6"))
+        self.graphViewLayout.addWidget(self.splitter_6)
+
         self.button1 = QtGui.QPushButton('reload...')
         self.button1.clicked.connect(self.reloadButtonAction)
-        self.graphViewLayout.addWidget(self.button1)
+        self.splitter_6.addWidget(self.button1)
 
         self.button2 = QtGui.QPushButton('save as XML...')
         self.button2.clicked.connect(self.saveButtonAction)
-        self.graphViewLayout.addWidget(self.button2)
+        self.splitter_6.addWidget(self.button2)
 
         self.splitter_5 = QtGui.QSplitter(self.GraphViewTab)
-        self.graphViewLayout.addWidget(self.splitter_5)
         self.splitter_5.setOrientation(QtCore.Qt.Horizontal)
         self.splitter_5.setObjectName(_fromUtf8("splitter_5"))
+        self.graphViewLayout.addWidget(self.splitter_5)
 
         self.NodesTreeView = NodesTreeViewer()
         self.splitter_5.addWidget(self.NodesTreeView)
