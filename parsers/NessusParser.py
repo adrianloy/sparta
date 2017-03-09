@@ -21,58 +21,71 @@ class NessusParser(object):
         output_file = tool_node.outputfile #+ '.xml'
         with open (output_file, "r") as myfile:
             data=myfile.read()
-            data.replace("\n","?&%$16527")
-            data.replace(",","\n")
-        #encode newlines (in description strings), then split by the field separator and go through them
-        #Plugin ID,CVE,CVSS,Risk,Host,Protocol,Port,Name,Synopsis,Description,Solution,See Also,Plugin Output
-        datasplit = data.split("\n")
-        for i in range(1,len(datasplit)-12):
-           if i%13==0:
-               pluginID = data[i].replace("?&%$16527","\n").replace("\"","")
-               CVE = data[i+1].replace("?&%$16527","\n").replace("\"","")
-               CVSS = data[i+2].replace("?&%$16527","\n").replace("\"","")
-               risk = data[i+3].replace("?&%$16527","\n").replace("\"","")
-               host = data[i+4].replace("?&%$16527","\n").replace("\"","")
-               protocol = data[i+5].replace("?&%$16527","\n").replace("\"","")
-               port = data[i+6].replace("?&%$16527","\n").replace("\"","")
-               name = data[i+7].replace("?&%$16527","\n").replace("\"","")
-               synopsis = data[i+8].replace("?&%$16527","\n").replace("\"","")
-               descr = data[i+9].replace("?&%$16527","\n").replace("\"","")
-               solution = data[i+10].replace("?&%$16527","\n").replace("\"","")
-               seeAlso = data[i+11].replace("?&%$16527","\n").replace("\"","")
-               pluginOutput = data[i+12].replace("?&%$16527","\n").replace("\"","")
+        data = data[102::] #skip first line
+        datasplit = data.split("\"\r\n\"") #one entry is one vulnerability
+        for entry in datasplit:
+            fields = entry.split("\",\"")
+            pluginID = fields[0].replace("\"","")
+            CVE = fields[1].replace("\"","")
+            CVSS = fields[2].replace("\"","")
+            risk = fields[3].replace("\"","")
+            host = fields[4].replace("\"","")
+            protocol = fields[5].replace("\"","")
+            port = fields[6].replace("\"","")
+            name = fields[7].replace("\"","")
+            synopsis = fields[8].replace("\"","")
+            descr = fields[9].replace("\"","")
+            solution = fields[10].replace("\"","")
+            seeAlso = fields[11].replace("\"","")
+            pluginOutput = fields[12].replace("\"","")
 
-               issue_node = IssueNode(data_graph, risk, "", name="NessusIssue", descr=name,
-                                      longdescr="CVE: " + CVE + "\n Description: " + descr, fixstr=solution)
-               issue_node_id = tool_node.add_child(issue_node)
-               data_graph.view.ui.addNodeTo(tool_node.node_id, issue_node_id, name, "issues")
-               data_graph.issue_dict[issue_node_id] = issue_node
-
-           i+= 1
+            issue_node = IssueNode(data_graph, risk, "", name="NessusIssue", descr=name,
+                              longdescr="CVE: " + CVE + "\n Description: " + descr + "\n Result: " + pluginOutput,
+                              fixstr=solution)
+            issue_node_id = tool_node.add_child(issue_node)
+            data_graph.view.ui.addNodeTo(tool_node.node_id, issue_node_id, name, "issues")
+            data_graph.issue_dict[issue_node_id] = issue_node
 
 
 if __name__ == '__main__':
         with open ("/home/adrian/Documents/WS16/security/nessusPI.csv", "r") as myfile:
             data=myfile.read()
-            data.replace("\n","?&%$16527")
-            data.replace(",","\n")
         #encode newlines (in description strings), then split by the field separator and go through them
         #Plugin ID,CVE,CVSS,Risk,Host,Protocol,Port,Name,Synopsis,Description,Solution,See Also,Plugin Output
-        datasplit = data.split("\n")
-        for i in range(1,len(datasplit)-12):
-           if i%13==0:
-               pluginID = data[i].replace("?&%$16527","\n").replace("\"","")
-               CVE = data[i+1].replace("?&%$16527","\n").replace("\"","")
-               CVSS = data[i+2].replace("?&%$16527","\n").replace("\"","")
-               risk = data[i+3].replace("?&%$16527","\n").replace("\"","")
-               host = data[i+4].replace("?&%$16527","\n").replace("\"","")
-               protocol = data[i+5].replace("?&%$16527","\n").replace("\"","")
-               port = data[i+6].replace("?&%$16527","\n").replace("\"","")
-               name = data[i+7].replace("?&%$16527","\n").replace("\"","")
-               synopsis = data[i+8].replace("?&%$16527","\n").replace("\"","")
-               descr = data[i+9].replace("?&%$16527","\n").replace("\"","")
-               solution = data[i+10].replace("?&%$16527","\n").replace("\"","")
-               seeAlso = data[i+11].replace("?&%$16527","\n").replace("\"","")
-               pluginOutput = data[i+12].replace("?&%$16527","\n").replace("\"","")
+        data = data[102::] #skip first line
+        datasplit = data.split("\"\r\n\"") #one entry is now one vulnerability
+        for entry in datasplit:
+            fields = entry.split("\",\"")
+            pluginID = fields[0].replace("\"","")
+            CVE = fields[1].replace("\"","")
+            CVSS = fields[2].replace("\"","")
+            risk = fields[3].replace("\"","")
+            host = fields[4].replace("\"","")
+            protocol = fields[5].replace("\"","")
+            port = fields[6].replace("\"","")
+            name = fields[7].replace("\"","")
+            synopsis = fields[8].replace("\"","")
+            descr = fields[9].replace("\"","")
+            solution = fields[10].replace("\"","")
+            seeAlso = fields[11].replace("\"","")
+            pluginOutput = fields[12].replace("\"","")
+        #data = data.replace("\r\n","?&%$16527") #TODO: Only replace inside fields
+        #data = data.replace(",","\n")
+        #datasplit = data.split("\n")
+        #for i in range(1,len(datasplit)-12):
+         #  if i%13==0:
+          #     pluginID = data[i].replace("?&%$16527","\n").replace("\"","")
+           #    CVE = data[i+1].replace("?&%$16527","\n").replace("\"","")
+            #   CVSS = data[i+2].replace("?&%$16527","\n").replace("\"","")
+             #  risk = data[i+3].replace("?&%$16527","\n").replace("\"","")
+              # host = data[i+4].replace("?&%$16527","\n").replace("\"","")
+               #protocol = data[i+5].replace("?&%$16527","\n").replace("\"","")
+               #port = data[i+6].replace("?&%$16527","\n").replace("\"","")
+               #name = data[i+7].replace("?&%$16527","\n").replace("\"","")
+               #synopsis = data[i+8].replace("?&%$16527","\n").replace("\"","")
+               #descr = data[i+9].replace("?&%$16527","\n").replace("\"","")
+               #solution = data[i+10].replace("?&%$16527","\n").replace("\"","")
+               #seeAlso = data[i+11].replace("?&%$16527","\n").replace("\"","")
+               #pluginOutput = data[i+12].replace("?&%$16527","\n").replace("\"","")
 
-           i+= 1
+           #i+= 1

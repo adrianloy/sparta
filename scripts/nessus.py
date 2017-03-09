@@ -4,6 +4,7 @@ import os
 import nessrest.ness6rest as ness
 import sys
 
+
 def run_standard_test(ip,port,outputpath):
     login = os.getenv("NESSUS_USER")
     password = os.getenv("NESSUS_PASSWORD")
@@ -25,6 +26,6 @@ def run_standard_test(ip,port,outputpath):
 
 if __name__ == '__main__':
     target_ip = sys.argv[1]
-    target_port = sys.argv[2]
-    output = sys.argv[3]
-    run_standard_test(target_ip, target_port,output)
+    #target_port = sys.argv[2]
+    output = sys.argv[2]
+    run_standard_test(target_ip, "", output)

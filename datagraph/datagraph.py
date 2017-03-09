@@ -89,7 +89,7 @@ class DataGraph(object):
                     HydraParser.create_issue_nodes(tool_node)
                 if 'w3af' in tool.output:
                     W3afParser.create_issue_nodes(tool_node)
-                if 'Nessus' in tool.output:
+                if 'nessus' in tool.output:
                     NessusParser.create_issue_nodes(tool_node)
 
     def save_as_xml(self):
