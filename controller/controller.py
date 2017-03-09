@@ -13,7 +13,6 @@ Copyright (c) 2015 SECFORCE (Antonio Quina and Leonidas Stavliotis)
 
 import sys, os, ntpath, signal, re, subprocess  # for file operations, to kill processes, for regex, for subprocesses
 import Queue
-import parsers.W3afParser as wparser
 from PyQt4.QtGui import *  # for filters dialog
 from app.logic import *
 from app.auxiliary import *
@@ -23,7 +22,7 @@ from app.settings import *
 class Controller():
     # initialisations that will happen once - when the program is launched
     def __init__(self, view, logic):
-        self.version = 'SPARTA 1.1 (BETA)'  # update this everytime you commit!
+        self.version = 'SPARTA 1.0.2 (BETA)'  # update this everytime you commit!
         self.logic = logic
         self.view = view
         self.view.setController(self)
@@ -539,13 +538,8 @@ class Controller():
         self.updateUITimer.stop()  # update the processes table
         self.updateUITimer.start(900)
         # while the process is running, when there's output to read, display it in the GUI
-        if name is 'w3af':
-            #TODO overwrite what is shown for w3af by doing a new process cat outputfile and show the console output of that
-            QObject.connect(qProcess, SIGNAL("readyReadStandardOutput()"), qProcess, SLOT("readStdOutput()"))
-            QObject.connect(qProcess, SIGNAL("readyReadStandardError()"), qProcess, SLOT("readStdOutput()"))
-        else:
-            QObject.connect(qProcess, SIGNAL("readyReadStandardOutput()"), qProcess, SLOT("readStdOutput()"))
-            QObject.connect(qProcess, SIGNAL("readyReadStandardError()"), qProcess, SLOT("readStdOutput()"))
+        QObject.connect(qProcess, SIGNAL("readyReadStandardOutput()"), qProcess, SLOT("readStdOutput()"))
+        QObject.connect(qProcess, SIGNAL("readyReadStandardError()"), qProcess, SLOT("readStdOutput()"))
         # when the process is finished do this
         qProcess.sigHydra.connect(self.handleHydraFindings)
         qProcess.finished.connect(lambda: self.processFinished(qProcess))
@@ -633,17 +627,6 @@ class Controller():
                             if self.view.menuVisible == False:
                                 self.view.importProgressWidget.show()
 
-                    elif 'w3affgh' in qProcess.name:  # if the process was nmap, use the parser to store it
-                        if qProcess.exitCode() == 0:  # if the process finished successfully
-                            newoutputfile = qProcess.outputfile.replace(self.logic.runningfolder,
-                                                                        self.logic.outputfolder)
-                            self.nmapImporter.setFilename(str(newoutputfile) + '.xml')
-                            self.view.importProgressWidget.reset('Importing nmap..')
-                            self.nmapImporter.setOutput(str(qProcess.display.toPlainText()))
-                            self.nmapImporter.start()
-                            if self.view.menuVisible == False:
-                                self.view.importProgressWidget.show()
-
                 print "\t[+] The process is done!"
 
             self.logic.storeProcessOutputInDB(str(qProcess.id), qProcess.display.toPlainText())
@@ -657,6 +640,7 @@ class Controller():
                 self.processes.remove(qProcess)
                 self.updateUITimer.stop()
                 self.updateUITimer.start(1500)  # update the interface soon
+                self.logic.updateOutputPathOfTool(self.logic.getPidForProcess(str(qProcess.id)))
 
             except ValueError:
                 pass
@@ -677,6 +661,7 @@ class Controller():
             return
         if self.settings.general_enable_scheduler == 'True':
             print '[+] Scheduler started!'
+
             for h in parser.all_hosts():
                 for p in h.all_ports():
                     if p.state == 'open':
@@ -719,5 +704,3 @@ class Controller():
                                             outputfile,
                                             self.view.createNewTabForHost(ip, tabtitle, not (tab == 'Hosts')))
                             break
-
-    #

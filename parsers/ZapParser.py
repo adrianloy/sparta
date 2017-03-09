@@ -9,7 +9,7 @@ class ZapParser(object):
         data_graph = tool_node.data_graph
 
         if tool_node.file_output == '':
-            print 'process_file_output is empty'
+            print 'tool file output is empty'
             return
 
         scan = untangle.parse(tool_node.file_output)

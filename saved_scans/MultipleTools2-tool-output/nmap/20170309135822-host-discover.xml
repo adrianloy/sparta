@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE nmaprun>
+<?xml-stylesheet href="file:///usr/bin/../share/nmap/nmap.xsl" type="text/xsl"?>
+<!-- Nmap 7.01 scan initiated Thu Mar  9 13:58:23 2017 as: nmap -n -sn -T4 -oA /tmp/sparta-_eT37I-running/nmap/20170309135822-host-discover 192.168.56.3 -->
+<nmaprun scanner="nmap" args="nmap -n -sn -T4 -oA /tmp/sparta-_eT37I-running/nmap/20170309135822-host-discover 192.168.56.3" start="1489064303" startstr="Thu Mar  9 13:58:23 2017" version="7.01" xmloutputversion="1.04">
+<verbose level="0"/>
+<debugging level="0"/>
+<host><status state="up" reason="syn-ack" reason_ttl="0"/>
+<address addr="192.168.56.3" addrtype="ipv4"/>
+<hostnames>
+</hostnames>
+<times srtt="4390" rttvar="5000" to="100000"/>
+</host>
+<runstats><finished time="1489064303" timestr="Thu Mar  9 13:58:23 2017" elapsed="0.07" summary="Nmap done at Thu Mar  9 13:58:23 2017; 1 IP address (1 host up) scanned in 0.07 seconds" exit="success"/><hosts up="1" down="0" total="1"/>
+</runstats>
+</nmaprun>

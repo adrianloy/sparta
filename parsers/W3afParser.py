@@ -12,9 +12,13 @@ class W3afParser(object):
     @staticmethod
     def create_issue_nodes(tool_node):
         data_graph = tool_node.data_graph
-        output_file = tool_node.outputfile + '.xml'
+
+        if tool_node.file_output == '':
+            print 'tool file output is empty'
+            return
+
         try:
-            __dom = xml.dom.minidom.parse(output_file)
+            __dom = xml.dom.minidom.parseString(tool_node.file_output)
             for vul_xml_node in __dom.getElementsByTagName('vulnerability'):
                 severity = vul_xml_node.getAttribute('severity')
                 url = vul_xml_node.getAttribute('url')
