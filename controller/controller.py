@@ -426,6 +426,9 @@ class Controller():
     def getProcessesWithPortIdFromDB(self):
         return self.logic.getProcessesWithPortIdFromDB()
 
+    def getSpecificProcessWithOutputFromDB(self, name):
+        return self.logic.getSpecificProcessWithOutputFromDB(name)
+
     def getServiceNamesFromDB(self, filters):
         return self.logic.getServiceNamesFromDB(filters)
 

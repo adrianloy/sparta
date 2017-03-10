@@ -403,6 +403,21 @@ class Logic():
 
         return result
 
+    # this function returns all processes with a specified name. If no name
+    def getSpecificProcessWithOutputFromDB(self, processname=''):
+        if processname == '':
+            tmp_query = ('SELECT * FROM db_tables_process'
+                         'INNER JOIN db_tables_process_output AS poutput ON process.id = poutput.process_id ')
+            result = metadata.bind.execute(tmp_query).fetchall()
+
+        else:
+            tmp_query = ('SELECT * FROM db_tables_process AS process '
+                         'INNER JOIN db_tables_process_output AS poutput ON process.id = poutput.process_id '
+                          'WHERE process.name=\''+processname+"\'")
+            result = metadata.bind.execute(tmp_query).fetchall()
+
+        return result
+
     def getHostsForTool(self, toolname, closed='False'):
         if closed == 'FetchAll':
             tmp_query = (

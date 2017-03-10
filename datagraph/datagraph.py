@@ -50,6 +50,11 @@ class DataGraph(object):
                 self.host_dict[host.id] = host_node
                 self.view.ui.addNodeTo(self.root.node_id, host_node_id, host.ip + " (" + host.hostname + ")", "hosts")
 
+    def getHostNodeByIP(self, ipstr):
+        for host in self.host_dict.values():
+            if host.ip == ipstr:
+                return host
+
     def create_port_nodes_from_db(self):
         # insert port when not already inserted
         ports = self.view.controller.getPortsFromDB()
@@ -67,7 +72,7 @@ class DataGraph(object):
                                        port.number + "/" + port.protocol + " (" + port.name + ")", "ports")
 
     def create_tool_nodes_from_db(self):
-        # insert process when not already inserted
+        # insert process to port nodes when not already inserted
         processes = self.view.controller.getProcessesWithPortIdFromDB()
         for tool in processes:
             if tool.id not in self.tool_dict:
@@ -89,7 +94,22 @@ class DataGraph(object):
                     HydraParser.create_issue_nodes(tool_node)
                 if 'w3af' in tool.output:
                     W3afParser.create_issue_nodes(tool_node)
-                if 'nessus' in tool.output:
+                if 'nessus' in tool_node.outputfile:
+                    NessusParser.create_issue_nodes(tool_node)
+        # insert process to host nodes (like nessus) when not already inserted
+        processes = self.view.controller.getSpecificProcessWithOutputFromDB('nessus')
+        for tool in processes:
+            if tool.id not in self.tool_dict:
+                host_node = self.getHostNodeByIP(tool.hostip)
+                if host_node is None:
+                    print "error importing process from db: Cant find host node with ip" + str(tool.hostip)
+                    continue
+                tool_node = ToolNode(self, tool.id, tool.name, tool.output, tool.outputfile)
+                process_node_id = host_node.add_child(tool_node)
+                self.tool_dict[tool.id] = tool_node
+                self.view.ui.addNodeTo(host_node.node_id, process_node_id, tool.name, "tools")
+                # TODO: find better solution
+                if 'nessus' in tool_node.outputfile:
                     NessusParser.create_issue_nodes(tool_node)
 
     def save_as_xml(self):

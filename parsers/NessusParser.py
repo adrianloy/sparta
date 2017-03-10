@@ -13,12 +13,12 @@ class NessusParser(object):
     def create_issue_nodes(tool_node):
         data_graph = tool_node.data_graph
 
-        if tool_node.file_output == '':
-            print 'tool file output is empty'
-            return
+        #if tool_node.file_output == '':
+        #    print 'tool file output is empty'
+        #    return
 
 
-        output_file = tool_node.outputfile #+ '.xml'
+        output_file = tool_node.outputfile +".csv"
         with open (output_file, "r") as myfile:
             data=myfile.read()
         data = data[102::] #skip first line
@@ -69,23 +69,3 @@ if __name__ == '__main__':
             solution = fields[10].replace("\"","")
             seeAlso = fields[11].replace("\"","")
             pluginOutput = fields[12].replace("\"","")
-        #data = data.replace("\r\n","?&%$16527") #TODO: Only replace inside fields
-        #data = data.replace(",","\n")
-        #datasplit = data.split("\n")
-        #for i in range(1,len(datasplit)-12):
-         #  if i%13==0:
-          #     pluginID = data[i].replace("?&%$16527","\n").replace("\"","")
-           #    CVE = data[i+1].replace("?&%$16527","\n").replace("\"","")
-            #   CVSS = data[i+2].replace("?&%$16527","\n").replace("\"","")
-             #  risk = data[i+3].replace("?&%$16527","\n").replace("\"","")
-              # host = data[i+4].replace("?&%$16527","\n").replace("\"","")
-               #protocol = data[i+5].replace("?&%$16527","\n").replace("\"","")
-               #port = data[i+6].replace("?&%$16527","\n").replace("\"","")
-               #name = data[i+7].replace("?&%$16527","\n").replace("\"","")
-               #synopsis = data[i+8].replace("?&%$16527","\n").replace("\"","")
-               #descr = data[i+9].replace("?&%$16527","\n").replace("\"","")
-               #solution = data[i+10].replace("?&%$16527","\n").replace("\"","")
-               #seeAlso = data[i+11].replace("?&%$16527","\n").replace("\"","")
-               #pluginOutput = data[i+12].replace("?&%$16527","\n").replace("\"","")
-
-           #i+= 1
