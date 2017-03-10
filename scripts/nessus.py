@@ -8,7 +8,9 @@ import sys
 def run_standard_test(ip,port,outputpath):
     login = os.getenv("NESSUS_USER")
     password = os.getenv("NESSUS_PASSWORD")
-    url = "https://%s:%s" % (os.getenv("NESSUS_SERVER"), os.getenv("NESSUS_PORT", "8834"))
+    server = os.getenv("NESSUS_SERVER")
+    server = "192.168.178.33"
+    url = "https://%s:%s" % (server, os.getenv("NESSUS_PORT", "8834"))
 
     scan = ness.Scanner(url=url, login=login, password=password, insecure=True)
     #scan._policy_template_uuid("basic") #no policy needed if nessrest is bleeding edge (compiled source
