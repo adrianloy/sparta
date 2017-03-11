@@ -178,8 +178,9 @@ class Logic():
             self.db.openDB(str(filename))  # inform the DB to use the new file
             self.cwd = ntpath.dirname(str(filename)) + '/'  # update cwd so it appears nicely in the window title
             self.projectname = str(filename)
+            old_outputfolder = self.outputfolder
             self.outputfolder = str(foldername)
-            self.updateToolOutputPathsInDB()
+            self.update_all_output_paths_in_db(old_outputfolder, self.outputfolder)
 
             self.usernamesWordlist = Wordlist(self.outputfolder + '/sparta-usernames.txt')  # to store found usernames
             self.passwordsWordlist = Wordlist(self.outputfolder + '/sparta-passwords.txt')  # to store found passwords
@@ -192,15 +193,15 @@ class Logic():
             print "\t[-] Unexpected error:", sys.exc_info()[0]
             return False
 
-    def updateToolOutputPathsInDB(self):
+    def update_all_output_paths_in_db(self, old_outputfolder, new_outputfolder):
         tmp_query = 'UPDATE db_tables_process SET outputfile = REPLACE(outputfile, \'{}\', \'{}\')'
-        tmp_query = tmp_query.format(self.runningfolder, self.outputfolder)
-        metadata.bind.execute(tmp_query).fetchall()
+        tmp_query = tmp_query.format(old_outputfolder, new_outputfolder)
+        metadata.bind.execute(tmp_query)
 
-    def updateOutputPathOfTool(self, process_pid):
+    def update_output_path_of_tool(self, process_pid):
         tmp_query = 'UPDATE db_tables_process SET outputfile = REPLACE(outputfile, \'{}\', \'{}\') WHERE pid = {}'
         tmp_query = tmp_query.format(self.runningfolder, self.outputfolder, process_pid)
-        metadata.bind.execute(tmp_query).fetchall()
+        metadata.bind.execute(tmp_query)
 
     def isHostInDB(self, host):  # used we don't run tools on hosts out of scope
         tmp_query = 'SELECT host.ip FROM db_tables_nmap_host AS host WHERE host.ip == ? OR host.hostname == ?'

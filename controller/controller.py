@@ -643,7 +643,7 @@ class Controller():
                 self.processes.remove(qProcess)
                 self.updateUITimer.stop()
                 self.updateUITimer.start(1500)  # update the interface soon
-                self.logic.updateOutputPathOfTool(self.logic.getPidForProcess(str(qProcess.id)))
+                self.logic.update_output_path_of_tool(self.logic.getPidForProcess(str(qProcess.id)))
 
             except ValueError:
                 pass
