@@ -110,6 +110,8 @@ class Logic():
                 shutil.move(str(outputFilename) + '.xml', str(path))
             elif os.path.exists(str(outputFilename) + '.txt') and os.path.isfile(str(outputFilename) + '.txt'):
                 shutil.move(str(outputFilename) + '.txt', str(path))
+            elif os.path.exists(str(outputFilename) + '.csv') and os.path.isfile(str(outputFilename) + '.csv'):
+                shutil.move(str(outputFilename) + '.csv', str(path))
         except:
             print '[-] Something went wrong moving the tool output file..'
             print "[-] Unexpected error:", sys.exc_info()[0]

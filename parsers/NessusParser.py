@@ -13,14 +13,15 @@ class NessusParser(object):
     def create_issue_nodes(tool_node):
         data_graph = tool_node.data_graph
 
-        #if tool_node.file_output == '':
-        #    print 'tool file output is empty'
-        #    return
+        if tool_node.file_output == '':
+            print 'tool file output is empty'
+            return
 
+        # output_file = tool_node.outputfile +".csv"
+        # with open (output_file, "r") as myfile:
+        #    data=myfile.read()
 
-        output_file = tool_node.outputfile +".csv"
-        with open (output_file, "r") as myfile:
-            data=myfile.read()
+        data = tool_node.file_output
         data = data[102::] #skip first line
         datasplit = data.split("\"\r\n\"") #one entry is one vulnerability
         for entry in datasplit:
