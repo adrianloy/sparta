@@ -82,9 +82,9 @@ class DataGraph(object):
                     continue
                 port_node = self.port_dict[port_id]
                 tool_node = ToolNode(self, tool.id, tool.name, tool.output, tool.outputfile)
-                process_node_id = port_node.add_child(tool_node)
+                tool_node_id = port_node.add_child(tool_node)
                 self.tool_dict[tool.id] = tool_node
-                self.view.ui.addNodeTo(port_node.node_id, process_node_id, tool.name, "tools")
+                self.view.ui.addNodeTo(port_node.node_id, tool_node_id, tool.name, "tools")
                 # TODO: find better solution
                 if 'Nikto' in tool.output:
                     NiktoParser.create_issue_nodes(tool_node)
@@ -105,9 +105,9 @@ class DataGraph(object):
                     print "error importing process from db: Cant find host node with ip" + str(tool.hostip)
                     continue
                 tool_node = ToolNode(self, tool.id, tool.name, tool.output, tool.outputfile)
-                process_node_id = host_node.add_child(tool_node)
+                tool_node_id = host_node.add_child(tool_node)
                 self.tool_dict[tool.id] = tool_node
-                self.view.ui.addNodeTo(host_node.node_id, process_node_id, tool.name, "tools")
+                self.view.ui.addNodeTo(host_node.node_id, tool_node_id, tool.name, "tools")
                 # TODO: find better solution
                 if 'nessus' in tool_node.outputfile:
                     NessusParser.create_issue_nodes(tool_node)
