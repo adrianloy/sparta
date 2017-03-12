@@ -242,30 +242,37 @@ class Ui_MainWindow(QtCore.QObject):
         # GraphView
         self.GraphViewTab = QtGui.QWidget()
 
-        self.graphViewLayout = QtGui.QGridLayout(self.GraphViewTab)
+        self.graphViewLayout = QtGui.QVBoxLayout(self.GraphViewTab)
         self.graphViewLayout.setObjectName(_fromUtf8("graphViewLayout"))
-        self.graphViewLayout.setDefaultPositioning(0, QtCore.Qt.Horizontal)
+        # self.graphViewLayout.setDefaultPositioning(0, QtCore.Qt.Horizontal)
+
+        self.splitter_7 = QtGui.QSplitter(self.GraphViewTab)
+        self.splitter_7.setOrientation(QtCore.Qt.Vertical)
+        self.splitter_7.setObjectName(_fromUtf8("splitter_7"))
+        self.graphViewLayout.addWidget(self.splitter_7)
 
         self.splitter_6 = QtGui.QSplitter(self.GraphViewTab)
         self.splitter_6.setOrientation(QtCore.Qt.Horizontal)
         self.splitter_6.setObjectName(_fromUtf8("splitter_6"))
-        self.graphViewLayout.addWidget(self.splitter_6)
+        self.splitter_7.addWidget(self.splitter_6)
 
         self.button1 = QtGui.QPushButton('reload...')
+        self.button1.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
         self.button1.clicked.connect(self.reloadButtonAction)
         self.splitter_6.addWidget(self.button1)
 
         self.button2 = QtGui.QPushButton('save as XML...')
+        self.button2.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
         self.button2.clicked.connect(self.saveButtonAction)
         self.splitter_6.addWidget(self.button2)
 
         self.splitter_5 = QtGui.QSplitter(self.GraphViewTab)
         self.splitter_5.setOrientation(QtCore.Qt.Horizontal)
         self.splitter_5.setObjectName(_fromUtf8("splitter_5"))
-        self.graphViewLayout.addWidget(self.splitter_5)
+        self.splitter_7.addWidget(self.splitter_5)
 
-        self.NodesTreeView = NodesTreeViewer()
-        self.splitter_5.addWidget(self.NodesTreeView)
+        # self.NodesTreeView = NodesTreeViewer()
+        # self.splitter_5.addWidget(self.NodesTreeView)
 
         self.GraphViewWidget = QtWebKit.QWebView()
         file_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "graph/graph.html"))
@@ -277,7 +284,7 @@ class Ui_MainWindow(QtCore.QObject):
 
         self.nodeTextWidget = QTextEdit()
         self.nodeTextWidget.setReadOnly(True)
-        self.NodesTreeView.set_selection_changed_callback(self.selection_changed)
+        # self.NodesTreeView.set_selection_changed_callback(self.selection_changed)
 
         self.splitter_5.addWidget(self.nodeTextWidget)
 
@@ -286,13 +293,13 @@ class Ui_MainWindow(QtCore.QObject):
     def reloadButtonAction(self):
         self.GraphViewWidget.page().mainFrame().evaluateJavaScript("clear()")
         self.view.data_graph.clear()
-        self.NodesTreeView.clear()
+        # self.NodesTreeView.clear()
         self.view.data_graph.build_graph_from_db()
-        self.NodesTreeView.build_from(self.view.data_graph)
+        # self.NodesTreeView.build_from(self.view.data_graph)
 
-    def selection_changed(self, item):
-        text = str(self.view.data_graph.get_node(item.data(0, QtCore.Qt.UserRole).toInt()[0]))
-        self.nodeTextWidget.setText(QString(text))
+    # def selection_changed(self, item):
+    #    text = str(self.view.data_graph.get_node(item.data(0, QtCore.Qt.UserRole).toInt()[0]))
+    #    self.nodeTextWidget.setText(QString(text))
 
     def saveButtonAction(self):
         self.view.data_graph.save_as_xml()
@@ -305,11 +312,13 @@ class Ui_MainWindow(QtCore.QObject):
     def clickedOnNode(self, node_id):
         node_id_int = node_id.toInt()[0]
         if node_id_int != 0:
-            item = self.NodesTreeView.item_dict[node_id_int]
-            self.NodesTreeView.treeWidget.scrollToItem(item)
-            self.NodesTreeView.treeWidget.clearSelection()
-            self.NodesTreeView.treeWidget.setItemSelected(item, True)
-            self.NodesTreeView.treeWidget.expandItem(item)
+            text = str(self.view.data_graph.get_node(node_id_int))
+            self.nodeTextWidget.setText(QString(text))
+            #item = self.NodesTreeView.item_dict[node_id_int]
+            #self.NodesTreeView.treeWidget.scrollToItem(item)
+            #self.NodesTreeView.treeWidget.clearSelection()
+            #self.NodesTreeView.treeWidget.setItemSelected(item, True)
+            #self.NodesTreeView.treeWidget.expandItem(item)
         return
 
     ####################
