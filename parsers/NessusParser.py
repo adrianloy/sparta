@@ -9,8 +9,10 @@ __author__ = 'adrian'
 
 class NessusParser(object):
 
+    'acceptedSeverities is a list that can contain the following strings: High Medium Low None.' \
+    'It indicates which vulnerabilities will be parsed'
     @staticmethod
-    def create_issue_nodes(tool_node):
+    def create_issue_nodes(tool_node, acceptedSeverities=["High", "Medium"]):
         data_graph = tool_node.data_graph
 
         if tool_node.file_output == '':
@@ -40,12 +42,13 @@ class NessusParser(object):
             seeAlso = fields[11].replace("\"","")
             pluginOutput = fields[12].replace("\"","")
 
-            issue_node = IssueNode(data_graph, risk, "", name="NessusIssue", descr=name,
-                              longdescr="CVE: " + CVE + "\n Description: " + descr + "\n Result: " + pluginOutput,
-                              fixstr=solution)
-            issue_node_id = tool_node.add_child(issue_node)
-            data_graph.view.ui.addNodeTo(tool_node.node_id, issue_node_id, name, "issues")
-            data_graph.issue_dict[issue_node_id] = issue_node
+            if risk in acceptedSeverities:
+                issue_node = IssueNode(data_graph, risk, "", name="NessusIssue", descr=name,
+                                  longdescr="CVE: " + CVE + "\n Description: " + descr + "\n Result: " + pluginOutput,
+                                  fixstr=solution)
+                issue_node_id = tool_node.add_child(issue_node)
+                data_graph.view.ui.addNodeTo(tool_node.node_id, issue_node_id, name, "issues")
+                data_graph.issue_dict[issue_node_id] = issue_node
 
 
 if __name__ == '__main__':
