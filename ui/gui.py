@@ -274,24 +274,23 @@ class Ui_MainWindow(QtCore.QObject):
         # self.NodesTreeView = NodesTreeViewer()
         # self.splitter_5.addWidget(self.NodesTreeView)
 
-        self.GraphViewWidget = QtWebKit.QWebView()
-        file_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "graph/graph.html"))
-        local_url = QUrl.fromLocalFile(file_path)
-        self.GraphViewWidget.load(local_url)
-        self.GraphViewWidget.setObjectName(_fromUtf8("GraphViewTab"))
-        self.GraphViewWidget.page().mainFrame().addToJavaScriptWindowObject("graphViewObject", self)
-        self.splitter_5.addWidget(self.GraphViewWidget)
-
         self.nodeTextWidget = QTextEdit()
         self.nodeTextWidget.setReadOnly(True)
         # self.NodesTreeView.set_selection_changed_callback(self.selection_changed)
-
         self.splitter_5.addWidget(self.nodeTextWidget)
+
+        self.graphViewWidget = QtWebKit.QWebView()
+        file_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "graph/graph.html"))
+        local_url = QUrl.fromLocalFile(file_path)
+        self.graphViewWidget.load(local_url)
+        self.graphViewWidget.setObjectName(_fromUtf8("GraphViewTab"))
+        self.graphViewWidget.page().mainFrame().addToJavaScriptWindowObject("graphViewObject", self)
+        self.splitter_5.addWidget(self.graphViewWidget)
 
         self.MainTabWidget.addTab(self.GraphViewTab, _fromUtf8(""))
 
     def reloadButtonAction(self):
-        self.GraphViewWidget.page().mainFrame().evaluateJavaScript("clear()")
+        self.graphViewWidget.page().mainFrame().evaluateJavaScript("clear()")
         self.view.data_graph.clear()
         # self.NodesTreeView.clear()
         self.view.data_graph.build_graph_from_db()
@@ -306,7 +305,7 @@ class Ui_MainWindow(QtCore.QObject):
 
     def addNodeTo(self, parent_id, id, label, group):
         js = "addNode(" + str(parent_id) + ", " + str(id) + ", \"" + label + "\", \"" + group + "\")"
-        self.GraphViewWidget.page().mainFrame().evaluateJavaScript(js)
+        self.graphViewWidget.page().mainFrame().evaluateJavaScript(js)
 
     @QtCore.pyqtSlot(str)
     def clickedOnNode(self, node_id):
