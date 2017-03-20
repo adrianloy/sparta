@@ -35,11 +35,12 @@ class Node(object):
 
 class HostNode(Node):
 
-    def __init__(self, data_graph, host_id, host_ip, host_name):
+    def __init__(self, data_graph, host_id, host_ip, host_name, host_os):
         Node.__init__(self, data_graph)
         self.host_id = host_id
         self.ip = host_ip
         self.name = host_name
+        self.os = host_os
         self.portNodeDict = {}
 
     def add_child(self, child):

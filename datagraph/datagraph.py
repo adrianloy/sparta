@@ -47,8 +47,13 @@ class DataGraph(object):
             if host.id not in self.host_dict:
                 host_node = HostNode(self, host.id, host.ip, host.hostname)
                 host_node_id = self.root.add_child(host_node)
+                #nmap_host = self.controller.getHostInformation(host.ip)
+                #nmap_hostget_OS()
+
                 self.host_dict[host.id] = host_node
                 self.view.ui.addNodeTo(self.root.node_id, host_node_id, host.ip + " (" + host.hostname + ")", "hosts")
+
+
 
     def getHostNodeByIP(self, ipstr):
         for host in self.host_dict.values():
