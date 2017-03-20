@@ -35,12 +35,12 @@ class Node(object):
 
 class HostNode(Node):
 
-    def __init__(self, data_graph, host_id, host_ip, host_name, host_os):
+    def __init__(self, data_graph, host_id, host_ip, host_name):
         Node.__init__(self, data_graph)
         self.host_id = host_id
         self.ip = host_ip
         self.name = host_name
-        self.os = host_os
+        self.os = ""
         self.portNodeDict = {}
 
     def add_child(self, child):
@@ -58,7 +58,8 @@ class HostNode(Node):
         return host
 
     def __str__(self):
-        result = "HostNode\n\nIP:\n" + self.ip + "\n\nHostname:\n" + self.name
+        result = "HostNode\n\nIP:\n" + self.ip + "\n\nHostname:\n" + self.name +\
+                 "\n\nOS detection information:\n"+self.os
         return result
 
 

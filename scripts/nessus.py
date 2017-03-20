@@ -20,13 +20,15 @@ def run_standard_test(ip,port,outputpath):
     port_number = int(port)
     s = socket.socket()
     connected = False
-    print 'Trying to connect to Nessus daemon...'
+    print 'Trying to connect to Nessus daemon at ' + str(url)
     try:
         s.connect((server, port_number))
         print "Connected!"
         connected = True
     except Exception as e:
-        print "Couldn't connect to the Nessus daemon. Are you sure its running?"
+        print "Couldn't connect to the Nessus daemon. \nAre you sure its running?" \
+              "\nThe following environment variables have to be set: NESSUS_SERVER, NESSUS_PORT, " \
+              "NESSUS_USER, NESSUS_PASSWORD "
     finally:
         s.close()
 

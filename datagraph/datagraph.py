@@ -4,6 +4,7 @@ from parsers.W3afParser import *
 from parsers.NiktoParser import *
 from parsers.ZapParser import *
 from parsers.NessusParser import *
+from parsers.OS import *
 
 
 class DataGraph(object):
@@ -47,8 +48,15 @@ class DataGraph(object):
             if host.id not in self.host_dict:
                 host_node = HostNode(self, host.id, host.ip, host.hostname)
                 host_node_id = self.root.add_child(host_node)
-                #nmap_host = self.controller.getHostInformation(host.ip)
-                #nmap_hostget_OS()
+
+                nmap_host = self.view.controller.getHostInformation(host.ip)
+                os_match = nmap_host.os_match
+                if os_match != "" and os_match is not None:
+                    os_accuracy = nmap_host.os_accuracy
+                    os_vendor = nmap_host.vendor
+                    host_node.os += "Nmap:\nName: " + os_match + "\nVendor: " + os_vendor + \
+                                    "\nAccuracy: " + os_accuracy + "\n"
+                   # print(str(host_node.os))
 
                 self.host_dict[host.id] = host_node
                 self.view.ui.addNodeTo(self.root.node_id, host_node_id, host.ip + " (" + host.hostname + ")", "hosts")
@@ -116,6 +124,10 @@ class DataGraph(object):
                 # TODO: find better solution
                 if 'nessus' in tool_node.outputfile:
                     NessusParser.create_issue_nodes(tool_node)
+                    nesOS = NessusParser.getOSDetection(tool_node)
+                    if nesOS:
+                        host_node.os = host_node.os + "Nessus: \n"+self.OS_obj_stringrepr(nesOS)
+
 
     def save_as_xml(self):
         scan = bind.scan()
@@ -127,3 +139,21 @@ class DataGraph(object):
         output = scan.toDOM(None).toprettyxml(indent="  ")
         with open('scan_aggregation.xml', 'w') as f:
             f.write(output)
+
+    'Returns a string representing of an OS obj'
+    @staticmethod
+    def OS_obj_stringrepr(osobj):
+        s = ""
+        if osobj.name != '' and osobj.name is not None:
+            s += "Name: " + osobj.name + "\n"
+        if osobj.family != '' and osobj.family is not None:
+            s += "Family: " + osobj.family + "\n"
+        if osobj.generation != '' and osobj.generation is not None:
+            s += "Generation: " + osobj.generation + "\n"
+        if osobj.os_type != '' and osobj.os_type is not None:
+            s += "Os_type: " + osobj.os_type + "\n"
+        if osobj.vendor != '' and osobj.vendor is not None:
+            s += "Vendor: " + osobj.vendor + "\n"
+        if osobj.accuracy != '' and osobj.accuracy is not None:
+            s += "Accuracy: " + osobj.accuracy + ""
+        return s
