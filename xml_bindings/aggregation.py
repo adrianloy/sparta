@@ -1,7 +1,7 @@
 # ./aggregation.py
 # -*- coding: utf-8 -*-
 # PyXB bindings for NM:e92452c8d3e28a9e27abfc9994d2007779e7f4c9
-# Generated 2017-03-06 16:15:16.059153 by PyXB version 1.2.4 using Python 2.7.12.final.0
+# Generated 2017-03-23 14:50:41.178663 by PyXB version 1.2.4 using Python 2.7.12.final.0
 # Namespace AbsentNamespace0
 
 from __future__ import unicode_literals
@@ -15,7 +15,7 @@ import sys
 import pyxb.utils.six as _six
 
 # Unique identifier for bindings created at the same time
-_GenerationUID = pyxb.utils.utility.UniqueIdentifier('urn:uuid:b3e0793c-027f-11e7-b51b-3c970eeb9441')
+_GenerationUID = pyxb.utils.utility.UniqueIdentifier('urn:uuid:b40d8d2a-0fcf-11e7-9f1d-00c2c6530ef8')
 
 # Version of PyXB used to generate the bindings
 _PyXBVersion = '1.2.4'
@@ -92,18 +92,18 @@ class issue_ (pyxb.binding.basis.complexTypeDefinition):
     name = property(__name.value, __name.set, None, None)
 
     
-    # Element url uses Python identifier url
-    __url = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, 'url'), 'url', '__AbsentNamespace0_issue__url', False, pyxb.utils.utility.Location('/home/cedric/git/sparta/xml_bindings/aggregation.xsd', 6, 12), )
-
-    
-    url = property(__url.value, __url.set, None, None)
-
-    
     # Element severity uses Python identifier severity
-    __severity = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, 'severity'), 'severity', '__AbsentNamespace0_issue__severity', False, pyxb.utils.utility.Location('/home/cedric/git/sparta/xml_bindings/aggregation.xsd', 7, 12), )
+    __severity = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, 'severity'), 'severity', '__AbsentNamespace0_issue__severity', False, pyxb.utils.utility.Location('/home/cedric/git/sparta/xml_bindings/aggregation.xsd', 6, 12), )
 
     
     severity = property(__severity.value, __severity.set, None, None)
+
+    
+    # Element misc uses Python identifier misc
+    __misc = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, 'misc'), 'misc', '__AbsentNamespace0_issue__misc', False, pyxb.utils.utility.Location('/home/cedric/git/sparta/xml_bindings/aggregation.xsd', 7, 12), )
+
+    
+    misc = property(__misc.value, __misc.set, None, None)
 
     
     # Element descr uses Python identifier descr
@@ -113,25 +113,17 @@ class issue_ (pyxb.binding.basis.complexTypeDefinition):
     descr = property(__descr.value, __descr.set, None, None)
 
     
-    # Element longdescr uses Python identifier longdescr
-    __longdescr = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, 'longdescr'), 'longdescr', '__AbsentNamespace0_issue__longdescr', False, pyxb.utils.utility.Location('/home/cedric/git/sparta/xml_bindings/aggregation.xsd', 9, 12), )
-
-    
-    longdescr = property(__longdescr.value, __longdescr.set, None, None)
-
-    
     # Element fixstr uses Python identifier fixstr
-    __fixstr = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, 'fixstr'), 'fixstr', '__AbsentNamespace0_issue__fixstr', False, pyxb.utils.utility.Location('/home/cedric/git/sparta/xml_bindings/aggregation.xsd', 10, 12), )
+    __fixstr = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, 'fixstr'), 'fixstr', '__AbsentNamespace0_issue__fixstr', False, pyxb.utils.utility.Location('/home/cedric/git/sparta/xml_bindings/aggregation.xsd', 9, 12), )
 
     
     fixstr = property(__fixstr.value, __fixstr.set, None, None)
 
     _ElementMap.update({
         __name.name() : __name,
-        __url.name() : __url,
         __severity.name() : __severity,
+        __misc.name() : __misc,
         __descr.name() : __descr,
-        __longdescr.name() : __longdescr,
         __fixstr.name() : __fixstr
     })
     _AttributeMap.update({
@@ -147,13 +139,13 @@ class tool_ (pyxb.binding.basis.complexTypeDefinition):
     _ContentTypeTag = pyxb.binding.basis.complexTypeDefinition._CT_ELEMENT_ONLY
     _Abstract = False
     _ExpandedName = pyxb.namespace.ExpandedName(Namespace, 'tool')
-    _XSDLocation = pyxb.utils.utility.Location('/home/cedric/git/sparta/xml_bindings/aggregation.xsd', 15, 4)
+    _XSDLocation = pyxb.utils.utility.Location('/home/cedric/git/sparta/xml_bindings/aggregation.xsd', 14, 4)
     _ElementMap = {}
     _AttributeMap = {}
     # Base type is pyxb.binding.datatypes.anyType
     
     # Element issue uses Python identifier issue
-    __issue = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, 'issue'), 'issue', '__AbsentNamespace0_tool__issue', True, pyxb.utils.utility.Location('/home/cedric/git/sparta/xml_bindings/aggregation.xsd', 20, 12), )
+    __issue = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, 'issue'), 'issue', '__AbsentNamespace0_tool__issue', True, pyxb.utils.utility.Location('/home/cedric/git/sparta/xml_bindings/aggregation.xsd', 19, 12), )
 
     
     issue = property(__issue.value, __issue.set, None, None)
@@ -161,8 +153,8 @@ class tool_ (pyxb.binding.basis.complexTypeDefinition):
     
     # Attribute tool uses Python identifier tool
     __tool = pyxb.binding.content.AttributeUse(pyxb.namespace.ExpandedName(None, 'tool'), 'tool', '__AbsentNamespace0_tool__tool', pyxb.binding.datatypes.string)
-    __tool._DeclarationLocation = pyxb.utils.utility.Location('/home/cedric/git/sparta/xml_bindings/aggregation.xsd', 22, 8)
-    __tool._UseLocation = pyxb.utils.utility.Location('/home/cedric/git/sparta/xml_bindings/aggregation.xsd', 22, 8)
+    __tool._DeclarationLocation = pyxb.utils.utility.Location('/home/cedric/git/sparta/xml_bindings/aggregation.xsd', 21, 8)
+    __tool._UseLocation = pyxb.utils.utility.Location('/home/cedric/git/sparta/xml_bindings/aggregation.xsd', 21, 8)
     
     tool = property(__tool.value, __tool.set, None, None)
 
@@ -182,13 +174,13 @@ class port_ (pyxb.binding.basis.complexTypeDefinition):
     _ContentTypeTag = pyxb.binding.basis.complexTypeDefinition._CT_ELEMENT_ONLY
     _Abstract = False
     _ExpandedName = pyxb.namespace.ExpandedName(Namespace, 'port')
-    _XSDLocation = pyxb.utils.utility.Location('/home/cedric/git/sparta/xml_bindings/aggregation.xsd', 26, 4)
+    _XSDLocation = pyxb.utils.utility.Location('/home/cedric/git/sparta/xml_bindings/aggregation.xsd', 25, 4)
     _ElementMap = {}
     _AttributeMap = {}
     # Base type is pyxb.binding.datatypes.anyType
     
     # Element tool uses Python identifier tool
-    __tool = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, 'tool'), 'tool', '__AbsentNamespace0_port__tool', True, pyxb.utils.utility.Location('/home/cedric/git/sparta/xml_bindings/aggregation.xsd', 28, 12), )
+    __tool = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, 'tool'), 'tool', '__AbsentNamespace0_port__tool', True, pyxb.utils.utility.Location('/home/cedric/git/sparta/xml_bindings/aggregation.xsd', 27, 12), )
 
     
     tool = property(__tool.value, __tool.set, None, None)
@@ -196,24 +188,24 @@ class port_ (pyxb.binding.basis.complexTypeDefinition):
     
     # Attribute number uses Python identifier number
     __number = pyxb.binding.content.AttributeUse(pyxb.namespace.ExpandedName(None, 'number'), 'number', '__AbsentNamespace0_port__number', pyxb.binding.datatypes.integer)
-    __number._DeclarationLocation = pyxb.utils.utility.Location('/home/cedric/git/sparta/xml_bindings/aggregation.xsd', 30, 8)
-    __number._UseLocation = pyxb.utils.utility.Location('/home/cedric/git/sparta/xml_bindings/aggregation.xsd', 30, 8)
+    __number._DeclarationLocation = pyxb.utils.utility.Location('/home/cedric/git/sparta/xml_bindings/aggregation.xsd', 29, 8)
+    __number._UseLocation = pyxb.utils.utility.Location('/home/cedric/git/sparta/xml_bindings/aggregation.xsd', 29, 8)
     
     number = property(__number.value, __number.set, None, None)
 
     
     # Attribute protocol uses Python identifier protocol
     __protocol = pyxb.binding.content.AttributeUse(pyxb.namespace.ExpandedName(None, 'protocol'), 'protocol', '__AbsentNamespace0_port__protocol', pyxb.binding.datatypes.string)
-    __protocol._DeclarationLocation = pyxb.utils.utility.Location('/home/cedric/git/sparta/xml_bindings/aggregation.xsd', 31, 8)
-    __protocol._UseLocation = pyxb.utils.utility.Location('/home/cedric/git/sparta/xml_bindings/aggregation.xsd', 31, 8)
+    __protocol._DeclarationLocation = pyxb.utils.utility.Location('/home/cedric/git/sparta/xml_bindings/aggregation.xsd', 30, 8)
+    __protocol._UseLocation = pyxb.utils.utility.Location('/home/cedric/git/sparta/xml_bindings/aggregation.xsd', 30, 8)
     
     protocol = property(__protocol.value, __protocol.set, None, None)
 
     
     # Attribute standardService uses Python identifier standardService
     __standardService = pyxb.binding.content.AttributeUse(pyxb.namespace.ExpandedName(None, 'standardService'), 'standardService', '__AbsentNamespace0_port__standardService', pyxb.binding.datatypes.string)
-    __standardService._DeclarationLocation = pyxb.utils.utility.Location('/home/cedric/git/sparta/xml_bindings/aggregation.xsd', 32, 8)
-    __standardService._UseLocation = pyxb.utils.utility.Location('/home/cedric/git/sparta/xml_bindings/aggregation.xsd', 32, 8)
+    __standardService._DeclarationLocation = pyxb.utils.utility.Location('/home/cedric/git/sparta/xml_bindings/aggregation.xsd', 31, 8)
+    __standardService._UseLocation = pyxb.utils.utility.Location('/home/cedric/git/sparta/xml_bindings/aggregation.xsd', 31, 8)
     
     standardService = property(__standardService.value, __standardService.set, None, None)
 
@@ -235,13 +227,13 @@ class host_ (pyxb.binding.basis.complexTypeDefinition):
     _ContentTypeTag = pyxb.binding.basis.complexTypeDefinition._CT_ELEMENT_ONLY
     _Abstract = False
     _ExpandedName = pyxb.namespace.ExpandedName(Namespace, 'host')
-    _XSDLocation = pyxb.utils.utility.Location('/home/cedric/git/sparta/xml_bindings/aggregation.xsd', 36, 4)
+    _XSDLocation = pyxb.utils.utility.Location('/home/cedric/git/sparta/xml_bindings/aggregation.xsd', 35, 4)
     _ElementMap = {}
     _AttributeMap = {}
     # Base type is pyxb.binding.datatypes.anyType
     
     # Element port uses Python identifier port
-    __port = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, 'port'), 'port', '__AbsentNamespace0_host__port', True, pyxb.utils.utility.Location('/home/cedric/git/sparta/xml_bindings/aggregation.xsd', 38, 12), )
+    __port = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, 'port'), 'port', '__AbsentNamespace0_host__port', True, pyxb.utils.utility.Location('/home/cedric/git/sparta/xml_bindings/aggregation.xsd', 37, 12), )
 
     
     port = property(__port.value, __port.set, None, None)
@@ -249,25 +241,34 @@ class host_ (pyxb.binding.basis.complexTypeDefinition):
     
     # Attribute ip uses Python identifier ip
     __ip = pyxb.binding.content.AttributeUse(pyxb.namespace.ExpandedName(None, 'ip'), 'ip', '__AbsentNamespace0_host__ip', pyxb.binding.datatypes.string)
-    __ip._DeclarationLocation = pyxb.utils.utility.Location('/home/cedric/git/sparta/xml_bindings/aggregation.xsd', 40, 8)
-    __ip._UseLocation = pyxb.utils.utility.Location('/home/cedric/git/sparta/xml_bindings/aggregation.xsd', 40, 8)
+    __ip._DeclarationLocation = pyxb.utils.utility.Location('/home/cedric/git/sparta/xml_bindings/aggregation.xsd', 39, 8)
+    __ip._UseLocation = pyxb.utils.utility.Location('/home/cedric/git/sparta/xml_bindings/aggregation.xsd', 39, 8)
     
     ip = property(__ip.value, __ip.set, None, None)
 
     
     # Attribute hostname uses Python identifier hostname
     __hostname = pyxb.binding.content.AttributeUse(pyxb.namespace.ExpandedName(None, 'hostname'), 'hostname', '__AbsentNamespace0_host__hostname', pyxb.binding.datatypes.string)
-    __hostname._DeclarationLocation = pyxb.utils.utility.Location('/home/cedric/git/sparta/xml_bindings/aggregation.xsd', 41, 8)
-    __hostname._UseLocation = pyxb.utils.utility.Location('/home/cedric/git/sparta/xml_bindings/aggregation.xsd', 41, 8)
+    __hostname._DeclarationLocation = pyxb.utils.utility.Location('/home/cedric/git/sparta/xml_bindings/aggregation.xsd', 40, 8)
+    __hostname._UseLocation = pyxb.utils.utility.Location('/home/cedric/git/sparta/xml_bindings/aggregation.xsd', 40, 8)
     
     hostname = property(__hostname.value, __hostname.set, None, None)
+
+    
+    # Attribute os uses Python identifier os
+    __os = pyxb.binding.content.AttributeUse(pyxb.namespace.ExpandedName(None, 'os'), 'os', '__AbsentNamespace0_host__os', pyxb.binding.datatypes.string)
+    __os._DeclarationLocation = pyxb.utils.utility.Location('/home/cedric/git/sparta/xml_bindings/aggregation.xsd', 41, 8)
+    __os._UseLocation = pyxb.utils.utility.Location('/home/cedric/git/sparta/xml_bindings/aggregation.xsd', 41, 8)
+    
+    os = property(__os.value, __os.set, None, None)
 
     _ElementMap.update({
         __port.name() : __port
     })
     _AttributeMap.update({
         __ip.name() : __ip,
-        __hostname.name() : __hostname
+        __hostname.name() : __hostname,
+        __os.name() : __os
     })
 Namespace.addCategoryObject('typeBinding', 'host', host_)
 
@@ -307,13 +308,13 @@ class scan_ (pyxb.binding.basis.complexTypeDefinition):
 Namespace.addCategoryObject('typeBinding', 'scan', scan_)
 
 
-issue = pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, 'issue'), issue_, location=pyxb.utils.utility.Location('/home/cedric/git/sparta/xml_bindings/aggregation.xsd', 13, 4))
+issue = pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, 'issue'), issue_, location=pyxb.utils.utility.Location('/home/cedric/git/sparta/xml_bindings/aggregation.xsd', 12, 4))
 Namespace.addCategoryObject('elementBinding', issue.name().localName(), issue)
 
-tool = pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, 'tool'), tool_, location=pyxb.utils.utility.Location('/home/cedric/git/sparta/xml_bindings/aggregation.xsd', 24, 4))
+tool = pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, 'tool'), tool_, location=pyxb.utils.utility.Location('/home/cedric/git/sparta/xml_bindings/aggregation.xsd', 23, 4))
 Namespace.addCategoryObject('elementBinding', tool.name().localName(), tool)
 
-port = pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, 'port'), port_, location=pyxb.utils.utility.Location('/home/cedric/git/sparta/xml_bindings/aggregation.xsd', 34, 4))
+port = pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, 'port'), port_, location=pyxb.utils.utility.Location('/home/cedric/git/sparta/xml_bindings/aggregation.xsd', 33, 4))
 Namespace.addCategoryObject('elementBinding', port.name().localName(), port)
 
 host = pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, 'host'), host_, location=pyxb.utils.utility.Location('/home/cedric/git/sparta/xml_bindings/aggregation.xsd', 43, 4))
@@ -326,15 +327,13 @@ Namespace.addCategoryObject('elementBinding', scan.name().localName(), scan)
 
 issue_._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, 'name'), pyxb.binding.datatypes.string, scope=issue_, location=pyxb.utils.utility.Location('/home/cedric/git/sparta/xml_bindings/aggregation.xsd', 5, 12)))
 
-issue_._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, 'url'), pyxb.binding.datatypes.string, scope=issue_, location=pyxb.utils.utility.Location('/home/cedric/git/sparta/xml_bindings/aggregation.xsd', 6, 12)))
+issue_._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, 'severity'), pyxb.binding.datatypes.string, scope=issue_, location=pyxb.utils.utility.Location('/home/cedric/git/sparta/xml_bindings/aggregation.xsd', 6, 12)))
 
-issue_._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, 'severity'), pyxb.binding.datatypes.string, scope=issue_, location=pyxb.utils.utility.Location('/home/cedric/git/sparta/xml_bindings/aggregation.xsd', 7, 12)))
+issue_._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, 'misc'), pyxb.binding.datatypes.string, scope=issue_, location=pyxb.utils.utility.Location('/home/cedric/git/sparta/xml_bindings/aggregation.xsd', 7, 12)))
 
 issue_._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, 'descr'), pyxb.binding.datatypes.string, scope=issue_, location=pyxb.utils.utility.Location('/home/cedric/git/sparta/xml_bindings/aggregation.xsd', 8, 12)))
 
-issue_._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, 'longdescr'), pyxb.binding.datatypes.string, scope=issue_, location=pyxb.utils.utility.Location('/home/cedric/git/sparta/xml_bindings/aggregation.xsd', 9, 12)))
-
-issue_._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, 'fixstr'), pyxb.binding.datatypes.string, scope=issue_, location=pyxb.utils.utility.Location('/home/cedric/git/sparta/xml_bindings/aggregation.xsd', 10, 12)))
+issue_._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, 'fixstr'), pyxb.binding.datatypes.string, scope=issue_, location=pyxb.utils.utility.Location('/home/cedric/git/sparta/xml_bindings/aggregation.xsd', 9, 12)))
 
 def _BuildAutomaton ():
     # Remove this helper function from the namespace after it is invoked
@@ -349,25 +348,21 @@ def _BuildAutomaton ():
     st_0 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
     states.append(st_0)
     final_update = None
-    symbol = pyxb.binding.content.ElementUse(issue_._UseForTag(pyxb.namespace.ExpandedName(None, 'url')), pyxb.utils.utility.Location('/home/cedric/git/sparta/xml_bindings/aggregation.xsd', 6, 12))
+    symbol = pyxb.binding.content.ElementUse(issue_._UseForTag(pyxb.namespace.ExpandedName(None, 'severity')), pyxb.utils.utility.Location('/home/cedric/git/sparta/xml_bindings/aggregation.xsd', 6, 12))
     st_1 = fac.State(symbol, is_initial=False, final_update=final_update, is_unordered_catenation=False)
     states.append(st_1)
     final_update = None
-    symbol = pyxb.binding.content.ElementUse(issue_._UseForTag(pyxb.namespace.ExpandedName(None, 'severity')), pyxb.utils.utility.Location('/home/cedric/git/sparta/xml_bindings/aggregation.xsd', 7, 12))
+    symbol = pyxb.binding.content.ElementUse(issue_._UseForTag(pyxb.namespace.ExpandedName(None, 'misc')), pyxb.utils.utility.Location('/home/cedric/git/sparta/xml_bindings/aggregation.xsd', 7, 12))
     st_2 = fac.State(symbol, is_initial=False, final_update=final_update, is_unordered_catenation=False)
     states.append(st_2)
     final_update = None
     symbol = pyxb.binding.content.ElementUse(issue_._UseForTag(pyxb.namespace.ExpandedName(None, 'descr')), pyxb.utils.utility.Location('/home/cedric/git/sparta/xml_bindings/aggregation.xsd', 8, 12))
     st_3 = fac.State(symbol, is_initial=False, final_update=final_update, is_unordered_catenation=False)
     states.append(st_3)
-    final_update = None
-    symbol = pyxb.binding.content.ElementUse(issue_._UseForTag(pyxb.namespace.ExpandedName(None, 'longdescr')), pyxb.utils.utility.Location('/home/cedric/git/sparta/xml_bindings/aggregation.xsd', 9, 12))
+    final_update = set()
+    symbol = pyxb.binding.content.ElementUse(issue_._UseForTag(pyxb.namespace.ExpandedName(None, 'fixstr')), pyxb.utils.utility.Location('/home/cedric/git/sparta/xml_bindings/aggregation.xsd', 9, 12))
     st_4 = fac.State(symbol, is_initial=False, final_update=final_update, is_unordered_catenation=False)
     states.append(st_4)
-    final_update = set()
-    symbol = pyxb.binding.content.ElementUse(issue_._UseForTag(pyxb.namespace.ExpandedName(None, 'fixstr')), pyxb.utils.utility.Location('/home/cedric/git/sparta/xml_bindings/aggregation.xsd', 10, 12))
-    st_5 = fac.State(symbol, is_initial=False, final_update=final_update, is_unordered_catenation=False)
-    states.append(st_5)
     transitions = []
     transitions.append(fac.Transition(st_1, [
          ]))
@@ -385,18 +380,14 @@ def _BuildAutomaton ():
          ]))
     st_3._set_transitionSet(transitions)
     transitions = []
-    transitions.append(fac.Transition(st_5, [
-         ]))
     st_4._set_transitionSet(transitions)
-    transitions = []
-    st_5._set_transitionSet(transitions)
     return fac.Automaton(states, counters, False, containing_state=None)
 issue_._Automaton = _BuildAutomaton()
 
 
 
 
-tool_._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, 'issue'), issue_, scope=tool_, location=pyxb.utils.utility.Location('/home/cedric/git/sparta/xml_bindings/aggregation.xsd', 20, 12)))
+tool_._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, 'issue'), issue_, scope=tool_, location=pyxb.utils.utility.Location('/home/cedric/git/sparta/xml_bindings/aggregation.xsd', 19, 12)))
 
 def _BuildAutomaton_ ():
     # Remove this helper function from the namespace after it is invoked
@@ -405,12 +396,12 @@ def _BuildAutomaton_ ():
     import pyxb.utils.fac as fac
 
     counters = set()
-    cc_0 = fac.CounterCondition(min=0, max=None, metadata=pyxb.utils.utility.Location('/home/cedric/git/sparta/xml_bindings/aggregation.xsd', 20, 12))
+    cc_0 = fac.CounterCondition(min=0, max=None, metadata=pyxb.utils.utility.Location('/home/cedric/git/sparta/xml_bindings/aggregation.xsd', 19, 12))
     counters.add(cc_0)
     states = []
     final_update = set()
     final_update.add(fac.UpdateInstruction(cc_0, False))
-    symbol = pyxb.binding.content.ElementUse(tool_._UseForTag(pyxb.namespace.ExpandedName(None, 'issue')), pyxb.utils.utility.Location('/home/cedric/git/sparta/xml_bindings/aggregation.xsd', 20, 12))
+    symbol = pyxb.binding.content.ElementUse(tool_._UseForTag(pyxb.namespace.ExpandedName(None, 'issue')), pyxb.utils.utility.Location('/home/cedric/git/sparta/xml_bindings/aggregation.xsd', 19, 12))
     st_0 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
     states.append(st_0)
     transitions = []
@@ -423,7 +414,7 @@ tool_._Automaton = _BuildAutomaton_()
 
 
 
-port_._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, 'tool'), tool_, scope=port_, location=pyxb.utils.utility.Location('/home/cedric/git/sparta/xml_bindings/aggregation.xsd', 28, 12)))
+port_._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, 'tool'), tool_, scope=port_, location=pyxb.utils.utility.Location('/home/cedric/git/sparta/xml_bindings/aggregation.xsd', 27, 12)))
 
 def _BuildAutomaton_2 ():
     # Remove this helper function from the namespace after it is invoked
@@ -432,12 +423,12 @@ def _BuildAutomaton_2 ():
     import pyxb.utils.fac as fac
 
     counters = set()
-    cc_0 = fac.CounterCondition(min=0, max=None, metadata=pyxb.utils.utility.Location('/home/cedric/git/sparta/xml_bindings/aggregation.xsd', 28, 12))
+    cc_0 = fac.CounterCondition(min=0, max=None, metadata=pyxb.utils.utility.Location('/home/cedric/git/sparta/xml_bindings/aggregation.xsd', 27, 12))
     counters.add(cc_0)
     states = []
     final_update = set()
     final_update.add(fac.UpdateInstruction(cc_0, False))
-    symbol = pyxb.binding.content.ElementUse(port_._UseForTag(pyxb.namespace.ExpandedName(None, 'tool')), pyxb.utils.utility.Location('/home/cedric/git/sparta/xml_bindings/aggregation.xsd', 28, 12))
+    symbol = pyxb.binding.content.ElementUse(port_._UseForTag(pyxb.namespace.ExpandedName(None, 'tool')), pyxb.utils.utility.Location('/home/cedric/git/sparta/xml_bindings/aggregation.xsd', 27, 12))
     st_0 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
     states.append(st_0)
     transitions = []
@@ -450,7 +441,7 @@ port_._Automaton = _BuildAutomaton_2()
 
 
 
-host_._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, 'port'), port_, scope=host_, location=pyxb.utils.utility.Location('/home/cedric/git/sparta/xml_bindings/aggregation.xsd', 38, 12)))
+host_._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, 'port'), port_, scope=host_, location=pyxb.utils.utility.Location('/home/cedric/git/sparta/xml_bindings/aggregation.xsd', 37, 12)))
 
 def _BuildAutomaton_3 ():
     # Remove this helper function from the namespace after it is invoked
@@ -459,12 +450,12 @@ def _BuildAutomaton_3 ():
     import pyxb.utils.fac as fac
 
     counters = set()
-    cc_0 = fac.CounterCondition(min=0, max=None, metadata=pyxb.utils.utility.Location('/home/cedric/git/sparta/xml_bindings/aggregation.xsd', 38, 12))
+    cc_0 = fac.CounterCondition(min=0, max=None, metadata=pyxb.utils.utility.Location('/home/cedric/git/sparta/xml_bindings/aggregation.xsd', 37, 12))
     counters.add(cc_0)
     states = []
     final_update = set()
     final_update.add(fac.UpdateInstruction(cc_0, False))
-    symbol = pyxb.binding.content.ElementUse(host_._UseForTag(pyxb.namespace.ExpandedName(None, 'port')), pyxb.utils.utility.Location('/home/cedric/git/sparta/xml_bindings/aggregation.xsd', 38, 12))
+    symbol = pyxb.binding.content.ElementUse(host_._UseForTag(pyxb.namespace.ExpandedName(None, 'port')), pyxb.utils.utility.Location('/home/cedric/git/sparta/xml_bindings/aggregation.xsd', 37, 12))
     st_0 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
     states.append(st_0)
     transitions = []
