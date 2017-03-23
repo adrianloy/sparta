@@ -44,9 +44,9 @@ class NessusParser(object):
             pluginOutput = fields[12].replace("\"","")
 
             if risk in acceptedSeverities:
-                issue_node = IssueNode(data_graph, risk, "", name="NessusIssue", descr=name,
-                                  longdescr="CVE: " + CVE + "\n Description: " + descr + "\n Result: " + pluginOutput,
-                                  fixstr=solution)
+                issue_node = IssueNode(data_graph=data_graph, severity=risk, name=name, descr=descr,
+                                       misc="CVE: " + CVE + "\n Description: " + descr + "\n Result: " + pluginOutput,
+                                       fixstr=solution)
                 issue_node_id = tool_node.add_child(issue_node)
                 data_graph.view.ui.addNodeTo(tool_node.node_id, issue_node_id, name, "issues")
                 data_graph.issue_dict[issue_node_id] = issue_node
@@ -89,6 +89,7 @@ class NessusParser(object):
                     os_obj = OS.OS(None)
                     os_obj.accuracy = accuracy
                     os_obj.name = os_str
+                    os_obj.source_tool = "Nessus"
                     return os_obj
 
 if __name__ == '__main__':

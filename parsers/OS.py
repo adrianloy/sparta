@@ -14,6 +14,7 @@ class OS:
     generation = ''
     os_type = ''
     vendor = ''
+    source_tool = '' #the tool that performed the detection, so far nmap or nessus
     accuracy = 0
 
     def __init__(self, OSNode):

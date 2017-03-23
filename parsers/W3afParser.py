@@ -35,7 +35,7 @@ class W3afParser(object):
                 else:
                     fixstr = vul_xml_node.getElementsByTagName('fix-guidance')[0].firstChild.data
 
-                issue_node = IssueNode(data_graph, severity, url, name, descr, longdescr, fixstr)
+                issue_node = IssueNode(data_graph, severity, name, descr, longdescr, fixstr)
                 issue_node_id = tool_node.add_child(issue_node)
                 data_graph.view.ui.addNodeTo(tool_node.node_id, issue_node_id, name, "issues")
                 data_graph.issue_dict[issue_node_id] = issue_node

@@ -49,13 +49,17 @@ class DataGraph(object):
                 host_node = HostNode(self, host.id, host.ip, host.hostname)
                 host_node_id = self.root.add_child(host_node)
 
-                nmap_host = self.view.controller.getHostInformation(host.ip)
+                nmap_host = self.view.controller.getHostInformation(host.ip)#table obj
                 os_match = nmap_host.os_match
                 if os_match != "" and os_match is not None:
-                    os_accuracy = nmap_host.os_accuracy
-                    os_vendor = nmap_host.vendor
-                    host_node.os += "Nmap:\nName: " + os_match + "\nVendor: " + os_vendor + \
-                                    "\nAccuracy: " + os_accuracy + "\n"
+                    nmapos = OS(None)
+                    nmapos.accuracy = nmap_host.os_accuracy
+                    nmapos.vendor = nmap_host.vendor
+                    nmapos.name = os_match
+                    nmapos.source_tool = "Nmap"
+                    host_node.os.append(nmapos)
+                    #host_node.os += "Nmap:\nName: " + os_match + "\nVendor: " + os_vendor + \
+                     #               "\nAccuracy: " + os_accuracy + "\n"
                    # print(str(host_node.os))
 
                 self.host_dict[host.id] = host_node
@@ -126,7 +130,7 @@ class DataGraph(object):
                     NessusParser.create_issue_nodes(tool_node)
                     nesOS = NessusParser.getOSDetection(tool_node)
                     if nesOS:
-                        host_node.os = host_node.os + "Nessus: \n"+self.OS_obj_stringrepr(nesOS)
+                        host_node.os.append(nesOS)
 
 
     def save_as_xml(self):
@@ -144,6 +148,8 @@ class DataGraph(object):
     @staticmethod
     def OS_obj_stringrepr(osobj):
         s = ""
+        if osobj.source_tool != '' and osobj.source_tool is not None:
+            s += osobj.source_tool + ":\n"
         if osobj.name != '' and osobj.name is not None:
             s += "Name: " + osobj.name + "\n"
         if osobj.family != '' and osobj.family is not None:
@@ -155,5 +161,5 @@ class DataGraph(object):
         if osobj.vendor != '' and osobj.vendor is not None:
             s += "Vendor: " + osobj.vendor + "\n"
         if osobj.accuracy != '' and osobj.accuracy is not None:
-            s += "Accuracy: " + osobj.accuracy + ""
+            s += "Accuracy: " + osobj.accuracy + "\n"
         return s

@@ -1,7 +1,7 @@
 import xml_bindings.aggregation as bind
 import os.path
 import glob
-
+import datagraph
 
 class Node(object):
 
@@ -40,7 +40,7 @@ class HostNode(Node):
         self.host_id = host_id
         self.ip = host_ip
         self.name = host_name
-        self.os = ""
+        self.os = []
         self.portNodeDict = {}
 
     def add_child(self, child):
@@ -49,17 +49,30 @@ class HostNode(Node):
         return Node.add_child(self, child)
 
     def generate_xml_binding_instance(self):
+        #export the os with highest accuracy:
+        max = 0
+        maxos = None
+        for os in self.os:
+            if os.accuracy > max:
+                maxos = os
+                max = os.accuracy
         host = bind.host()
         host.ip = self.ip
         host.hostname = self.name
+        if maxos:
+            host.os = datagraph.DataGraph.OS_obj_stringrepr(maxos)
+        else:
+            host.os = "No OS information available"
         host.port = []
         for child in self.children:
             host.port.append(child.generate_xml_binding_instance())
         return host
 
     def __str__(self):
-        result = "HostNode\n\nIP:\n" + self.ip + "\n\nHostname:\n" + self.name +\
-                 "\n\nOS detection information:\n"+self.os
+        osstring = "\n\nOS detection information:\n"
+        for os in self.os:
+            osstring += datagraph.DataGraph.OS_obj_stringrepr(os)
+        result = "HostNode\n\nIP:\n" + self.ip + "\n\nHostname:\n" + self.name +osstring
         return result
 
 
@@ -118,25 +131,23 @@ class ToolNode(Node):
 
 class IssueNode(Node):
 
-    def __init__(self, data_graph, severity, url, name, descr, longdescr, fixstr):
+    def __init__(self, data_graph, severity, name, descr, misc, fixstr):
         Node.__init__(self, data_graph)
         self.severity = severity
-        self.url = url
         self.name = name
         self.descr = descr
-        self.longdescr = longdescr
+        self.misc = misc
         self.fixstr = fixstr
 
     def generate_xml_binding_instance(self):
         issue = bind.issue()
         issue.severity = self.severity
-        issue.url = self.url
         issue.name = self.name
         issue.descr = self.descr
-        issue.longdescr = self.longdescr
+        issue.misc = self.misc
         issue.fixstr = self.fixstr
         return issue
 
     def __str__(self):
-        result = "IssueNode\n\nName:\n" + self.name + "\n\nDescription:\n" + self.descr
+        result = "IssueNode\n\nName:\n" + self.name + "\n\nDescription:\n" + self.descr + "\n\nMisc.:\n" + self.misc
         return result

@@ -3,10 +3,9 @@
     <xs:complexType name="issue">
         <xs:sequence>
             <xs:element name="name" type="xs:string"/>
-            <xs:element name="url" type="xs:string"/>
             <xs:element name="severity" type="xs:string"/>
+            <xs:element name="misc" type="xs:string"/>
             <xs:element name="descr" type="xs:string"/>
-            <xs:element name="longdescr" type="xs:string"/>
             <xs:element name="fixstr" type="xs:string"/>
         </xs:sequence>
     </xs:complexType>
@@ -39,6 +38,7 @@
         </xs:sequence>
         <xs:attribute name="ip" type="xs:string"/>
         <xs:attribute name="hostname" type="xs:string"/>
+        <xs:attribute name="os" type="xs:string"/>
     </xs:complexType>
     <xs:element name="host" type="host"/>
 
