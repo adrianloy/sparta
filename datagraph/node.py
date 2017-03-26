@@ -88,7 +88,7 @@ class PortNode(Node):
     def generate_xml_binding_instance(self):
         port = bind.port()
         port.number = self.number
-        port.standardService = self.service_name
+        port.service = self.service_name
         port.tool = []
         port.protocol = self.protocol
         for child in self.children:
@@ -118,7 +118,7 @@ class ToolNode(Node):
 
     def generate_xml_binding_instance(self):
         tool = bind.tool()
-        tool.tool = self.name
+        tool.name = self.name
         tool.issue = []
         for child in self.children:
             tool.issue.append(child.generate_xml_binding_instance())

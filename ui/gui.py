@@ -244,7 +244,6 @@ class Ui_MainWindow(QtCore.QObject):
 
         self.graphViewLayout = QtGui.QVBoxLayout(self.GraphViewTab)
         self.graphViewLayout.setObjectName(_fromUtf8("graphViewLayout"))
-        # self.graphViewLayout.setDefaultPositioning(0, QtCore.Qt.Horizontal)
 
         self.splitter_7 = QtGui.QSplitter(self.GraphViewTab)
         self.splitter_7.setOrientation(QtCore.Qt.Vertical)
@@ -271,12 +270,8 @@ class Ui_MainWindow(QtCore.QObject):
         self.splitter_5.setObjectName(_fromUtf8("splitter_5"))
         self.splitter_7.addWidget(self.splitter_5)
 
-        # self.NodesTreeView = NodesTreeViewer()
-        # self.splitter_5.addWidget(self.NodesTreeView)
-
         self.nodeTextWidget = QTextEdit()
         self.nodeTextWidget.setReadOnly(True)
-        # self.NodesTreeView.set_selection_changed_callback(self.selection_changed)
         self.splitter_5.addWidget(self.nodeTextWidget)
 
         self.graphViewWidget = QtWebKit.QWebView()
@@ -292,16 +287,10 @@ class Ui_MainWindow(QtCore.QObject):
     def reloadButtonAction(self):
         self.graphViewWidget.page().mainFrame().evaluateJavaScript("clear()")
         self.view.data_graph.clear()
-        # self.NodesTreeView.clear()
         self.view.data_graph.build_graph_from_db()
-        # self.NodesTreeView.build_from(self.view.data_graph)
-
-    # def selection_changed(self, item):
-    #    text = str(self.view.data_graph.get_node(item.data(0, QtCore.Qt.UserRole).toInt()[0]))
-    #    self.nodeTextWidget.setText(QString(text))
 
     def saveButtonAction(self):
-        self.view.data_graph.save_as_xml()
+        self.view.save_data_graph_as()
 
     def addNodeTo(self, parent_id, id, label, group):
         js = "addNode(" + str(parent_id) + ", " + str(id) + ", \"" + label + "\", \"" + group + "\")"
@@ -313,11 +302,6 @@ class Ui_MainWindow(QtCore.QObject):
         if node_id_int != 0:
             text = str(self.view.data_graph.get_node(node_id_int))
             self.nodeTextWidget.setText(QString(text))
-            #item = self.NodesTreeView.item_dict[node_id_int]
-            #self.NodesTreeView.treeWidget.scrollToItem(item)
-            #self.NodesTreeView.treeWidget.clearSelection()
-            #self.NodesTreeView.treeWidget.setItemSelected(item, True)
-            #self.NodesTreeView.treeWidget.expandItem(item)
         return
 
     ####################

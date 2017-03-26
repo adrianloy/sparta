@@ -364,6 +364,12 @@ class View(QtCore.QObject):
 
     ###
 
+    def save_data_graph_as(self):
+        filename = QtGui.QFileDialog.getSaveFileName(self.ui.centralwidget, 'Save DataGraph as', self.controller.getCWD(),
+                                                     filter='XML file (*.xml)',
+                                                     options=QtGui.QFileDialog.DontConfirmOverwrite)
+        self.data_graph.save_as_xml(filename)
+
     def saveOrDiscard(self):
         reply = QtGui.QMessageBox.question(self.ui.centralwidget, 'Confirm',
                                            "The project has been modified. Do you want to save your changes?",

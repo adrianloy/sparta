@@ -13,12 +13,9 @@
 
     <xs:complexType name="tool">
         <xs:sequence>
-            <!--<xs:element name="terminal_output" type="xs:string"/>-->
-            <!--<xs:element name="outputfile" type="xs:string"/>-->
-            <!--<xs:element name="file_output" type="xs:string"/>-->
             <xs:element name="issue" type="issue" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
-        <xs:attribute name="tool" type="xs:string"/>
+        <xs:attribute name="name" type="xs:string"/>
     </xs:complexType>
     <xs:element name="tool" type="tool"/>
 
@@ -28,7 +25,7 @@
         </xs:sequence>
         <xs:attribute name="number" type="xs:integer"/>
         <xs:attribute name="protocol" type="xs:string"/>
-        <xs:attribute name="standardService" type="xs:string"/>
+        <xs:attribute name="service" type="xs:string"/>
     </xs:complexType>
     <xs:element name="port" type="port"/>
 
@@ -46,7 +43,6 @@
         <xs:sequence>
             <xs:element name="host" type="host" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
-        <xs:attribute name="dateTime" type="xs:dateTime"/>
     </xs:complexType>
     <xs:element name="scan" type="scan"/>
 </xs:schema>

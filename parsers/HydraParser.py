@@ -19,11 +19,10 @@ class HydraParser(object):
             login = login[7:]
             pw = pw[10:]
 
-            descr = 'Unsafe credentials used'
             longdescr = 'login: ' + login + '\npassword: ' + pw
             severity = '5.0'
             name = 'Unsafe credentials'
-            issue_node = IssueNode(data_graph, severity, '', name, longdescr, '', '')
+            issue_node = IssueNode(data_graph, severity, name, longdescr, '', '')
             issue_node_id = tool_node.add_child(issue_node)
             data_graph.view.ui.addNodeTo(tool_node.node_id, issue_node_id, name, "issues")
             data_graph.issue_dict[issue_node_id] = issue_node

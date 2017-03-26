@@ -133,15 +133,14 @@ class DataGraph(object):
                         host_node.os.append(nesOS)
 
 
-    def save_as_xml(self):
+    def save_as_xml(self, filename):
         scan = bind.scan()
-        scan.dateTime = datetime.datetime.now()  # TODO: use correct time
         scan.host = []
         for child in self.root.children:
             scan.host.append(child.generate_xml_binding_instance())
 
         output = scan.toDOM(None).toprettyxml(indent="  ")
-        with open('scan_aggregation.xml', 'w') as f:
+        with open(filename, 'w') as f:
             f.write(output)
 
     'Returns a string representing of an OS obj'
