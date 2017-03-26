@@ -13,9 +13,7 @@ Copyright (c) 2014 SECFORCE (Antonio Quina and Leonidas Stavliotis)
 
 # from PyQt4 import QtCore, QtGui
 from PyQt4 import QtWebKit
-
 from ui.dialogs import *  # for the screenshots (image viewer)
-from ui.graph.nodestreeviewer import NodesTreeViewer
 
 try:
     _fromUtf8 = QtCore.QString.fromUtf8

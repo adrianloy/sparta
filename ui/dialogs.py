@@ -159,9 +159,6 @@ class AddHostsDialog(QtGui.QDialog):
         self.nmap = QtGui.QCheckBox(self)
         self.nmap.setText('Run staged nmap scan')
         self.nmap.toggle()  # on by default
-        #self.w3af = QtGui.QCheckBox(self)
-        #self.w3af.setText('Run w3af')
-        #self.w3af.toggle()  # on by default
 
         self.cancelButton = QPushButton('Cancel', self)
         self.cancelButton.setMaximumSize(110, 30)
