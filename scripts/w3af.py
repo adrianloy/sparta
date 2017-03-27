@@ -35,10 +35,7 @@ moddedFile = open(script_file_path, 'w')
 moddedFile.write(script)
 moddedFile.close()
 
-if os.path.exists('/home/cedric/git/w3af/w3af_console'):
-    command = "/home/cedric/git/w3af/w3af_console -s " + script_file_path
-else:
-    command = "w3af_console -s " + script_file_path
+command = "w3af_console -s " + script_file_path
 
 process = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE)
 for line in iter(process.stdout.readline, ''):
