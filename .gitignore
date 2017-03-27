@@ -57,3 +57,5 @@ docs/_build/
 
 # XML output
 scan_aggregation.xml
+
+ui/graph/node_modules/

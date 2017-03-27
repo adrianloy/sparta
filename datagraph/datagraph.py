@@ -132,7 +132,6 @@ class DataGraph(object):
                     if nesOS:
                         host_node.os.append(nesOS)
 
-
     def save_as_xml(self, filename):
         scan = bind.scan()
         scan.host = []
