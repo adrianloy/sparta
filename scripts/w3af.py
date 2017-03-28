@@ -8,26 +8,6 @@ ip = sys.argv[1]
 port = sys.argv[2]
 output = sys.argv[3]
 
-fast_script = '''
-profiles
-    use fast_scan
-back
-
-plugins
-    output console, xml_file
-    output config xml_file
-        set output_file [[VAR_OUTFILE]]
-    back
-back
-
-target
-    set target [[VAR_TARGET_URL]]
-back
-
-start
-exit
-'''
-
 # https://www.owasp.org/index.php/Automated_Audit_using_W3AF
 owasp_script = '''
 # -----------------------------------------------------------------------------------------------------------
@@ -67,19 +47,6 @@ grep analyze_cookies, click_jacking, code_disclosure, cross_domain_js, csp, dire
 html_comments, objects, path_disclosure, private_ip, strange_headers, strange_http_codes, strange_parameters, strange_reason, url_session, xss_protection_header
 ##Specify list of INFRASTRUCTURE plugins type to use (infrastructure plugin is a type of plugin that can find informations disclosure)
 infrastructure server_header, server_status, domain_dot, dot_net_errors
-#Configure target authentication
-auth detailed
-auth config detailed
-set username admin
-set password password
-set method POST
-set auth_url [[VAR_TARGET_URL]]/login.php
-set username_field user	
-set password_field pass
-set check_url [[VAR_TARGET_URL]]/index.php
-set check_string 'admin'
-set data_format username=%U&password=%P&Login=Login
-back
 #Configure reporting in order to generate an HTML report
 output console, xml_file
 output config xml_file
@@ -101,7 +68,7 @@ start
 exit
 '''
 
-script = fast_script
+script = owasp_script
 script_file_path = "/tmp/script.w3af"
 script = script.replace('[[VAR_TARGET_URL]]', ip + ":" + port)
 script = script.replace('[[VAR_OUTFILE]]', output + ".xml")
