@@ -1,1 +1,1 @@
-pyxbgen -u scan.xsd  -m binding
+pyxbgen -u aggregation.xsd -m aggregation

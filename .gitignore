@@ -58,4 +58,7 @@ docs/_build/
 # XML output
 scan_aggregation.xml
 
+# Vis.js
 ui/graph/node_modules/
+
+xml_bindings/aggregation.py
