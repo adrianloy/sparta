@@ -1,0 +1,4 @@
+# disable auto-start
+sudo update-rc.d nessusd disable
+# start manually
+sudo service nessusd start
