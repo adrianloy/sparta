@@ -48,7 +48,6 @@ class HostNode(Node):
             self.portNodeDict[child.number] = child
         return Node.add_child(self, child)
 
-    # TODO: handle ToolNodes directly attached to a HostNode
     def generate_xml_binding_instance(self):
         #export the os with highest accuracy:
         max = 0
@@ -66,7 +65,10 @@ class HostNode(Node):
             host.os = "No OS information available"
         host.port = []
         for child in self.children:
-            host.port.append(child.generate_xml_binding_instance())
+            if type(child) is PortNode:
+                host.port.append(child.generate_xml_binding_instance())
+            elif type(child) is ToolNode:
+                host.tool.append(child.generate_xml_binding_instance())
         return host
 
     def __str__(self):
