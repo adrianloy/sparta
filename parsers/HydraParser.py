@@ -14,8 +14,16 @@ class HydraParser(object):
         output = tool_node.terminal_output
         data_graph = tool_node.data_graph
         if 'password: ' in output:
-            login = re.findall(r'login: [a-z]+', output)[0]
-            pw = re.findall(r'password: [a-z]+', output)[0]
+            foundlogs = re.findall(r'login: [a-z]+', output)
+            if len(foundlogs) > 0:
+                login = foundlogs[0]
+            else:
+                login = ""
+            foundpw = re.findall(r'password: [a-z]+', output)
+            if len(foundpw) > 0:
+                pw = foundpw[0]
+            else:
+                pw = ""
             login = login[7:]
             pw = pw[10:]
 
