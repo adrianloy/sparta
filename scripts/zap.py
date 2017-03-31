@@ -20,6 +20,7 @@ zap = 'zap.sh'
 host = '127.0.0.1'
 port = '8080'
 api_key = 'ZAPROXY-PLUGIN'
+spidering = True
 
 port_number = int(port)
 s = socket.socket()
@@ -41,7 +42,18 @@ if connected:
     zap = ZAPv2(proxies={'http': 'http://' + host + ':' + port})
     target_url = protocol + '://' + target_ip + ':' + target_port
     zap.urlopen(target_url)
-    time.sleep(10)
+    time.sleep(5)
+
+    if spidering:
+		print 'Spidering target %s' % target_url
+		print '(Report every 10 sec)'
+		scanid = zap.spider.scan(target_url)
+		while (int(zap.spider.status(scanid)) < 100):
+			print 'Spider progress %: ' + zap.spider.status(scanid)
+			time.sleep(10)
+		print 'Spider completed!'
+		time.sleep(5)
+
     print 'Scanning target %s' % target_url
     print '(Report every 10 sec)'
     scan_id = zap.ascan.scan(target_url, apikey=api_key)
