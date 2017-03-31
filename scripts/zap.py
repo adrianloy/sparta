@@ -19,8 +19,8 @@ else:
 zap = 'zap.sh'
 host = '127.0.0.1'
 port = '8080'
-api_key = 'ZAPROXY-PLUGIN'
-spidering = False
+api_key = 'ZAPROXY'
+spidering = True
 
 port_number = int(port)
 s = socket.socket()
@@ -32,7 +32,7 @@ try:
     connected = True
 except Exception as e:
     print "Couldn't connect!"
-    command = zap + ' -daemon -host ' + host + ' -port ' + port + ' -config api.key=' + api_key
+    command = zap + ' -daemon -host ' + host + ' -port ' + port + ' -config api.nokeyforsafeops=true'
     print 'You need to start a ZAP daemon first:'
     print command
 finally:
@@ -48,7 +48,8 @@ if connected:
     if spidering:
 		print 'Spidering target %s' % target_url
 		print '(Report every 10 sec)'
-		scan_id = zap.spider.scan(target_url)
+		scan_id = zap.spider.scan(target_url, apikey=api_key)
+		time.sleep(5)
 		while int(zap.spider.status(scan_id)) < 100:
 			print 'Spider progress %: ' + zap.spider.status(scan_id)
 			time.sleep(10)
@@ -58,6 +59,7 @@ if connected:
     print 'Scanning target %s' % target_url
     print '(Report every 10 sec)'
     scan_id = zap.ascan.scan(target_url, apikey=api_key)
+    time.sleep(5)
     while int(zap.ascan.status(scan_id)) < 100:
         print 'Scan progress %: ' + zap.ascan.status(scan_id)
         time.sleep(10)
