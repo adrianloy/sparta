@@ -116,8 +116,6 @@ class ToolNode(Node):
         file_candidates = glob.glob(self.outputfile + '*')
         if len(file_candidates) == 1:
             self.file_output = open(file_candidates[0], 'r').read()
-        else:
-            print 'info: ' + str(len(file_candidates)) + ' file(s) \'' + self.outputfile + '*\' found'
 
     def generate_xml_binding_instance(self):
         tool = bind.tool()

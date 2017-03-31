@@ -14,7 +14,6 @@ class W3afParser(object):
         data_graph = tool_node.data_graph
 
         if tool_node.file_output == '':
-            print 'tool file output is empty'
             return
 
         try:
