@@ -20,7 +20,7 @@ zap = 'zap.sh'
 host = '127.0.0.1'
 port = '8080'
 api_key = 'ZAPROXY-PLUGIN'
-spidering = True
+spidering = False
 
 port_number = int(port)
 s = socket.socket()
@@ -44,12 +44,13 @@ if connected:
     zap.urlopen(target_url)
     time.sleep(5)
 
+    # TODO: remove bug
     if spidering:
 		print 'Spidering target %s' % target_url
 		print '(Report every 10 sec)'
-		scanid = zap.spider.scan(target_url)
-		while (int(zap.spider.status(scanid)) < 100):
-			print 'Spider progress %: ' + zap.spider.status(scanid)
+		scan_id = zap.spider.scan(target_url)
+		while int(zap.spider.status(scan_id)) < 100:
+			print 'Spider progress %: ' + zap.spider.status(scan_id)
 			time.sleep(10)
 		print 'Spider completed!'
 		time.sleep(5)
