@@ -32,7 +32,7 @@ try:
     connected = True
 except Exception as e:
     print "Couldn't connect!"
-    command = zap + ' -daemon -host ' + host + ' -port ' + port + ' -config api.nokeyforsafeops=true'
+    command = zap + ' -daemon -host ' + host + ' -port ' + port + ' -config api.disablekey=true'
     print 'You need to start a ZAP daemon first:'
     print command
 finally:
