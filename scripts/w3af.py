@@ -76,7 +76,7 @@ moddedFile = open(script_file_path, 'w')
 moddedFile.write(script)
 moddedFile.close()
 
-command = "w3af_console -s " + script_file_path
+command = "printf 'yes\n' | w3af_console -s " + script_file_path
 
 process = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE)
 for line in iter(process.stdout.readline, ''):
