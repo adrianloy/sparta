@@ -1,14 +1,16 @@
-untangle
-#python modules, can be installed via pip
+### Python modules
 dicttoxml
 PyQt4
 pyxb
-#-----for nessus integration:
-#nessrest: pip install is too old!
-#do: git clone https://github.com/tenable/nessrest.git; cd nessrest; python setup.py install --user
-#Also, the following environment variables must be set: NESSUS_USER, NESSUS_PASSWORD, NESSUS_SERVER, NESSUS_PORT
+python-owasp-zap-v2.4
+untangle
+
+### Nessus integration
+# nessrest: pip install is too old!
+# do: git clone https://github.com/tenable/nessrest.git; cd nessrest; python setup.py install --user
+# Also, the following environment variables must be set: NESSUS_USER, NESSUS_PASSWORD, NESSUS_SERVER, NESSUS_PORT
 
 
-#other stuff:
-#w3af version > 1.6
-#vis
+### other stuff
+# w3af version > 1.6
+# vis
